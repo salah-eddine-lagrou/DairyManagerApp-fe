@@ -1,0 +1,7 @@
+{
+  "name": "DairyManagerApp-fe",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
