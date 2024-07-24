@@ -35,3 +35,21 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+// Added attributes for white mode
+body {
+  --ion-background-color: #ffffff;
+  --ion-text-color: #000000;
+}
+
+ion-content {
+  --background: #ffffff;
+}
+
+ion-header {
+  --background: #ffffff;
+}
+
+* {
+  --background: #ffffff;
+}
