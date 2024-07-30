@@ -1,0 +1,216 @@
+a {
+	text-decoration: none;
+	font-family: sans-serif;
+	text-transform: lowercase;
+	font-size: 1.5em;
+	color: #222;
+}
+
+.menu {
+	position: fixed;
+  bottom: -10px;
+  left: -36px;
+  width: 112%;
+  background-color: #ffffff; /* Set background color of tabs */
+  z-index: 1000; /* Ensure tabs are above other content */
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem; /* Adjust padding as needed */
+	border-radius: 10px 10px 30px 30px;
+	background-color: #fff;
+	box-shadow: 0px 6px 18px 0px #9f9f9f;
+	margin: 10px;
+
+  .nav-item-t {
+    text-align: center;
+
+    .nav-item-text {
+      font-size: 12px;
+      padding: 0;
+      margin: 0;
+      width: 70px;
+    }
+
+  }
+
+	.nav-item {
+		position: relative;
+
+		.tab-title {
+			display: none;
+			position: absolute;
+			top: -40px;
+			left: 50%;
+			transform: translate(-50%, 0);
+			font-size: 12px;
+			background: #222;
+			color: #fff;
+			padding: 5px;
+			border-radius: 5px;
+			width: max-content;
+			text-transform: capitalize;
+
+			&:before {
+				content: "";
+				position: absolute;
+				border-color: #222 transparent transparent transparent;
+				border-style: solid;
+				border-width: 6px;
+				width: 0px;
+				height: 0px;
+				bottom: -12px;
+				left: 50%;
+				transform: translate(-50%, 0);
+			}
+		}
+
+		&:hover {
+			.tab-title {
+				display: block;
+			}
+		}
+	}
+
+	.checkbox {
+		background-color: #fff;
+		cursor: pointer;
+		width: 0;
+    top: 10px;
+		height: 0;
+		position: relative;
+		z-index: 1;
+    transition: all 0.2s linear;
+
+
+		&:before {
+			content: "";
+			width: 80px;
+			aspect-ratio: 1;
+			transform: translate(-50%, -50%);
+			top: -30px;
+			left: 0;
+			position: absolute;
+			border-radius: 100%;
+			background-color: #000000;
+			transition: all 0.2s linear;
+			border: 4px solid #fff;
+		}
+
+		&:after {
+			content: "+";
+			position: absolute;
+			font-size: 4em;
+			color: #fff;
+			top: -30px;
+			left: 0;
+			transform: translate(-50%, -50%);
+			transition: all 0.1s linear;
+		}
+
+		&:checked {
+			& + * {
+				top: -100px;
+				transform: rotate(0deg);
+
+				.nav-item {
+					border-radius: 100%;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					width: 60px;
+					aspect-ratio: 1;
+					position: absolute;
+					left: 0;
+					transform: translate(-50%, -15px);
+					&:hover {
+						.tab-title {
+							display: block !important;
+						}
+					}
+
+					& > i {
+						color: #fff;
+						display: block;
+						transition: all 0.5s linear;
+					}
+					&:nth-child(1) {
+            box-shadow: .5rem 2px .5rem rgba(0, 0, 0, .1);
+						background-color: #E8DFCA;
+						top: 0px;
+						left: -90px;
+					}
+					&:nth-child(2) {
+            box-shadow: .5rem 2px .5rem rgba(0, 0, 0, .1);
+						background-color: #4F6F52;
+						left: 0;
+						top: -40px;
+					}
+					&:nth-child(3) {
+            box-shadow: .5rem 2px .5rem rgba(0, 0, 0, .1);
+						background-color: #E8DFCA;
+						top: 0px;
+						left: 90px;
+					}
+				}
+			}
+
+			&:before {
+				background-color: #fff;
+				box-shadow: 0 0 10px #c7c7c7;
+			}
+
+			&:after {
+				transform: translate(-50%, -50%) rotate(45deg);
+				color: #6e6b83;
+			}
+		}
+
+		&-list {
+			position: absolute;
+			top: 0;
+			display: block;
+			z-index: 0;
+			//display: none;
+			transform: rotate(-90deg) translate(0, -50%);
+			transition: all 0.1s linear;
+
+			.nav-item {
+				border-radius: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 60px;
+				aspect-ratio: 1;
+				position: absolute;
+				transform: translate(15px, -50%);
+				transition: all 0.2s linear;
+
+				.tab-title {
+					display: none;
+				}
+
+				& > i {
+					color: #fff;
+					display: block;
+				}
+				&:nth-child(1) {
+					background-color: #E8DFCA;
+					left: -72px;
+				}
+				&:nth-child(2) {
+					background-color: #4F6F52;
+					left: -68px;
+				}
+				&:nth-child(3) {
+					background-color: #E8DFCA;
+					left: -64px;
+				}
+			}
+		}
+	}
+
+  .checkbox-down {
+    top: 45px;
+    transition: all 0.2s linear;
+  }
+}

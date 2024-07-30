@@ -1,0 +1,173 @@
+<ion-header>
+  <ion-img class="ion-logo" src="assets\img\LOGO-GASTROMIXTE-RGB-2.png"></ion-img>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container-header">
+    <div class="row">
+      <div class="col-md-6 w-25" style="padding-inline: 20px;">
+        <div class="profile-img profile-img-container">
+          <img class="profile-img" src="assets/img/bruce-mars.jpg" alt="Bruce Mars">
+        </div>
+      </div>
+      <div class="col w-75 profile-info" style="padding: 10px;">
+        <div class="row">
+          <div class="col">
+            <h1 class="profile-name m-0" style="color: white;">Bruce Mars</h1>
+            <p class="profile-mission" style="color: #a5a5a5;"><ion-icon name="briefcase-outline"></ion-icon> Mission:
+              Vendeur</p>
+          </div>
+          <div class="col-4 d-flex align-items-center justify-content-center">
+            <div class="profile-img profile-img-container" style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 50px;
+              height: 50px;
+              padding: 0;
+            ">
+              <button expand="block" (click)="setOpen(true)" style="background: none; border-radius: 50px;">
+                <ion-icon name="pencil-outline" style="color: white; font-size: 22px;"></ion-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-6 mb-4">
+        <div class="ag-courses_item shadow">
+          <div class="ag-courses-item_link">
+            <ion-icon name="people-outline"></ion-icon>
+            <div class="ag-courses-item_bg bg-primary"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Mes Clients</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 mb-4">
+        <div class="ag-courses_item shadow">
+          <div class="ag-courses-item_link">
+            <ion-icon name="car-outline"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-tourne"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Tournes</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 mb-4">
+        <div class="ag-courses_item shadow">
+          <div class="ag-courses-item_link">
+            <ion-icon name="card-outline"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-reglem"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Reglement en cours</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 mb-4">
+        <div class="ag-courses_item shadow">
+          <div class="ag-courses-item_link">
+            <ion-icon name="document-text-outline"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-bl"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>BL en cours</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 mb-4">
+        <div class="ag-courses_item shadow">
+          <div class="ag-courses-item_link">
+            <ion-icon name="cube-outline"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-stock"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Mon stock</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 mb-4">
+        <div class="ag-courses_item shadow">
+          <div class="ag-courses-item_link">
+            <ion-icon name="time-outline"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-historique"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Historique Transfert</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 mb-4">
+        <div class="ag-courses_item shadow">
+          <div class="ag-courses-item_link">
+            <ion-icon name="qr-code-outline"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-qr"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Mon code QR</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 mb-4">
+        <div class="ag-courses_item shadow">
+          <div class="ag-courses-item_link">
+            <ion-icon name="call-outline"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-appel"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Appeler responsable</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header style="height: 69px;">
+        <div class="modal-container-header">
+          <div class="row">
+            <div class="col-md-6 w-25"
+              style="padding-inline: 20px; display: flex; align-items: center; justify-content: center;">
+              <div class="profile-img profile-img-container"
+                style="padding: 8px; background: rgba(255, 255, 255, 0.28); border-radius: 35px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, 0.23); display: flex;">
+                <img class="profile-img" src="assets/img/bruce-mars.jpg" alt="Bruce Mars"
+                  style="width: 111px; border-radius: 50%;">
+              </div>
+            </div>
+            <div class="col w-75 profile-info" style="padding: 10px;">
+              <div class="row">
+                <div class="col" style="padding: 0;">
+                  <h5 class="profile-name m-0" style="color: white;">Bruce Mars</h5>
+                  <p class="profile-mission" style="color: #a5a5a5; font-size: 13px; margin: 0;"><ion-icon
+                      name="briefcase-outline"></ion-icon> Mission: Vendeur</p>
+                </div>
+                <div class="col-4 d-flex align-items-center justify-content-center">
+                  <div class="profile-img profile-img-container"
+                    style="display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; padding: 0;">
+                    <button (click)="setOpen(false)" style="background: none; border-radius: 50px;">
+                      <ion-icon name="close-outline" style="color: white; font-size: 28px;"></ion-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-input type="email" fill="outline" label="Email" labelPlacement="floating" helperText="Enter a valid email"
+          errorText="Invalid email" ngModel email></ion-input>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>
