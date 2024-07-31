@@ -1,0 +1,105 @@
+ion-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  box-shadow: none;
+  background-color: #1a2037;
+  z-index: 1000;
+  height: 60px;
+
+  .back-btn-header {
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: absolute;
+    left: 0;
+  }
+
+  .ion-title {
+    color: white;
+  }
+
+
+}
+
+ion-content {
+  ion-searchbar {
+    --box-shadow: none;
+    --background: #f3f3f3;
+    --color: #1a2037;
+    --border-radius: 1.2rem;
+    --placeholder-font-weight: 600;
+    --placeholder-opacity: 0.2;
+
+    padding: 5px 0px 20px 0px;
+  }
+
+  ion-card {
+    margin: 0 0 8px 0;
+    border-radius: 8px;
+
+    position: relative;
+    /* Required for ripple effect */
+    overflow: hidden;
+    /* Hide overflow for ripple effect */
+
+    ion-ripple-effect {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      /* Allow clicks to pass through */
+    }
+
+    ion-card-title {
+      padding: 8px 8px 0px 8px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+
+
+      .client-name {
+        width: fit-content;
+        margin-right: 10px;
+        font-weight: 500;
+        color: #1a2037;
+      }
+
+      ion-badge {
+        font-size: 10px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        border-radius: 20px;
+        padding: 5px 10px 5px 10px;
+      }
+    }
+
+    ion-card-content {
+      padding: 0px 8px 8px 8px;
+    }
+
+    .client-card {
+      margin: 0 0 10px 0;
+      padding: 0.5rem;
+    }
+
+    .client-card .ion-card-title {
+      font-size: 1.25rem;
+    }
+
+    .client-card .badge {
+      font-size: 0.75rem;
+    }
+
+    .client-card ion-icon {
+      font-size: 1.25rem;
+    }
+  }
+
+
+}

@@ -16,9 +16,9 @@ ion-header {
 }
 
 ion-content {
-
   .container-header {
     margin-bottom: 20px;
+    margin-top: -2px;
     padding: 10px;
     border-radius: 0 0 40px 40px;
     background-color: #1a2037;
@@ -149,18 +149,18 @@ ion-content {
 
     ion-icon {
       position: absolute;
-      left: 80%; // Adjusted to be a percentage of the width
-      top: 10px; // Kept as a fixed value since top position is less likely to change significantly
+      left: 50%;
+      top: 32px;
       z-index: 2;
-      font-size: 40px;
+      font-size: 50px;
       color: white;
-      transform: translateX(-50%); // Centering the icon horizontally relative to the left position
+      transform: translateX(-50%);
     }
   }
 
 
-  .ag-courses-item_link:hover,
-  .ag-courses-item_link:hover .ag-courses-item_date {
+  .ag-courses-item_link,
+  .ag-courses-item_link .ag-courses-item_date {
     text-decoration: none;
     color: #000000;
 
@@ -170,7 +170,7 @@ ion-content {
     }
   }
 
-  .ag-courses-item_link:hover .ag-courses-item_bg {
+  .ag-courses-item_link .ag-courses-item_bg {
     -webkit-transform: scale(10);
     -ms-transform: scale(10);
     transform: scale(10);
@@ -197,7 +197,7 @@ ion-content {
     transition: all .5s ease;
 
     h3 {
-      font-size: 18px;
+      font-size: 14px;
     }
   }
 
@@ -221,8 +221,7 @@ ion-content {
   .ag-courses-item_bg {
     height: 128px;
     width: 128px;
-    background: linear-gradient(135deg, #4c49ea 0%, #bdbce1 100%);
-
+    background-color: #1f8d01;
     z-index: 1;
     position: absolute;
     top: -53px;
@@ -236,32 +235,33 @@ ion-content {
   }
 
   .ag-courses-item_bg-tourne {
-    background: linear-gradient(135deg, #cd3e94 0%, #bdbce1 100%);
+    background-color: #02a6f7;
   }
 
   .ag-courses-item_bg-reglem {
-    background: linear-gradient(135deg, #952aff 0%, #bdbce1 100%);
+    background-color: #ea1e63;
   }
 
   .ag-courses-item_bg-bl {
-    background: linear-gradient(135deg, #e44002 0%, #bdbce1 100%);
+    background-color: #ff9700;
   }
 
   .ag-courses-item_bg-stock {
-    background: linear-gradient(135deg, #3ecd5e 0%, #bdbce1 100%);
+    background-color: #0133ab;
   }
 
   .ag-courses-item_bg-historique {
-    background: linear-gradient(135deg, #f9b234 0%, #bdbce1 100%);
+    background-color: #7ed5fe;
   }
 
   .ag-courses-item_bg-qr {
-    background: linear-gradient(135deg, #34f9ef 0%, #bdbce1 100%);
+    background-color: #000000;
   }
 
   .ag-courses-item_bg-appel {
-    background: linear-gradient(135deg, #1f8d01 0%, #bdbce1 100%);
+    background-color: #217709;
   }
+
 
 
 
@@ -297,7 +297,7 @@ ion-content {
     }
 
     .ag-courses-item_link {
-      padding: 2px 25px;
+      padding: 2px 10px;
     }
 
     .ag-courses-item_date-box {

@@ -1,0 +1,177 @@
+<ion-header>
+  <a class="back-btn-header" routerLink="/vendeur-pages/clients">
+    <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
+  <div class="ion-title text-center">
+    <h4 class="client-name" style="margin-bottom: 0px;">Client Name</h4>
+    <ion-badge color="success">Plafond 4000 Dhs</ion-badge>
+    <ion-badge color="danger">Douteux</ion-badge>
+  </div>
+  <a class="back-btn-home" routerLink="/vendeur-pages/home">
+    <ion-icon name="home-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
+</ion-header>
+
+<ion-content>
+  <ion-card class="client-card">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="id-card-outline" class="me-2"></ion-icon>
+              <strong>Code Client</strong>
+              <p style="position: absolute; left: 95%;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>CL0044</span>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="cash-outline" class="me-2"></ion-icon>
+              <strong>Credit</strong>
+              <p style="position: absolute; left: 95%;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>-5000 Dhs</span>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="person-outline" class="me-2"></ion-icon>
+              <strong>Responsable</strong>
+              <p style="position: absolute; left: 95%;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>Responsable name</span>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="location-outline" class="me-2"></ion-icon>
+              <strong>Adresse</strong>
+              <p style="position: absolute; left: 95%;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>Gharb chrada bni hssan</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+      <div class="contain-btns-card">
+        <ion-button fill="solid" color="primary" size="small" expand="block">
+          <ion-icon slot="start" name="locate-outline"></ion-icon>
+          Localisation
+        </ion-button>
+        <ion-button fill="outline" color="primary" size="small" expand="block" style="height: 23px;">
+          <ion-icon slot="start" name="create-outline"></ion-icon>
+          Mise à jour
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" class="mb-3">
+        <div class="ag-courses_item shadow">
+          <div class="ag-courses-item_link">
+            <ion-icon name="cart-outline" class="icon-large"></ion-icon>
+            <div class="ag-courses-item_bg bg-primary"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Commande</h3>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="4" class="mb-3">
+        <div class="ag-courses_item shadow">
+          <div class="ag-courses-item_link">
+            <ion-icon name="gift-outline" class="icon-large"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-gratuite"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Gratuité</h3>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="4" class="mb-3">
+        <div class="ag-courses_item shadow">
+          <div class="ag-courses-item_link">
+            <ion-icon name="reload-outline" class="icon-large"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-retour"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Retour</h3>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4" class="mb-3">
+        <div class="ag-courses_item shadow">
+          <div class="ag-courses-item_link">
+            <ion-icon name="card-outline" class="icon-large"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-regl"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Réglement</h3>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="4" class="mb-3">
+        <div class="ag-courses_item shadow">
+          <div class="ag-courses-item_link">
+            <ion-icon name="document-text-outline" class="icon-large"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-bl"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>BL en cours</h3>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="4" class="mb-3">
+        <div class="ag-courses_item shadow">
+          <div class="ag-courses-item_link">
+            <ion-icon name="file-tray-stacked-outline" class="icon-large"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-equipement"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Equipement</h3>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <div class="ag-courses_item shadow" style="margin-top: 4px;">
+        <div class="ag-courses-item_link">
+          <ion-icon name="checkmark-outline" class="checkmark-icon" style="position: absolute;
+          left: 50%;
+          top: 18px;"></ion-icon>
+          <div class="ag-courses-item_bg ag-courses-item_bg-marque"></div>
+          <div class="ag-courses-item_title text-center">
+            <h3>Marker comme visité</h3>
+          </div>
+        </div>
+      </div>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

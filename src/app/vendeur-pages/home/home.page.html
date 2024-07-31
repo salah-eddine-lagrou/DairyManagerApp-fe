@@ -20,7 +20,7 @@
         <div class="row">
           <div class="col">
             <h1 class="profile-name m-0" style="color: white;">Bruce Mars</h1>
-            <p class="profile-mission" style="color: #a5a5a5;"><ion-icon name="briefcase-outline"></ion-icon> Mission:
+            <p class="profile-mission" style="color: #a5a5a5;"><ion-icon name="briefcase-outline" style="margin-bottom: 3px;"></ion-icon> Mission:
               Vendeur</p>
           </div>
           <div class="col-4 d-flex align-items-center justify-content-center">
@@ -45,11 +45,11 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-6 mb-4">
+      <div class="col-6 mb-4" (click)="navigateToClients()">
         <div class="ag-courses_item shadow">
           <div class="ag-courses-item_link">
             <ion-icon name="people-outline"></ion-icon>
-            <div class="ag-courses-item_bg bg-primary"></div>
+            <div class="ag-courses-item_bg"></div>
             <div class="ag-courses-item_title text-center">
               <h3>Mes Clients</h3>
             </div>
@@ -153,8 +153,9 @@
               <div class="row">
                 <div class="col" style="padding: 0;">
                   <h5 class="profile-name m-0" style="color: white;">Bruce Mars</h5>
-                  <p class="profile-mission" style="color: #a5a5a5; font-size: 13px; margin: 0;"><ion-icon
-                      name="briefcase-outline"></ion-icon> Mission: Vendeur</p>
+                  <p class="profile-mission" style="color: #a5a5a5; font-size: 13px; margin: 0;">
+                    <ion-icon name="briefcase-outline" style="margin-bottom: -1px;"></ion-icon> Mission: Vendeur
+                  </p>
                 </div>
                 <div class="col-4 d-flex align-items-center justify-content-center">
                   <div class="profile-img profile-img-container"

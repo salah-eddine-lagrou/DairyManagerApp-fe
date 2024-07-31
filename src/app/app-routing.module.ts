@@ -27,6 +27,11 @@ const routes: Routes = [
     path: 'responsable-pages/vendeurs',
     loadChildren: () => import('./responsable-pages/vendeurs/vendeurs.module').then( m => m.VendeursPageModule)
   },
+  {
+    path: 'vendeur-pages/client-actions',
+    loadChildren: () => import('./vendeur-pages/client-actions/client-actions.module').then( m => m.ClientActionsPageModule)
+  },
+
 
 
 ];
