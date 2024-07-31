@@ -5,11 +5,17 @@
 <ion-content [fullscreen]="true">
   <div class="container-header">
     <div class="row">
-      <div class="col-md-6 w-25" style="padding-inline: 20px;">
+      <div id="click-trigger" class="col-md-6 w-25" style="padding-inline: 20px;">
         <div class="profile-img profile-img-container">
           <img class="profile-img" src="assets/img/bruce-mars.jpg" alt="Bruce Mars">
         </div>
       </div>
+      <ion-popover trigger="click-trigger" triggerAction="click">
+        <ng-template>
+          <ion-content class="ion-padding disconnected-button">Se deconnecter !</ion-content>
+        </ng-template>
+      </ion-popover>
+
       <div class="col w-75 profile-info" style="padding: 10px;">
         <div class="row">
           <div class="col">
@@ -163,9 +169,128 @@
           </div>
         </div>
       </ion-header>
-      <ion-content class="ion-padding">
-        <ion-input type="email" fill="outline" label="Email" labelPlacement="floating" helperText="Enter a valid email"
-          errorText="Invalid email" ngModel email></ion-input>
+      <ion-content class="ion-padding" style="--background: white;">
+        <ion-segment [(ngModel)]="selectedSegment" style="position: absolute; top: 0; left: 0; height: 55px;">
+          <ion-segment-button value="informations" (click)="changeSegmentColorLabel('Informations')"
+            [style]="colorStyleInfo">
+            <ion-label>Informations</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="securite" (click)="changeSegmentColorLabel('Securite')" [style]="colorStyleSec">
+            <ion-label>Sécurité</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+
+        <div *ngIf="selectedSegment === 'informations'" class="informations" style="margin-top: 60px;">
+          <ion-card class="m-0">
+            <ion-card-header>
+              <ion-card-title style="color: #535353;" class="text-center">Modifier les Informations</ion-card-title>
+            </ion-card-header>
+            <hr class="m-0">
+            <ion-card-content>
+              <div class="mb-3">
+                <label for="prenom" class="form-label">Prénom</label>
+                <input type="text" class="form-control" id="prenom" placeholder="Entrer votre prénom">
+              </div>
+              <div class="mb-3">
+                <label for="nom" class="form-label">Nom</label>
+                <input type="text" class="form-control" id="nom" placeholder="Entrer votre nom">
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Entrer votre email">
+              </div>
+            </ion-card-content>
+          </ion-card>
+          <div class="row mt-4">
+            <div class="col" style="flex: 0 0 50%; max-width: 50%;">
+              <ion-button fill="outline" style="width: 100%;
+              color: white;
+              --background: #0054e9;
+              border-color: #0054e9;">Enregistrer</ion-button>
+            </div>
+            <div class="col" style="flex: 0 0 50%; max-width: 50%;">
+              <ion-button fill="outline" style="width: 100%;">Annuler</ion-button>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="selectedSegment === 'securite'" class="securite" style="margin-top: 60px;">
+          <ion-card class="m-0">
+            <ion-card-header>
+              <ion-card-title style="color: #535353;" class="text-center">Securite</ion-card-title>
+            </ion-card-header>
+            <hr class="m-0">
+            <ion-card-content>
+              <div class="mb-3">
+                <label for="current-password" class="form-label">Mot de passe actuelle</label>
+                <div style="display: flex;
+                justify-content: center;
+                align-items: center;">
+                  <input type="password" class="form-control" id="current-password"
+                    placeholder="Entrer votre actuelle ici" style="padding-right: 27px;">
+                  <button class="toggle-password" (click)="togglePassword('current-password', $event)"
+                    style="background: none;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: absolute;
+                    left: 88%;">
+                    <ion-icon name="eye-off-outline" style="color: #757272; font-size: 17px;"></ion-icon>
+                  </button>
+                </div>
+
+              </div>
+              <div class="mb-3">
+                <label for="new-password" class="form-label">Nouveau mot de passe</label>
+                <div style="display: flex;
+                justify-content: center;
+                align-items: center;">
+                  <input type="password" class="form-control" id="new-password" placeholder="Entrer le nouveau ici" style="padding-right: 27px;">
+                  <button class="toggle-password" (click)="togglePassword('new-password', $event)"
+                    style="background: none;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: absolute;
+                    left: 88%;">
+                    <ion-icon name="eye-off-outline" style="color: #757272; font-size: 17px;"></ion-icon>
+                  </button>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="confirm-password" class="form-label">Confirme mot de passe</label>
+                <div style="display: flex;
+                justify-content: center;
+                align-items: center;">
+                  <input type="password" class="form-control" id="confirm-password" placeholder="Confirmer ici" style="padding-right: 27px;">
+                  <button class="toggle-password" (click)="togglePassword('confirm-password', $event)"
+                    style="background: none;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: absolute;
+                    left: 88%;">
+                    <ion-icon name="eye-off-outline" style="color: #757272; font-size: 17px;"></ion-icon>
+                  </button>
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+          <div class="row mt-4">
+            <div class="col" style="flex: 0 0 50%; max-width: 50%;">
+              <ion-button fill="outline" style="width: 100%;
+              color: white;
+              --background: #0054e9;
+              border-color: #0054e9;">Enregistrer</ion-button>
+            </div>
+            <div class="col" style="flex: 0 0 50%; max-width: 50%;">
+              <ion-button fill="outline" style="width: 100%;">Annuler</ion-button>
+            </div>
+          </div>
+        </div>
+
+
       </ion-content>
     </ng-template>
   </ion-modal>
