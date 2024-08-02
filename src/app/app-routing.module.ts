@@ -31,6 +31,16 @@ const routes: Routes = [
     path: 'vendeur-pages/client-actions',
     loadChildren: () => import('./vendeur-pages/client-actions/client-actions.module').then( m => m.ClientActionsPageModule)
   },
+  {
+    path: 'vendeur-pages/make-commande',
+    loadChildren: () => import('./vendeur-pages/make-commande/make-commande.module').then( m => m.MakeCommandePageModule)
+  },
+  {
+    path: 'vendeur-pages/view-product',
+    loadChildren: () => import('./vendeur-pages/view-product/view-product.module').then( m => m.ViewProductPageModule)
+  },
+
+
 
 
 

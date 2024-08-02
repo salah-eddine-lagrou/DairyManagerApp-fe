@@ -146,6 +146,7 @@ ion-content {
     overflow: hidden;
     position: relative;
     height: 125px;
+    transition: transform 0.3s ease;
 
     ion-icon {
       position: absolute;
@@ -358,6 +359,19 @@ ion-content {
     width: 50px;
     margin-bottom: 1px;
   }
+
+
+  .ag-courses_item {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+
+  .zoom-effect:active {
+    transform: scale(1.10);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3) !important;
+  }
+
 
 
 }

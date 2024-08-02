@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-client-actions',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientActionsPage implements OnInit {
 
-  constructor() { }
+  constructor(private router :Router) { }
 
   ngOnInit() {
+    console.log("running from client-actions");
+
   }
 
+  isModalOpen = false;
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
+
+  navigateToMakeCommande() :void{
+    this.router.navigate(['vendeur-pages/make-commande']);
+  }
 }

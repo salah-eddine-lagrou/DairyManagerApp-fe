@@ -75,7 +75,7 @@ ion-content {
       margin-left: auto;
   }
 
-  ion-button {
+  .edit-infos-btn, .localisation-btn {
     --border-radius: 30px;
     --padding-start: 8px;
     --padding-end: 8px;
@@ -298,5 +298,15 @@ ion-content {
       }
     }
     // !----->end
+    .ag-courses_item {
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    .zoom-effect:active {
+      transform: scale(1.10);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3) !important;
+    }
 
 }

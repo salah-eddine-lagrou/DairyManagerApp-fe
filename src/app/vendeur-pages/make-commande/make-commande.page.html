@@ -1,0 +1,74 @@
+<ion-header>
+  <a class="back-btn-header" routerLink="/vendeur-pages/client-actions">
+    <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
+  <div class="ion-title text-center">
+    <h5 class="client-name" style="margin-bottom: 0px;">NOUVELLE COMMANDE</h5>
+  </div>
+</ion-header>
+
+<ion-content>
+  <div class="horizontal-scroll category-holder">
+    <ion-button *ngFor="let category of categories" class="category-btn-item"
+      [fill]="selectedCategory === category.value ? 'solid' : 'outline'" color="primary" size="small"
+      style="height: 23px;" (click)="segmentChanged(category.value)">
+      {{ category.label }}
+    </ion-button>
+  </div>
+
+  <div class="list-products" style="margin-top: 55px;">
+    <ion-searchbar></ion-searchbar>
+    <div *ngFor="let item of filteredItems">
+      <ion-card class="shadow ion-activatable">
+        <ion-card-content class="p-0">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3" class="img-item-container" (click)="navigateToViewProduct(item)">
+                <img class="img-item" [src]="item.image" alt="">
+              </ion-col>
+              <ion-col size="6" (click)="navigateToViewProduct(item)">
+                <h5 class="item-title">{{ item.name }}</h5>
+                <ion-badge color="success" class="badge-price-item">{{ item.price }} Dhs/U</ion-badge><br>
+                <ion-badge color="danger" class="badge-quantity-price-item">{{ item.price * item.quantity }}
+                  Dhs</ion-badge>
+              </ion-col>
+              <ion-col size="3" class="d-flex align-items-center justify-content-center">
+                <div>
+                  @if (item.maxQuantityDisplayed) {
+                    <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity" disabled>
+                    <button class="btn max-btn" (click)="resetQuantity(item.id)">reset</button>
+                  } @else {
+                    <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity">
+                    <button class="btn max-btn" (click)="maxQuantity(item.id)">MAX</button>
+                  }
+                </div>
+                <div style="margin-left: 10px;">
+                  <button class="btn increase-btn" (click)="increaseQuantity(item.id)"><ion-icon name="add-outline"></ion-icon></button>
+                  <button class="btn decrease-btn" (click)="decreaseQuantity(item.id)"><ion-icon name="remove-outline"></ion-icon></button>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-padding custom-footer" [translucent]="true">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <p style="color: red;">Total</p>
+      </div>
+      <div class="col text-end">
+        <strong style="color: red;">{{ totalPrice }} Dhs</strong>
+      </div>
+    </div>
+  </div>
+  <button class="btn confirmer-btn ion-activatable">
+    Confirmer
+    <ion-ripple-effect></ion-ripple-effect>
+  </button>
+</ion-footer>
