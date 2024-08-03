@@ -1,0 +1,205 @@
+<ion-header>
+  <a class="back-btn-header" routerDirection="back" routerLink="/vendeur-pages/make-commande">
+    <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
+  <div class="ion-title text-center">
+    <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px;">détails de la commande</h5>
+  </div>
+  <a class="back-btn-home" routerLink="/vendeur-pages/home">
+    <ion-icon name="home-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
+</ion-header>
+
+<ion-content>
+  <ion-card class="client-card">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="albums-outline" class="me-2"></ion-icon>
+              <strong>Commande N:1</strong>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item text-end">
+              <strong style="margin-left: auto;">{{ totalPrice }} Dhs</strong>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row style="margin: 0px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-icon  style="font-size: 10px;" name="sync-circle-outline" class="me-2"></ion-icon>
+              <span style="font-size: 12px;">En cours</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <ion-badge color="danger" style="margin-left: auto; font-size: 10px;">500 Dhs</ion-badge>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-icon  style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
+              <span style="font-size: 12px;">20-03-2024 09:23</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-icon  style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+              <span style="font-size: 12px;">Client name</span>
+              <ion-badge color="danger" style="margin-left: auto; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-icon  style="font-size: 10px;" name="create-outline" class="me-2"></ion-icon>
+              <span style="font-size: 12px;">Note</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="list-products" style="margin-top: 25px;">
+    <div *ngFor="let item of commande" style="margin-bottom: -94px;">
+      <ion-card class="ion-activatable" (click)="openModal(item)">
+        <ion-card-content class="p-0">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3" class="img-item-container">
+                <img class="img-item" [src]="item.image" alt="">
+              </ion-col>
+              <ion-col size="6">
+                <h5 class="item-title">{{ item.name | truncate:15 }}</h5>
+                <ion-badge color="success" class="badge-price-item">{{ item.price }} Dhs/U</ion-badge><br>
+                <ion-badge color="danger" class="badge-quantity-price-item">{{ item.price * item.quantity }} Dhs</ion-badge>
+              </ion-col>
+
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-card>
+      <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
+        <div>
+          <ng-container *ngIf="item.maxQuantityDisplayed; else notMax">
+            <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity" disabled (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
+            <button class="btn max-btn" (click)="resetQuantity(item.id, $event)">reset</button>
+          </ng-container>
+          <ng-template #notMax>
+            <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity" (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
+            <button class="btn max-btn" (click)="maxQuantity(item.id, $event)">MAX</button>
+          </ng-template>
+        </div>
+        <div style="margin-left: 10px;">
+          <button class="btn increase-btn" (click)="increaseQuantity(item.id, $event)">
+            <ion-icon name="add-outline"></ion-icon>
+          </button>
+          <button class="btn decrease-btn" (click)="decreaseQuantity(item.id, $event)">
+            <ion-icon name="remove-outline"></ion-icon>
+          </button>
+        </div>
+      </ion-col>
+    </div>
+  </div>
+  <button class="btn edit-commande-btn" routerDirection="back" routerLink="/vendeur-pages/make-commande">
+    <ion-icon name="add-outline"></ion-icon>
+  </button>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" class="mb-3">
+        <div class="ag-courses_item shadow zoom-effect">
+          <div class="ag-courses-item_link">
+            <ion-icon name="wallet-outline" class="icon-large"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-encaisser"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Encaisser</h3>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="4" class="mb-3">
+        <div class="ag-courses_item shadow zoom-effect">
+          <div class="ag-courses-item_link">
+            <ion-icon name="print-outline" class="icon-large"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-imprimer"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Imprimer</h3>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="4" class="mb-3">
+        <div class="ag-courses_item shadow zoom-effect">
+          <div class="ag-courses-item_link">
+            <ion-icon name="close-outline" class="icon-large"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-annuler"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Annuler</h3>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
+
+<!-- Modal -->
+<ion-modal [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-content>
+      <button class="btn btn-back" (click)="setOpen(false)">
+        <ion-icon name="chevron-back-outline" class="back-icon"></ion-icon>
+      </button>
+
+      <div class="img-container">
+        <img [src]="selectedItem.image" alt="{{ selectedItem.name }}">
+      </div>
+
+      <div class="products-infos container">
+        <h1 class="item-title">{{ selectedItem.name }}</h1>
+
+        <div class="row product-details">
+          <div class="col-6">
+            <p><strong>Stock:</strong> {{ selectedItem.quantityStock }} Unités</p>
+            <p><strong>Price:</strong> {{ selectedItem.price }} Dhs</p>
+          </div>
+          <div class="col-6">
+            <p><strong>Category:</strong> {{ selectedItem.category }}</p>
+          </div>
+        </div>
+
+        <div class="ion-padding description">
+          <h5>Description</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur ex, eaque dolor magnam eius repudiandae aspernatur, voluptas modi dolores laudantium vero velit delectus est adipisci perferendis autem dignissimos molestiae ea.</p>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

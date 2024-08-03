@@ -36,9 +36,11 @@ const routes: Routes = [
     loadChildren: () => import('./vendeur-pages/make-commande/make-commande.module').then( m => m.MakeCommandePageModule)
   },
   {
-    path: 'vendeur-pages/view-product',
-    loadChildren: () => import('./vendeur-pages/view-product/view-product.module').then( m => m.ViewProductPageModule)
+    path: 'vendeur-pages/details-commande',
+    loadChildren: () => import('./vendeur-pages/details-commande/details-commande.module').then( m => m.DetailsCommandePageModule)
   },
+
+
 
 
 
