@@ -159,26 +159,28 @@ ion-footer {
 }
 
 ion-modal {
-  ion-content {
+
+  ion-header {
+    background-color: #f5f7fd;
+
     .btn-back {
+      font-size: 25px;
       background: none;
       border: none;
       position: absolute;
-      top: 15px;
-      left: 7px;
+      left: 2%;
       display: flex;
       justify-content: center;
       align-items: center;
     }
+  }
 
-    .back-icon {
-      font-size: 25px;
-      color: #3d3d3d;
-    }
+  ion-content {
 
     .img-container {
       background-color: #e3dfdf;
-      border-radius: 0 0 40px 40px;
+      border-radius: 30px;
+      margin: 60px 15px 30px 15px;
       height: 40%;
       display: flex;
       align-items: center;
@@ -186,32 +188,38 @@ ion-modal {
 
       img {
         width: 100%;
-        max-width: 366px;
+        max-width: 315px;
         margin: auto;
       }
     }
 
     .products-infos {
-      margin-top: 50px;
+      margin-top: 30px;
       padding: 20px;
 
       .item-title {
-        font-size: 30px;
+        font-weight: 700;
+        font-size: 17px;
         color: #1a2037;
         text-transform: capitalize;
         margin-bottom: 20px;
       }
 
-      .product-details {
-        p {
-          margin: 5px 0;
-          font-size: 18px;
-          color: #333;
+      .item-price {
+        color: #1a2037;
+        font-size: 25px;
+        font-family: none;
+        text-transform: capitalize;
+      }
 
-          strong {
-            color: #1a2037;
-          }
-        }
+      .add-btn-commande {
+        width: 70%;
+        font-size: 20px;
+        border-radius: 50px;
+        color: white;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background: linear-gradient(135deg, #276f4d 0%, #0a9554 100%);
       }
 
       .description {

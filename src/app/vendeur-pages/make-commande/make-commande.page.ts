@@ -107,4 +107,36 @@ export class MakeCommandePage implements OnInit {
   }
 
 
+  commandeStored: any;
+  ionViewWillEnter() {
+    const stringCommandeStored = localStorage.getItem("commande");
+    if (stringCommandeStored) {
+      this.commandeStored = JSON.parse(stringCommandeStored) as any[]; // Explicitly type as array
+
+      // Create a map for quick lookup of commande items
+      const commandeMap = new Map<number, number>();
+      for (const commandeItem of this.commandeStored) {
+        commandeMap.set(commandeItem.id, commandeItem.quantity);
+      }
+
+      // Update items quantities
+      for (const item of this.items) {
+        if (commandeMap.has(item.id)) {
+          item.quantity = commandeMap.get(item.id) ?? 0; // Use optional chaining with a default value
+        } else {
+          item.quantity = 0;
+          item.maxQuantityDisplayed = false;
+        }
+      }
+
+      this.updateTotalPrice();
+      localStorage.clear();
+    } else {
+      console.log("back from details commande: false");
+    }
+  }
+
+
+
+
 }

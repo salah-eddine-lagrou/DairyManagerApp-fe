@@ -3,7 +3,8 @@
     <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
   </a>
   <div class="ion-title text-center">
-    <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px;">détails de la commande</h5>
+    <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px;">détails de la
+      commande</h5>
   </div>
   <a class="back-btn-home" routerLink="/vendeur-pages/home">
     <ion-icon name="home-outline" style="font-size: 25px; color: white;"></ion-icon>
@@ -31,7 +32,7 @@
         <ion-row style="margin: 0px -10px 0px">
           <ion-col>
             <div class="info-item">
-              <ion-icon  style="font-size: 10px;" name="sync-circle-outline" class="me-2"></ion-icon>
+              <ion-icon style="font-size: 10px;" name="sync-circle-outline" class="me-2"></ion-icon>
               <span style="font-size: 12px;">En cours</span>
             </div>
           </ion-col>
@@ -44,7 +45,7 @@
         <ion-row style="margin: -10px -10px 0px">
           <ion-col>
             <div class="info-item">
-              <ion-icon  style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
+              <ion-icon style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
               <span style="font-size: 12px;">20-03-2024 09:23</span>
             </div>
           </ion-col>
@@ -56,9 +57,10 @@
         <ion-row style="margin: -10px -10px 0px">
           <ion-col>
             <div class="info-item">
-              <ion-icon  style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+              <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
               <span style="font-size: 12px;">Client name</span>
-              <ion-badge color="danger" style="margin-left: auto; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
+              <ion-badge color="danger"
+                style="margin-left: auto; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
             </div>
           </ion-col>
           <ion-col>
@@ -69,7 +71,7 @@
         <ion-row style="margin: -10px -10px 0px">
           <ion-col>
             <div class="info-item">
-              <ion-icon  style="font-size: 10px;" name="create-outline" class="me-2"></ion-icon>
+              <ion-icon style="font-size: 10px;" name="create-outline" class="me-2"></ion-icon>
               <span style="font-size: 12px;">Note</span>
             </div>
           </ion-col>
@@ -84,48 +86,64 @@
   </ion-card>
 
   <div class="list-products" style="margin-top: 25px;">
-    <div *ngFor="let item of commande" style="margin-bottom: -94px;">
-      <ion-card class="ion-activatable" (click)="openModal(item)">
-        <ion-card-content class="p-0">
-          <ion-grid>
-            <ion-row>
-              <ion-col size="3" class="img-item-container">
-                <img class="img-item" [src]="item.image" alt="">
-              </ion-col>
-              <ion-col size="6">
-                <h5 class="item-title">{{ item.name | truncate:15 }}</h5>
-                <ion-badge color="success" class="badge-price-item">{{ item.price }} Dhs/U</ion-badge><br>
-                <ion-badge color="danger" class="badge-quantity-price-item">{{ item.price * item.quantity }} Dhs</ion-badge>
-              </ion-col>
+    <ion-item-sliding *ngFor="let item of commande">
+      <ion-item>
+        <ion-card class="ion-activatable" (click)="openModal(item)">
+          <ion-card-content class="p-0">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="3" class="img-item-container">
+                  <img class="img-item" [src]="item.image" alt="">
+                </ion-col>
+                <ion-col size="6">
+                  <h5 class="item-title">{{ item.name | truncate:15 }}</h5>
+                  <ion-badge color="success" class="badge-price-item">{{ item.price }} Dhs/U</ion-badge><br>
+                  <ion-badge color="danger" class="badge-quantity-price-item">{{ item.price * item.quantity }}
+                    Dhs</ion-badge>
+                </ion-col>
+                <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
+                  <div>
+                    <ng-container *ngIf="item.maxQuantityDisplayed; else notMax">
+                      <input class="form-control text-center" type="number" style="height: 30px;"
+                        [(ngModel)]="item.quantity" disabled (input)="updateTotalPrice()"
+                        (click)="$event.stopPropagation()">
+                      <button class="btn max-btn" (click)="resetQuantity(item.id, $event)">reset</button>
+                    </ng-container>
+                    <ng-template #notMax>
+                      <input class="form-control text-center" type="number" style="height: 30px;"
+                        [(ngModel)]="item.quantity" (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
+                      <button class="btn max-btn" (click)="maxQuantity(item.id, $event)">MAX</button>
+                    </ng-template>
+                  </div>
+                  <div style="margin-left: 10px;">
+                    <button class="btn increase-btn" (click)="increaseQuantity(item.id, $event)">
+                      <ion-icon name="add-outline"></ion-icon>
+                    </button>
+                    <button class="btn decrease-btn" (click)="decreaseQuantity(item.id, $event)">
+                      <ion-icon name="remove-outline"></ion-icon>
+                    </button>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-card>
+      </ion-item>
 
-            </ion-row>
-          </ion-grid>
-        </ion-card-content>
-        <ion-ripple-effect></ion-ripple-effect>
-      </ion-card>
-      <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
-        <div>
-          <ng-container *ngIf="item.maxQuantityDisplayed; else notMax">
-            <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity" disabled (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
-            <button class="btn max-btn" (click)="resetQuantity(item.id, $event)">reset</button>
-          </ng-container>
-          <ng-template #notMax>
-            <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity" (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
-            <button class="btn max-btn" (click)="maxQuantity(item.id, $event)">MAX</button>
-          </ng-template>
-        </div>
-        <div style="margin-left: 10px;">
-          <button class="btn increase-btn" (click)="increaseQuantity(item.id, $event)">
-            <ion-icon name="add-outline"></ion-icon>
-          </button>
-          <button class="btn decrease-btn" (click)="decreaseQuantity(item.id, $event)">
-            <ion-icon name="remove-outline"></ion-icon>
-          </button>
-        </div>
-      </ion-col>
-    </div>
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="presentAlert(item)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <ion-alert [isOpen]="isAlertOpen" header="Confirmer la suppression?" [buttons]="alertButtons"
+        (didDismiss)="setResult($event)"></ion-alert>
+
+    </ion-item-sliding>
+
+
   </div>
-  <button class="btn edit-commande-btn" routerDirection="back" routerLink="/vendeur-pages/make-commande">
+  <button class="btn edit-commande-btn" (click)="backMakeMakeCommande()">
     <ion-icon name="add-outline"></ion-icon>
   </button>
 </ion-content>
@@ -173,31 +191,50 @@
 <!-- Modal -->
 <ion-modal [isOpen]="isModalOpen">
   <ng-template>
-    <ion-content>
+    <ion-header>
       <button class="btn btn-back" (click)="setOpen(false)">
         <ion-icon name="chevron-back-outline" class="back-icon"></ion-icon>
       </button>
+      <div class="ion-title text-center">
+        <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px; color: #1a2037;">
+          Vue de Produit
+        </h5>
+      </div>
+    </ion-header>
+    <ion-content>
+
 
       <div class="img-container">
         <img [src]="selectedItem.image" alt="{{ selectedItem.name }}">
       </div>
 
       <div class="products-infos container">
-        <h1 class="item-title">{{ selectedItem.name }}</h1>
-
-        <div class="row product-details">
-          <div class="col-6">
-            <p><strong>Stock:</strong> {{ selectedItem.quantityStock }} Unités</p>
-            <p><strong>Price:</strong> {{ selectedItem.price }} Dhs</p>
+        <h4 class="item-price mb-1 text-center">{{ selectedItem.price }} Dhs</h4>
+        <h4 class="item-title item-name text-center">{{ selectedItem.name }}</h4>
+        <div class="row product-details" style="margin-top: 33px;">
+          <div class="col-6 text-center">
+            <ion-badge color="primary" style="padding: 5px 10px 5px 10px;
+              border-radius: 30px;
+              font-size: 16px;">
+              <ion-icon name="cube-outline" style="font-size: 15px; margin: 0px 0px -2px 0px;"></ion-icon>
+              {{ selectedItem.quantityStock }} unités
+            </ion-badge>
           </div>
-          <div class="col-6">
-            <p><strong>Category:</strong> {{ selectedItem.category }}</p>
+          <div class="col-6 text-center">
+            <ion-badge color="dark" style="padding: 5px 10px 5px 10px;
+              border-radius: 30px;
+              font-size: 16px;">
+              <ion-icon name="list-outline" style="font-size: 15px; margin: 0px 0px -2px 0px;"></ion-icon>
+              Category
+            </ion-badge>
           </div>
         </div>
-
-        <div class="ion-padding description">
-          <h5>Description</h5>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur ex, eaque dolor magnam eius repudiandae aspernatur, voluptas modi dolores laudantium vero velit delectus est adipisci perferendis autem dignissimos molestiae ea.</p>
+        <div class="row mt-5 text-center" style="display: flex;
+          justify-content: center;
+          align-items: center;">
+          <button class="btn add-btn-commande">
+            Ajouter
+          </button>
         </div>
       </div>
     </ion-content>
