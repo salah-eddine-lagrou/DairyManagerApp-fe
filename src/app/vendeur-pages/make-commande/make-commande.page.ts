@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 
@@ -31,7 +31,29 @@ export class MakeCommandePage implements OnInit {
   filteredItems = this.items;
   totalPrice: number = 0;
 
-  constructor(private router: Router, private navCtrl: NavController) { }
+  alertButtons = [
+    {
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+      },
+    },
+    {
+      text: 'OK',
+      role: 'confirm',
+      handler: () => {
+        console.log('Alert confirmed');
+      },
+    },
+  ];
+
+  constructor(
+    private router: Router,
+    private navCtrl: NavController,
+    private renderer: Renderer2,
+    private el: ElementRef
+  ) { }
 
   ngOnInit() {
     console.log("running from make commande");
@@ -96,8 +118,27 @@ export class MakeCommandePage implements OnInit {
     this.selectedItem = item;
     this.isModalOpen = true;
   }
-  setOpen(isOpen: boolean) {
+  setOpen(isOpen: boolean, idItem: number = 0): void {
     this.isModalOpen = isOpen;
+    if (idItem !== 0) {
+      // Wait until modal is open
+      setTimeout(() => {
+        // Find the item element
+        const itemElement = this.el.nativeElement.querySelector(`#item${idItem}`);
+        if (itemElement) {
+          // Scroll to the item element
+          itemElement.scrollIntoView({ behavior: 'smooth' });
+
+          // Add the animation class
+          this.renderer.addClass(itemElement, 'highlight-animation');
+
+          // Remove the animation class after animation ends
+          setTimeout(() => {
+            this.renderer.removeClass(itemElement, 'highlight-animation');
+          }, 1000); // duration of the animation in milliseconds
+        }
+      }, 100); // delay to ensure modal is fully opened
+    }
   }
 
   goToCommandeDetails(): void {
@@ -134,6 +175,11 @@ export class MakeCommandePage implements OnInit {
     } else {
       console.log("back from details commande: false");
     }
+  }
+
+  currentOpen: string | null = null;
+  toggleAccordion(id: string) {
+    this.currentOpen = this.currentOpen === id ? null : id;
   }
 
 

@@ -136,8 +136,7 @@
           <ion-icon name="trash-outline"></ion-icon>
         </ion-item-option>
       </ion-item-options>
-      <ion-alert [isOpen]="isAlertOpen" header="Confirmer la suppression?" [buttons]="alertButtons"
-        (didDismiss)="setResult($event)"></ion-alert>
+      <ion-alert [isOpen]="isAlertOpen" header="Confirmer à supprimer?" [buttons]="alertButtons"></ion-alert>
 
     </ion-item-sliding>
 
@@ -152,7 +151,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="4" class="mb-3">
-        <div class="ag-courses_item shadow zoom-effect">
+        <div class="ag-courses_item shadow zoom-effect" (click)="setEncaisserOpen(true)">
           <div class="ag-courses-item_link">
             <ion-icon name="wallet-outline" class="icon-large"></ion-icon>
             <div class="ag-courses-item_bg ag-courses-item_bg-encaisser"></div>
@@ -188,12 +187,12 @@
   </ion-grid>
 </ion-footer>
 
-<!-- Modal -->
+<!-- Modal view product -->
 <ion-modal [isOpen]="isModalOpen">
   <ng-template>
     <ion-header>
       <button class="btn btn-back" (click)="setOpen(false)">
-        <ion-icon name="chevron-back-outline" class="back-icon"></ion-icon>
+        <ion-icon name="close-outline" class="back-icon"></ion-icon>
       </button>
       <div class="ion-title text-center">
         <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px; color: #1a2037;">
@@ -210,8 +209,25 @@
 
       <div class="products-infos container">
         <h4 class="item-price mb-1 text-center">{{ selectedItem.price }} Dhs</h4>
-        <h4 class="item-title item-name text-center">{{ selectedItem.name }}</h4>
-        <div class="row product-details" style="margin-top: 33px;">
+        <div class="accordion-item" id="product-name">
+          <a href="javascript:void(0)" (click)="toggleAccordion('product-name')" class="accordion-link">
+            <h4 class="item-title item-name text-center">{{ selectedItem.name }}</h4>
+            <div class="w-100 text-center">
+              @if (currentOpen !== 'product-name') {
+              <ion-icon class="add-outline shadow" name="arrow-down-outline"></ion-icon>
+              } @else {
+              <ion-icon class="close-outline shadow" name="close-outline"></ion-icon>
+              }
+            </div>
+          </a>
+          <div class="answer" [class.open]="currentOpen === 'product-name'">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique tempora ratione sit, quis amet
+              repudiandae debitis officia porro minus nam esse laudantium in, ipsam ut aut. Beatae fuga ducimus eius!
+            </p>
+          </div>
+        </div>
+        <div class="row product-details" style="margin-top: 15px;">
           <div class="col-6 text-center">
             <ion-badge color="primary" style="padding: 5px 10px 5px 10px;
               border-radius: 30px;
@@ -229,14 +245,89 @@
             </ion-badge>
           </div>
         </div>
-        <div class="row mt-5 text-center" style="display: flex;
-          justify-content: center;
-          align-items: center;">
-          <button class="btn add-btn-commande">
-            Ajouter
-          </button>
-        </div>
       </div>
     </ion-content>
+    <ion-footer class="ion-no-border ion-padding">
+      <div class="row mt-3 text-center" style="display: flex;
+        justify-content: center;
+        align-items: center;">
+        <button class="btn delete-btn-commande" (click)="presentAlert2(selectedItem)">
+          Supprimer
+        </button>
+        <ion-alert [isOpen]="isAlertOpen2" header="Confirmer à supprimer?" [buttons]="alertButtons2"></ion-alert>
+      </div>
+    </ion-footer>
+  </ng-template>
+</ion-modal>
+
+<!-- Modal for encaisser -->
+<ion-modal [isOpen]="isEncaisserModalOpen">
+  <ng-template>
+    <ion-header class="ion-header-cheking">
+      <button class="btn btn-back" (click)="setEncaisserOpen(false)">
+        <ion-icon name="close-outline" class="back-icon" style="color: white;"></ion-icon>
+      </button>
+      <div class="ion-title text-center">
+        <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px; color: white;">
+          Enregistrer un paiement
+        </h5>
+      </div>
+    </ion-header>
+    <ion-content>
+
+      <div class="encaisser-infos container mt-3">
+        <!-- Montant Input -->
+        <div class="mb-3">
+          <label for="montant" class="form-label">Montant</label>
+          <input type="number" class="form-control" id="montant" placeholder="Enter montant" required>
+        </div>
+
+        <!-- Payment Method Radio Buttons -->
+
+        <fieldset class="mb-3">
+          <legend class="col-form-label form-label">Mode de Paiement</legend>
+          <div class="container d-flex align-items-center justify-content-center">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="paymentMethod" id="especes" value="especes" checked>
+              <label class="form-check-label" for="especes">
+                Espèces
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="paymentMethod" id="cheque" value="cheque">
+              <label class="form-check-label" for="cheque">
+                Chèque
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="paymentMethod" id="effet" value="effet">
+              <label class="form-check-label" for="effet">
+                Effet
+              </label>
+            </div>
+          </div>
+
+        </fieldset>
+
+        <!-- Note Textarea -->
+        <div class="mb-3">
+          <label for="note" class="form-label">Note</label>
+          <input class="form-control" type="text" id="note" placeholder="Enter your notes here">
+
+        </div>
+
+        <!-- Submit Button -->
+      </div>
+
+    </ion-content>
+    <ion-footer class="ion-no-border ion-padding">
+      <div class="row mt-3 text-center" style="display: flex;
+        justify-content: center;
+        align-items: center;">
+        <button class="btn confirmer-btn-commande">
+          Confirmer
+        </button>
+      </div>
+    </ion-footer>
   </ng-template>
 </ion-modal>

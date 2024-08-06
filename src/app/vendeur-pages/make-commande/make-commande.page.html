@@ -19,7 +19,7 @@
   <div class="list-products" style="margin-top: 55px;">
     <ion-searchbar></ion-searchbar>
     <div *ngFor="let item of filteredItems" style="margin-bottom: -88px;">
-      <ion-card class="shadow ion-activatable" (click)="openModal(item)">
+      <ion-card class="shadow ion-activatable" (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
         <ion-card-content class="p-0">
           <ion-grid>
             <ion-row>
@@ -29,7 +29,8 @@
               <ion-col size="6">
                 <h5 class="item-title">{{ item.name | truncate:15 }}</h5>
                 <ion-badge color="success" class="badge-price-item">{{ item.price }} Dhs/U</ion-badge><br>
-                <ion-badge color="danger" class="badge-quantity-price-item">{{ item.price * item.quantity }} Dhs</ion-badge>
+                <ion-badge color="danger" class="badge-quantity-price-item">{{ item.price * item.quantity }}
+                  Dhs</ion-badge>
               </ion-col>
 
             </ion-row>
@@ -40,11 +41,13 @@
       <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
         <div>
           <ng-container *ngIf="item.maxQuantityDisplayed; else notMax">
-            <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity" disabled (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
+            <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity"
+              disabled (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
             <button class="btn max-btn" (click)="resetQuantity(item.id, $event)">reset</button>
           </ng-container>
           <ng-template #notMax>
-            <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity" (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
+            <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity"
+              (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
             <button class="btn max-btn" (click)="maxQuantity(item.id, $event)">MAX</button>
           </ng-template>
         </div>
@@ -73,14 +76,14 @@
     </div>
   </div>
   @if (totalPrice > 0) {
-    <button class="btn confirmer-btn ion-activatable" (click)="goToCommandeDetails()">
-      Confirmer
-      <ion-ripple-effect></ion-ripple-effect>
-    </button>
+  <button class="btn confirmer-btn ion-activatable" (click)="goToCommandeDetails()">
+    Confirmer
+    <ion-ripple-effect></ion-ripple-effect>
+  </button>
   } @else {
-    <button class="btn confirmer-btn" disabled>
-      Confirmer
-    </button>
+  <button class="btn confirmer-btn" disabled>
+    Confirmer
+  </button>
   }
 
 </ion-footer>
@@ -90,7 +93,7 @@
   <ng-template>
     <ion-header>
       <button class="btn btn-back" (click)="setOpen(false)">
-        <ion-icon name="chevron-back-outline" class="back-icon"></ion-icon>
+        <ion-icon name="close-outline" class="back-icon"></ion-icon>
       </button>
       <div class="ion-title text-center">
         <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px; color: #1a2037;">
@@ -107,8 +110,25 @@
 
       <div class="products-infos container">
         <h4 class="item-price mb-1 text-center">{{ selectedItem.price }} Dhs</h4>
-        <h4 class="item-title item-name text-center">{{ selectedItem.name }}</h4>
-        <div class="row product-details" style="margin-top: 33px;">
+        <div class="accordion-item" id="product-name">
+          <a href="javascript:void(0)" (click)="toggleAccordion('product-name')" class="accordion-link">
+            <h4 class="item-title item-name text-center">{{ selectedItem.name }}</h4>
+            <div class="w-100 text-center">
+              @if (currentOpen !== 'product-name') {
+              <ion-icon class="add-outline shadow" name="arrow-down-outline"></ion-icon>
+              } @else {
+              <ion-icon class="close-outline shadow" name="close-outline"></ion-icon>
+              }
+            </div>
+          </a>
+          <div class="answer" [class.open]="currentOpen === 'product-name'">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique tempora ratione sit, quis amet
+              repudiandae debitis officia porro minus nam esse laudantium in, ipsam ut aut. Beatae fuga ducimus eius!
+            </p>
+          </div>
+        </div>
+        <div class="row product-details" style="margin-top: 15px;">
           <div class="col-6 text-center">
             <ion-badge color="primary" style="padding: 5px 10px 5px 10px;
               border-radius: 30px;
@@ -126,12 +146,13 @@
             </ion-badge>
           </div>
         </div>
-        <div class="row mt-5 text-center" style="display: flex;
+        <div class="row mt-3 text-center" style="display: flex;
           justify-content: center;
           align-items: center;">
-          <button class="btn add-btn-commande">
+          <button class="btn add-btn-commande" (click)="setOpen(false, selectedItem.id); increaseQuantity(selectedItem.id, $event)" >
             Ajouter
           </button>
+
         </div>
       </div>
     </ion-content>

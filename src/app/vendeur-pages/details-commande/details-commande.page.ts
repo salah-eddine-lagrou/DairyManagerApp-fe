@@ -105,9 +105,14 @@ export class DetailsCommandePage implements OnInit {
     this.isModalOpen = isOpen;
   }
 
+  isEncaisserModalOpen = false;
+  setEncaisserOpen(isOpen: boolean) {
+    this.isEncaisserModalOpen = isOpen;
+  }
+
   public alertButtons = [
     {
-      text: 'Cancel',
+      text: 'Annuler',
       role: 'cancel',
       handler: () => {
         console.log('Alert canceled');
@@ -115,12 +120,32 @@ export class DetailsCommandePage implements OnInit {
       },
     },
     {
-      text: 'OK',
+      text: 'Confirmer',
       role: 'confirm',
       handler: () => {
         console.log('Alert confirmed');
         this.deleteItem(this.itemToDelete);
         this.isAlertOpen = false;
+      },
+    },
+  ];
+  public alertButtons2 = [
+    {
+      text: 'Annuler',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+        this.isAlertOpen = false;
+      },
+    },
+    {
+      text: 'Confirmer',
+      role: 'confirm',
+      handler: () => {
+        console.log('Alert confirmed');
+        this.deleteItem(this.itemToDelete);
+        this.isAlertOpen = false;
+        this.setOpen(false);
       },
     },
   ];
@@ -134,5 +159,15 @@ export class DetailsCommandePage implements OnInit {
   presentAlert(item: any) {
     this.itemToDelete = item;
     this.isAlertOpen = true;
+  }
+  public isAlertOpen2 = false;
+  presentAlert2(item: any) {
+    this.itemToDelete = item;
+    this.isAlertOpen2 = true;
+  }
+
+  currentOpen: string | null = null;
+  toggleAccordion(id: string) {
+    this.currentOpen = this.currentOpen === id ? null : id;
   }
 }
