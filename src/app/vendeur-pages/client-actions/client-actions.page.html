@@ -79,7 +79,8 @@
           <ion-icon slot="start" name="locate-outline"></ion-icon>
           Localisation
         </ion-button>
-        <ion-button class="edit-infos-btn" expand="block" (click)="setOpen(true)"  fill="outline" color="primary" size="small" expand="block" style="height: 23px;">
+        <ion-button class="edit-infos-btn" expand="block" (click)="setOpen(true)" fill="outline" color="primary"
+          size="small" expand="block" style="height: 23px;">
           <ion-icon slot="start" name="create-outline"></ion-icon>
           Mise à jour
         </ion-button>
@@ -89,8 +90,8 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size="4" class="mb-3" (click)="navigateToMakeCommande()">
-        <div class="ag-courses_item shadow zoom-effect">
+      <ion-col size="4" class="mb-3">
+        <div class="ag-courses_item shadow zoom-effect" (click)="navigateToMakeCommande()">
           <div class="ag-courses-item_link">
             <ion-icon name="cart-outline" class="icon-large"></ion-icon>
             <div class="ag-courses-item_bg bg-primary"></div>
@@ -101,7 +102,7 @@
         </div>
       </ion-col>
       <ion-col size="4" class="mb-3">
-        <div class="ag-courses_item shadow zoom-effect">
+        <div class="ag-courses_item shadow zoom-effect" (click)="gratuiteToMakeCommande()">
           <div class="ag-courses-item_link">
             <ion-icon name="gift-outline" class="icon-large"></ion-icon>
             <div class="ag-courses-item_bg ag-courses-item_bg-gratuite"></div>
@@ -112,7 +113,7 @@
         </div>
       </ion-col>
       <ion-col size="4" class="mb-3">
-        <div class="ag-courses_item shadow zoom-effect">
+        <div class="ag-courses_item shadow zoom-effect" (click)="retourToMakeCommande()">
           <div class="ag-courses-item_link">
             <ion-icon name="reload-outline" class="icon-large"></ion-icon>
             <div class="ag-courses-item_bg ag-courses-item_bg-retour"></div>
@@ -208,39 +209,39 @@
         </div>
       </ion-header>
       <ion-content class="ion-padding" style="--background: white;">
-
-
-          <ion-card class="m-0">
-            <ion-card-header>
-              <ion-card-title style="color: #535353;" class="text-center">Modifier les Informations</ion-card-title>
-            </ion-card-header>
-            <hr class="m-0">
-            <ion-card-content>
-              <div class="mb-3">
-                <label for="raison-social" class="form-label">Raison social</label>
-                <input type="text" class="form-control" id="raison-social" placeholder="Entrer raison social" value="Client name">
-              </div>
-              <div class="mb-3">
-                <label for="telephone" class="form-label">Telephone</label>
-                <input type="text" class="form-control" id="telephone" placeholder="Entrer telephone" value="0606060606">
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Entrer votre email" value="email-client@gmail.com">
-              </div>
-            </ion-card-content>
-          </ion-card>
-          <div class="row mt-4">
-            <div class="col" style="flex: 0 0 50%; max-width: 50%;">
-              <ion-button fill="outline" style="width: 100%;
+        <ion-card class="m-0">
+          <ion-card-header>
+            <ion-card-title style="color: #535353;" class="text-center">Modifier les Informations</ion-card-title>
+          </ion-card-header>
+          <hr class="m-0">
+          <ion-card-content>
+            <div class="mb-3">
+              <label for="raison-social" class="form-label">Raison social</label>
+              <input type="text" class="form-control" id="raison-social" placeholder="Entrer raison social"
+                value="Client name">
+            </div>
+            <div class="mb-3">
+              <label for="telephone" class="form-label">Telephone</label>
+              <input type="text" class="form-control" id="telephone" placeholder="Entrer telephone" value="0606060606">
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="Entrer votre email"
+                value="email-client@gmail.com">
+            </div>
+          </ion-card-content>
+        </ion-card>
+        <div class="row mt-4">
+          <div class="col" style="flex: 0 0 50%; max-width: 50%;">
+            <ion-button fill="outline" style="width: 100%;
               color: white;
               --background: #0054e9;
               border-color: #0054e9;">Enregistrer</ion-button>
-            </div>
-            <div class="col" style="flex: 0 0 50%; max-width: 50%;">
-              <ion-button fill="outline" style="width: 100%;">Annuler</ion-button>
-            </div>
           </div>
+          <div class="col" style="flex: 0 0 50%; max-width: 50%;">
+            <ion-button fill="outline" style="width: 100%;">Annuler</ion-button>
+          </div>
+        </div>
 
 
 

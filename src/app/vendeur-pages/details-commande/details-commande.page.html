@@ -6,7 +6,7 @@
     <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px;">détails de la
       commande</h5>
   </div>
-  <a class="back-btn-home" routerLink="/vendeur-pages/home">
+  <a class="back-btn-home" (click)="backToHome()">
     <ion-icon name="home-outline" style="font-size: 25px; color: white;"></ion-icon>
   </a>
 </ion-header>
@@ -24,7 +24,11 @@
           </ion-col>
           <ion-col>
             <div class="info-item text-end">
+              @if (gratuite) {
+              <strong style="margin-left: auto;">0 Dhs</strong>
+              } @else {
               <strong style="margin-left: auto;">{{ totalPrice }} Dhs</strong>
+              }
             </div>
           </ion-col>
         </ion-row>
@@ -38,7 +42,11 @@
           </ion-col>
           <ion-col>
             <div class="info-item">
+              @if (gratuite) {
+              <ion-badge color="success" style="margin-left: auto; font-size: 10px;">Gratuité</ion-badge>
+              } @else {
               <ion-badge color="danger" style="margin-left: auto; font-size: 10px;">500 Dhs</ion-badge>
+              }
             </div>
           </ion-col>
         </ion-row>
@@ -68,7 +76,7 @@
             </div>
           </ion-col>
         </ion-row>
-        <ion-row style="margin: -10px -10px 0px">
+        <ion-row style="margin: -10px -10px -10px">
           <ion-col>
             <div class="info-item">
               <ion-icon style="font-size: 10px;" name="create-outline" class="me-2"></ion-icon>
@@ -80,6 +88,35 @@
             </div>
           </ion-col>
         </ion-row>
+        @if (paiement.id !== 0) {
+        <hr>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-icon style="font-size: 10px;" name="wallet-outline" class="me-2"></ion-icon>
+              <span style="font-size: 12px;">Mode de paiement</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <p style="margin-left: auto;">{{paiement.modePaiement}}</p>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-icon style="font-size: 10px;" name="cash-outline" class="me-2"></ion-icon>
+              <strong style="font-size: 12px;">Montant payée</strong>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item"><strong style="margin-left: auto;">{{paiement.montant}} Dhs</strong></div>
+          </ion-col>
+        </ion-row>
+        }
+
+
 
       </ion-grid>
     </ion-card-content>
@@ -98,8 +135,15 @@
                 <ion-col size="6">
                   <h5 class="item-title">{{ item.name | truncate:15 }}</h5>
                   <ion-badge color="success" class="badge-price-item">{{ item.price }} Dhs/U</ion-badge><br>
-                  <ion-badge color="danger" class="badge-quantity-price-item">{{ item.price * item.quantity }}
-                    Dhs</ion-badge>
+                  @if (gratuite) {
+                    <ion-badge color="dark" class="badge-quantity-stock-item">
+                      <ion-icon name="cube-outline" style="margin: 0px 0px -2px 0px;"></ion-icon>
+                      {{ item.quantityStock - item.quantity }} U
+                    </ion-badge>
+                  } @else {
+                    <ion-badge color="danger" class="badge-quantity-price-item">{{ item.price * item.quantity }}
+                      Dhs</ion-badge>
+                  }
                 </ion-col>
                 <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
                   <div>
@@ -149,20 +193,34 @@
 
 <ion-footer class="ion-no-border">
   <ion-grid>
-    <ion-row>
+    <ion-row class="d-flex justify-content-center align-items-center">
       <ion-col size="4" class="mb-3">
-        <div class="ag-courses_item shadow zoom-effect" (click)="setEncaisserOpen(true)">
-          <div class="ag-courses-item_link">
-            <ion-icon name="wallet-outline" class="icon-large"></ion-icon>
-            <div class="ag-courses-item_bg ag-courses-item_bg-encaisser"></div>
-            <div class="ag-courses-item_title text-center">
-              <h3>Encaisser</h3>
+        @if (gratuite) {
+          <div class="ag-courses_item shadow zoom-effect">
+            <div class="ag-courses-item_link">
+              <ion-icon name="print-outline" class="icon-large"></ion-icon>
+              <div class="ag-courses-item_bg ag-courses-item_bg-imprimer"></div>
+              <div class="ag-courses-item_title text-center">
+                <h3>Imprimer</h3>
+              </div>
             </div>
           </div>
-        </div>
+        } @else {
+          <div class="ag-courses_item shadow zoom-effect" (click)="setEncaisserOpen(true)">
+            <div class="ag-courses-item_link">
+              <ion-icon name="wallet-outline" class="icon-large"></ion-icon>
+              <div class="ag-courses-item_bg ag-courses-item_bg-encaisser"></div>
+              <div class="ag-courses-item_title text-center">
+                <h3>Encaisser</h3>
+              </div>
+            </div>
+          </div>
+        }
+
       </ion-col>
+      @if (paiement.id !== 0) {
       <ion-col size="4" class="mb-3">
-        <div class="ag-courses_item shadow zoom-effect">
+        <div class="ag-courses_item shadow zoom-effect" #itemElement>
           <div class="ag-courses-item_link">
             <ion-icon name="print-outline" class="icon-large"></ion-icon>
             <div class="ag-courses-item_bg ag-courses-item_bg-imprimer"></div>
@@ -172,8 +230,10 @@
           </div>
         </div>
       </ion-col>
+      }
+
       <ion-col size="4" class="mb-3">
-        <div class="ag-courses_item shadow zoom-effect">
+        <div class="ag-courses_item shadow zoom-effect" (click)="presentCancelAlert()">
           <div class="ag-courses-item_link">
             <ion-icon name="close-outline" class="icon-large"></ion-icon>
             <div class="ag-courses-item_bg ag-courses-item_bg-annuler"></div>
@@ -183,6 +243,7 @@
           </div>
         </div>
       </ion-col>
+      <ion-alert [isOpen]="isCancelAlertOpen" header="Annuler la commande?" [buttons]="alertCancelButtons"></ion-alert>
     </ion-row>
   </ion-grid>
 </ion-footer>
@@ -201,8 +262,6 @@
       </div>
     </ion-header>
     <ion-content>
-
-
       <div class="img-container">
         <img [src]="selectedItem.image" alt="{{ selectedItem.name }}">
       </div>
@@ -273,58 +332,106 @@
         </h5>
       </div>
     </ion-header>
-    <ion-content>
+    <ion-content style="--background: #ffffff;">
+      <ion-card class="client-card">
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon name="albums-outline" class="me-2"></ion-icon>
+                  <strong>Commande N:1</strong>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item text-end">
+                  <strong style="margin-left: auto;">{{ totalPrice }} Dhs</strong>
+                </div>
+              </ion-col>
+            </ion-row>
+            <hr>
+            <div class="accordion-item m-0" id="display-products">
+              <a href="javascript:void(0)" (click)="toggleAccordion('display-products')" class="accordion-link">
+                <div class="w-100 text-center">
+                  @if (currentOpen !== 'display-products') {
+                  <ion-icon class="add-outline shadow" name="arrow-down-outline" style="font-size: 15px;
+                    padding: 5px 25px 5px 25px;"></ion-icon>
+                  } @else {
+                  <ion-icon class="close-outline shadow" name="close-outline" style="font-size: 15px;
+                    padding: 5px 25px 5px 25px;"></ion-icon>
+                  }
+                </div>
+              </a>
+              <div class="answer" [class.open]="currentOpen === 'display-products'">
+                @for (item of commande; track $index) {
+                <ion-row style="margin: 0px -10px 0px">
+                  <ion-col>
+                    <div class="info-item">
+                      <ion-badge color="dark" style="font-size: 10px; padding-inline: 6px;"
+                        class="me-2">{{item.quantity}}</ion-badge>
+                      <span style="font-size: 12px;">{{ item.name | truncate:20 }}</span>
+                    </div>
+                  </ion-col>
+                  <ion-col>
+                    <div class="info-item">
+                      <ion-badge color="success"
+                        style="margin-left: auto; font-size: 10px; padding-inline: 6px; border-radius: 30px; width: 60px;">{{item.quantity
+                        * item.price}} Dhs</ion-badge>
+                    </div>
+                  </ion-col>
+                </ion-row>
+                }
+              </div>
+            </div>
 
+
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
       <div class="encaisser-infos container mt-3">
-        <!-- Montant Input -->
         <div class="mb-3">
           <label for="montant" class="form-label">Montant</label>
-          <input type="number" class="form-control" id="montant" placeholder="Enter montant" required>
+          <input type="number" class="form-control" id="montant" placeholder="Enter montant" required
+            [(ngModel)]="paiement.montant">
         </div>
-
-        <!-- Payment Method Radio Buttons -->
-
         <fieldset class="mb-3">
           <legend class="col-form-label form-label">Mode de Paiement</legend>
           <div class="container d-flex align-items-center justify-content-center">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="paymentMethod" id="especes" value="especes" checked>
+              <input class="form-check-input" type="radio" name="paymentMethod" id="especes" value="especes"
+                [(ngModel)]="paiement.modePaiement">
               <label class="form-check-label" for="especes">
                 Espèces
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="paymentMethod" id="cheque" value="cheque">
+              <input class="form-check-input" type="radio" name="paymentMethod" id="cheque" value="cheque"
+                [(ngModel)]="paiement.modePaiement">
               <label class="form-check-label" for="cheque">
                 Chèque
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="paymentMethod" id="effet" value="effet">
+              <input class="form-check-input" type="radio" name="paymentMethod" id="effet" value="effet"
+                [(ngModel)]="paiement.modePaiement">
               <label class="form-check-label" for="effet">
                 Effet
               </label>
             </div>
           </div>
-
         </fieldset>
-
-        <!-- Note Textarea -->
         <div class="mb-3">
           <label for="note" class="form-label">Note</label>
-          <input class="form-control" type="text" id="note" placeholder="Enter your notes here">
-
+          <input class="form-control" type="text" id="note" placeholder="Enter your notes here"
+            [(ngModel)]="paiement.note">
         </div>
-
-        <!-- Submit Button -->
       </div>
-
     </ion-content>
-    <ion-footer class="ion-no-border ion-padding">
+    <ion-footer class="ion-no-border ion-padding" style="background: #ffffff;">
       <div class="row mt-3 text-center" style="display: flex;
         justify-content: center;
         align-items: center;">
-        <button class="btn confirmer-btn-commande">
+        <button class="btn confirmer-btn-commande" (click)="confirmPaiement()">
           Confirmer
         </button>
       </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 
@@ -8,19 +8,34 @@ import { AlertController, LoadingController, NavController } from '@ionic/angula
   styleUrls: ['./details-commande.page.scss'],
 })
 export class DetailsCommandePage implements OnInit {
+  @ViewChild('itemElement') itemElement!: ElementRef;
   commande: any[] = [];
+  paiement = {
+    "id": 0,
+    "montant": 0,
+    "modePaiement": "especes",
+    "note": ""
+  };
   totalPrice: number = 0;
+  gratuite: boolean = false;
 
   constructor(
     private router: Router,
     private loadingController: LoadingController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private renderer: Renderer2
   ) { }
 
   async ngOnInit() {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
       this.commande = navigation.extras.state['commande'];
+      const gratuite = navigation.extras.state['gratuite'];
+      if (gratuite) {
+        this.gratuite = gratuite;
+      } else {
+        console.log("coming from make gratuite: false");
+      }
     }
 
     const loading = await this.loadingController.create({
@@ -90,7 +105,9 @@ export class DetailsCommandePage implements OnInit {
 
   backMakeMakeCommande(): void {
     const stringCommande = JSON.stringify(this.commande);
+    const stringGratuite = JSON.stringify(this.gratuite);
     localStorage.setItem("commande", stringCommande);
+    localStorage.setItem("gratuite", stringGratuite);
     this.navCtrl.setDirection("back");
     this.router.navigateByUrl("vendeur-pages/make-commande");
   }
@@ -169,5 +186,62 @@ export class DetailsCommandePage implements OnInit {
   currentOpen: string | null = null;
   toggleAccordion(id: string) {
     this.currentOpen = this.currentOpen === id ? null : id;
+  }
+
+  confirmPaiement() {
+    this.paiement.id = 1;
+    this.setEncaisserOpen(false);
+
+    setTimeout(() => {
+      this.renderer.addClass(this.itemElement.nativeElement, 'highlight-animation');
+
+      setTimeout(() => {
+        this.renderer.removeClass(this.itemElement.nativeElement, 'highlight-animation');
+      }, 1500);
+    }, 100);
+  }
+
+
+  public alertCancelButtons = [
+    {
+      text: 'Annuler',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+        this.isCancelAlertOpen = false;
+      },
+    },
+    {
+      text: 'Confirmer',
+      role: 'confirm',
+      handler: () => {
+        console.log('Alert confirmed');
+        this.isCancelAlertOpen = false;
+        localStorage.clear();
+        this.commande = [];
+        this.paiement = {
+          "id": 0,
+          "montant": 0,
+          "modePaiement": "especes",
+          "note": ""
+        };
+        this.gratuite = false;
+        this.navCtrl.setDirection("back");
+        if (this.homeRouting)
+          this.router.navigateByUrl("vendeur-pages/home");
+        else
+          this.router.navigateByUrl("vendeur-pages/client-actions");
+      },
+    },
+  ];
+  public isCancelAlertOpen = false;
+  homeRouting = false;
+  presentCancelAlert(home=false) {
+    this.isCancelAlertOpen = true;
+    this.homeRouting = home;
+  }
+
+  backToHome() :void {
+    this.presentCancelAlert(true);
   }
 }

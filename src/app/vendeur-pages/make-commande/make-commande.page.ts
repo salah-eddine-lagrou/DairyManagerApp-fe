@@ -27,23 +27,52 @@ export class MakeCommandePage implements OnInit {
     { value: 'produits', label: 'Produits d’importation' },
     { value: 'beurre', label: 'Beurre' },
   ];
+  // simple example for retour
+  clientCommande = {
+    items: [
+      {
+        id: 1,
+        item: this.items[0],
+        quantity: 6
+      },
+      {
+        id: 2,
+        item: this.items[1],
+        quantity: 5
+      },
+      {
+        id: 3,
+        item: this.items[2],
+        quantity: 10
+      }
+    ]
+  }
   selectedCategory = 'all';
-  filteredItems = this.items;
+  filteredItems: any[] = [];
   totalPrice: number = 0;
+
+  gratuite: boolean = false;
+  gratuiteBack: boolean = false;
+  retour: boolean = false;
+  totalPriceReturn = 0;
 
   alertButtons = [
     {
-      text: 'Cancel',
+      text: 'Non',
       role: 'cancel',
       handler: () => {
         console.log('Alert canceled');
+        this.isAlertOpen = false;
       },
     },
     {
-      text: 'OK',
+      text: 'Oui',
       role: 'confirm',
       handler: () => {
         console.log('Alert confirmed');
+        // TODO discuss with the team about the process of the return
+        this.isAlertOpen = false;
+        this.router.navigate(['vendeur-pages/client-actions']);
       },
     },
   ];
@@ -57,53 +86,155 @@ export class MakeCommandePage implements OnInit {
 
   ngOnInit() {
     console.log("running from make commande");
+    this.filteredItems = this.items;
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state) {
+      const gratuite = navigation.extras.state['gratuite'];
+      const retour = navigation.extras.state['retour'];
+      if (gratuite) {
+        this.gratuite = gratuite;
+        console.log("comming from gratuite : true");
 
+      } else if (retour) {
+        this.retour = retour;
+        console.log("comming from retour : true");
+        this.filteredItems = this.clientCommande.items.map(itemObj => ({
+          item: itemObj.item,       // Copy item details
+          quantity: itemObj.quantity // Copy quantity
+        }));
+      }
+    }
+  }
+
+  public isAlertOpen = false;
+  presentAlert() {
+    this.isAlertOpen = true;
   }
 
   segmentChanged(category: string) {
     this.selectedCategory = category;
-    if (category === 'all') {
-      this.filteredItems = this.items;
+    if (this.retour) {
+      if (category === 'all') {
+        this.filteredItems = this.clientCommande.items;
+      } else {
+        this.filteredItems = this.clientCommande.items.filter(item => item.item.category === category);
+      }
     } else {
-      this.filteredItems = this.items.filter(item => item.category === category);
+      if (category === 'all') {
+        this.filteredItems = this.items;
+      } else {
+        this.filteredItems = this.items.filter(item => item.category === category);
+      }
     }
+
   }
 
   decreaseQuantity(id: number, event: Event) {
     event.stopPropagation();
-    const item = this.items.find(item => item.id === id);
-    if (item !== undefined && item.quantity > 0) {
-      item.quantity--;
-      this.totalPrice -= item.price;
+    let item = this.items.find(item => item.id === id);
+    if (item) {
+      if (this.retour) {
+        let itemReturn = this.clientCommande.items.find(itemObj => itemObj.item.id === id);
+        if (itemReturn) {
+          if (item.quantity > 0) {
+            item.quantityStock--;
+            item.quantity--;
+
+            itemReturn.quantity++;
+            // Update filteredItems
+            this.filteredItems = this.clientCommande.items;
+          }
+        } else {
+          console.error('ItemReturn not found');
+        }
+      } else {
+        if (item.quantity > 0) {
+          item.quantity--;
+          item.quantityStock++;
+          this.totalPrice -= item.price;
+        }
+      }
+      this.updateTotalPrice();
+    } else {
+      console.error('Item not found');
     }
   }
 
   increaseQuantity(id: number, event: Event) {
     event.stopPropagation();
-    const item = this.items.find(item => item.id === id);
-    if (item !== undefined && item.quantity < item.quantityStock) {
-      item.quantity++;
-      this.totalPrice += item.price;
+    let item = this.items.find(item => item.id === id);
+    if (item) {
+      if (this.retour) {
+        let itemReturn = this.clientCommande.items.find(itemObj => itemObj.item.id === id);
+
+        if (itemReturn) {
+          if (itemReturn.quantity > 0) {
+            item.quantityStock++;
+            item.quantity++;
+
+            itemReturn.quantity--;
+            // Update filteredItems
+            this.filteredItems = this.clientCommande.items;
+
+          }
+        } else {
+          console.error('ItemReturn not found');
+        }
+      } else {
+        if (item.quantity < item.quantityStock) {
+          item.quantity++;
+          item.quantityStock--;
+          this.totalPrice += item.price;
+        }
+      }
+      this.updateTotalPrice();
+    } else {
+      console.error('Item not found');
     }
   }
 
+
   maxQuantity(id: number, event: Event): void {
     event.stopPropagation();
-    const item = this.items.find(item => item.id === id);
-    if (item !== undefined && item.maxQuantityDisplayed === false) {
-      item.maxQuantityDisplayed = true;
-      this.totalPrice += (item.quantityStock - item.quantity) * item.price;
-      item.quantity = item.quantityStock;
+    let item = this.items.find(item => item.id === id);
+    if (item) {
+      if (this.retour) {
+        let itemReturn = this.clientCommande.items.find(itemObj => itemObj.item.id === id);
+        itemReturn!.item.maxQuantityDisplayed = true;
+        item.quantity = itemReturn!.quantity;
+        itemReturn!.quantity = 0;
+        // Update filteredItems
+        this.filteredItems = this.clientCommande.items;
+
+      } else {
+        if (item.maxQuantityDisplayed === false) {
+          item.maxQuantityDisplayed = true;
+          this.totalPrice += (item.quantityStock - item.quantity) * item.price;
+          item.quantity = item.quantityStock;
+        }
+      }
+      this.updateTotalPrice();
     }
   }
 
   resetQuantity(id: number, event: Event) {
     event.stopPropagation();
-    const item = this.items.find(item => item.id === id);
-    if (item !== undefined) {
-      item.maxQuantityDisplayed = false;
-      this.totalPrice -= item.quantity * item.price;
-      item.quantity = 0;
+    let item = this.items.find(item => item.id === id);
+    if (item) {
+      if (this.retour) {
+        let itemReturn = this.clientCommande.items.find(itemObj => itemObj.item.id === id);
+        itemReturn!.item.maxQuantityDisplayed = false;
+        itemReturn!.quantity = item.quantity;
+        item.quantity = 0;
+        // Update filteredItems
+        this.filteredItems = this.clientCommande.items;
+
+      } else {
+        item.maxQuantityDisplayed = false;
+        this.totalPrice -= item.quantity * item.price;
+        item.quantity = 0;
+      }
+      this.updateTotalPrice();
     }
   }
 
@@ -121,36 +252,44 @@ export class MakeCommandePage implements OnInit {
   setOpen(isOpen: boolean, idItem: number = 0): void {
     this.isModalOpen = isOpen;
     if (idItem !== 0) {
-      // Wait until modal is open
       setTimeout(() => {
-        // Find the item element
         const itemElement = this.el.nativeElement.querySelector(`#item${idItem}`);
         if (itemElement) {
-          // Scroll to the item element
           itemElement.scrollIntoView({ behavior: 'smooth' });
 
-          // Add the animation class
           this.renderer.addClass(itemElement, 'highlight-animation');
 
-          // Remove the animation class after animation ends
           setTimeout(() => {
             this.renderer.removeClass(itemElement, 'highlight-animation');
-          }, 1000); // duration of the animation in milliseconds
+          }, 1000);
         }
-      }, 100); // delay to ensure modal is fully opened
+      }, 100);
     }
   }
 
   goToCommandeDetails(): void {
     const commande = this.items.filter(item => item.quantity > 0);
-    console.log(commande);
-    this.router.navigate(['vendeur-pages/details-commande'], { state: { commande } });
+    if (this.gratuite) {
+      const gratuite = this.gratuite;
+      this.router.navigate(['vendeur-pages/details-commande'], { state: { gratuite, commande } });
+    } else {
+      this.router.navigate(['vendeur-pages/details-commande'], { state: { commande } });
+    }
   }
 
 
   commandeStored: any;
   ionViewWillEnter() {
     const stringCommandeStored = localStorage.getItem("commande");
+    const stringGratuiteStored = localStorage.getItem("gratuite");
+
+    if (stringGratuiteStored) {
+      this.gratuiteBack = JSON.parse(stringGratuiteStored) as boolean;
+    } else {
+      this.gratuiteBack = false;
+      console.log("back from detail commande gratuite : false");
+    }
+
     if (stringCommandeStored) {
       this.commandeStored = JSON.parse(stringCommandeStored) as any[]; // Explicitly type as array
 
@@ -169,12 +308,15 @@ export class MakeCommandePage implements OnInit {
           item.maxQuantityDisplayed = false;
         }
       }
-
       this.updateTotalPrice();
       localStorage.clear();
     } else {
       console.log("back from details commande: false");
     }
+
+
+
+
   }
 
   currentOpen: string | null = null;

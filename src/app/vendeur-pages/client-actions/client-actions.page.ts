@@ -20,7 +20,17 @@ export class ClientActionsPage implements OnInit {
     this.isModalOpen = isOpen;
   }
 
-  navigateToMakeCommande() :void{
+  navigateToMakeCommande() :void {
     this.router.navigate(['vendeur-pages/make-commande']);
+  }
+
+  gratuiteToMakeCommande() :void {
+    const gratuite = true;
+    this.router.navigate(['vendeur-pages/make-commande'], { state: { gratuite } });
+  }
+
+  retourToMakeCommande() :void {
+    const retour = true;
+    this.router.navigate(['vendeur-pages/make-commande'], { state: { retour } });
   }
 }

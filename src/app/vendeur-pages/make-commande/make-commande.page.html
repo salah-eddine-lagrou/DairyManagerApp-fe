@@ -3,7 +3,13 @@
     <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
   </a>
   <div class="ion-title text-center">
-    <h5 class="client-name" style="margin-bottom: 0px; font-size: 18px;">NOUVELLE COMMANDE</h5>
+    @if (gratuite || gratuiteBack) {
+    <h5 class="client-name" style="margin-bottom: 0px; font-size: 18px; text-transform: uppercase;">Gratuité</h5>
+    } @else if (retour) {
+    <h5 class="client-name" style="margin-bottom: 0px; font-size: 18px; text-transform: uppercase;">Retour</h5>
+    } @else {
+    <h5 class="client-name" style="margin-bottom: 0px; font-size: 18px; text-transform: uppercase;">Nouvelle commande</h5>
+    }
   </div>
 </ion-header>
 
@@ -18,49 +24,108 @@
 
   <div class="list-products" style="margin-top: 55px;">
     <ion-searchbar></ion-searchbar>
-    <div *ngFor="let item of filteredItems" style="margin-bottom: -88px;">
-      <ion-card class="shadow ion-activatable" (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
-        <ion-card-content class="p-0">
-          <ion-grid>
-            <ion-row>
-              <ion-col size="3" class="img-item-container">
-                <img class="img-item" [src]="item.image" alt="">
-              </ion-col>
-              <ion-col size="6">
-                <h5 class="item-title">{{ item.name | truncate:15 }}</h5>
-                <ion-badge color="success" class="badge-price-item">{{ item.price }} Dhs/U</ion-badge><br>
-                <ion-badge color="danger" class="badge-quantity-price-item">{{ item.price * item.quantity }}
-                  Dhs</ion-badge>
-              </ion-col>
+    @if (retour) {
+      <div *ngFor="let item of filteredItems" style="margin-bottom: -88px;">
+        <ion-card class="shadow ion-activatable" (click)="openModal(item.item)" [id]="'item' + item.item.id" class="item-container">
+          <ion-card-content class="p-0">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="3" class="img-item-container">
+                  <img class="img-item" [src]="item.item.image" alt="">
+                </ion-col>
+                <ion-col size="6">
+                  <h5 class="item-title">{{ item.item.name | truncate:15 }}</h5>
+                  <ion-badge color="success" class="badge-price-item">{{ item.item.price }} Dhs/U</ion-badge><br>
+                  <ion-badge color="dark" class="badge-quantity-stock-item">
+                    <ion-icon name="repeat-outline" style="margin: 0px 0px -2px 0px;"></ion-icon>
+                    {{ item.quantity }} U
+                  </ion-badge>
 
-            </ion-row>
-          </ion-grid>
-        </ion-card-content>
-        <ion-ripple-effect></ion-ripple-effect>
-      </ion-card>
-      <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
-        <div>
-          <ng-container *ngIf="item.maxQuantityDisplayed; else notMax">
-            <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity"
-              disabled (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
-            <button class="btn max-btn" (click)="resetQuantity(item.id, $event)">reset</button>
-          </ng-container>
-          <ng-template #notMax>
-            <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity"
-              (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
-            <button class="btn max-btn" (click)="maxQuantity(item.id, $event)">MAX</button>
-          </ng-template>
-        </div>
-        <div style="margin-left: 10px;">
-          <button class="btn increase-btn" (click)="increaseQuantity(item.id, $event)">
-            <ion-icon name="add-outline"></ion-icon>
-          </button>
-          <button class="btn decrease-btn" (click)="decreaseQuantity(item.id, $event)">
-            <ion-icon name="remove-outline"></ion-icon>
-          </button>
-        </div>
-      </ion-col>
-    </div>
+                </ion-col>
+
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-card>
+        <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
+          <!-- TODO in binding we used quantity items of products just to show counter -->
+          <div>
+            <ng-container *ngIf="item.item.maxQuantityDisplayed; else notMax">
+              <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.item.quantity"
+                disabled (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
+              <button class="btn max-btn" (click)="resetQuantity(item.item.id, $event)">reset</button>
+            </ng-container>
+            <ng-template #notMax>
+              <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.item.quantity"
+                (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
+              <button class="btn max-btn" (click)="maxQuantity(item.item.id, $event)">MAX</button>
+            </ng-template>
+          </div>
+          <div style="margin-left: 10px;">
+            <button class="btn increase-btn" (click)="increaseQuantity(item.item.id, $event)">
+              <ion-icon name="add-outline"></ion-icon>
+            </button>
+            <button class="btn decrease-btn" (click)="decreaseQuantity(item.id, $event)">
+              <ion-icon name="remove-outline"></ion-icon>
+            </button>
+          </div>
+        </ion-col>
+      </div>
+
+    } @else {
+      <div *ngFor="let item of filteredItems" style="margin-bottom: -88px;">
+        <ion-card class="shadow ion-activatable" (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
+          <ion-card-content class="p-0">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="3" class="img-item-container">
+                  <img class="img-item" [src]="item.image" alt="">
+                </ion-col>
+                <ion-col size="6">
+                  <h5 class="item-title">{{ item.name | truncate:15 }}</h5>
+                  <ion-badge color="success" class="badge-price-item">{{ item.price }} Dhs/U</ion-badge><br>
+                  @if (gratuite || gratuiteBack) {
+                  <ion-badge color="dark" class="badge-quantity-stock-item">
+                    <ion-icon name="cube-outline" style="margin: 0px 0px -2px 0px;"></ion-icon>
+                    {{ item.quantityStock - item.quantity }} U
+                  </ion-badge>
+                  } @else {
+                  <ion-badge color="danger" class="badge-quantity-price-item">{{ item.price * item.quantity }}
+                    Dhs</ion-badge>
+                  }
+
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-card>
+        <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
+          <div>
+            <ng-container *ngIf="item.maxQuantityDisplayed; else notMax">
+              <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity"
+                disabled (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
+              <button class="btn max-btn" (click)="resetQuantity(item.id, $event)">reset</button>
+            </ng-container>
+            <ng-template #notMax>
+              <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity"
+                (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
+              <button class="btn max-btn" (click)="maxQuantity(item.id, $event)">MAX</button>
+            </ng-template>
+          </div>
+          <div style="margin-left: 10px;">
+            <button class="btn increase-btn" (click)="increaseQuantity(item.id, $event)">
+              <ion-icon name="add-outline"></ion-icon>
+            </button>
+            <button class="btn decrease-btn" (click)="decreaseQuantity(item.id, $event)">
+              <ion-icon name="remove-outline"></ion-icon>
+            </button>
+          </div>
+        </ion-col>
+      </div>
+    }
+
   </div>
 </ion-content>
 
@@ -68,18 +133,32 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <p style="color: red;">Total</p>
+        <p [ngStyle]="{'color': gratuite || gratuiteBack ? 'green' : 'red'}">Total</p>
       </div>
       <div class="col text-end">
+        @if (gratuite || gratuiteBack) {
+        <strong style="color: green;">0 Dhs</strong>
+        } @else {
         <strong style="color: red;">{{ totalPrice }} Dhs</strong>
+        }
       </div>
     </div>
   </div>
   @if (totalPrice > 0) {
-  <button class="btn confirmer-btn ion-activatable" (click)="goToCommandeDetails()">
-    Confirmer
-    <ion-ripple-effect></ion-ripple-effect>
-  </button>
+    @if (retour) {
+      <button class="btn confirmer-btn ion-activatable" (click)="presentAlert()">
+        Confirmer
+        <ion-ripple-effect></ion-ripple-effect>
+      </button>
+      <ion-alert [isOpen]="isAlertOpen" header="Confirmer le retour!" [buttons]="alertButtons"></ion-alert>
+
+    } @else {
+      <button class="btn confirmer-btn ion-activatable" (click)="goToCommandeDetails()">
+        Confirmer
+        <ion-ripple-effect></ion-ripple-effect>
+      </button>
+    }
+
   } @else {
   <button class="btn confirmer-btn" disabled>
     Confirmer
@@ -149,7 +228,8 @@
         <div class="row mt-3 text-center" style="display: flex;
           justify-content: center;
           align-items: center;">
-          <button class="btn add-btn-commande" (click)="setOpen(false, selectedItem.id); increaseQuantity(selectedItem.id, $event)" >
+          <button class="btn add-btn-commande"
+            (click)="setOpen(false, selectedItem.id); increaseQuantity(selectedItem.id, $event)">
             Ajouter
           </button>
 

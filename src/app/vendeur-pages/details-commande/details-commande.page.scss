@@ -95,9 +95,16 @@ ion-content {
     padding-bottom: 2px;
     margin-bottom: -4px;
   }
-
   .badge-quantity-price-item {
     background: #940101;
+    border-radius: 50px;
+    padding-inline: 8px;
+    font-size: 11px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+  .badge-quantity-stock-item {
+    background: black;
     border-radius: 50px;
     padding-inline: 8px;
     font-size: 11px;
@@ -422,6 +429,26 @@ ion-footer {
     transform: scale(1.10);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3) !important;
   }
+
+  .highlight-animation {
+    animation: bounce 1s ease;
+  }
+
+  @keyframes bounce {
+    0% {
+      transform: translateY(0);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    100% {
+      transform: translateY(0);
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    }
+  }
+
 }
 
 ion-modal {
@@ -482,6 +509,30 @@ ion-modal {
       }
     }
 
+    .client-card {
+      padding: 0.5rem;
+
+      ion-card-content {
+        padding: 8px;
+
+        .info-item {
+          display: flex;
+          align-items: center;
+          color: #1a2037;
+
+          ion-icon {
+            color: #1a2037;
+            font-size: 18px;
+          }
+        }
+
+        .buttons-container {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+
     .products-infos {
       margin-top: 30px;
       padding: 20px;
@@ -515,81 +566,87 @@ ion-modal {
           color: #555;
         }
       }
+    }
 
-      .add-outline, .close-outline {
-        font-size: 30px;
-        padding: 15px;
-        border-radius: 50px;
+    .add-outline, .close-outline {
+      font-size: 30px;
+      padding: 15px;
+      border-radius: 50px;
+    }
+
+    .accordion {
+      &::-webkit-scrollbar {
+        display: none;
       }
 
-      .accordion {
-        &::-webkit-scrollbar {
-          display: none;
-        }
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      overflow: -moz-scrollbars-none;
+    }
 
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-        overflow: -moz-scrollbars-none;
-      }
+    .accordion-item {
+      border-radius: 0.4rem;
+      margin-bottom: 1rem;
+    }
 
-      .accordion-item {
-        border-radius: 0.4rem;
-        margin-bottom: 1rem;
-      }
+    .accordion-link {
+      color: rgb(19, 19, 19);
+      font-size: 1.2rem;
+      text-decoration: none;
+      width: 100%;
+      padding: 1rem 0;
+    }
 
-      .accordion-link {
-        color: rgb(19, 19, 19);
-        font-size: 1.2rem;
-        text-decoration: none;
-        width: 100%;
-        padding: 1rem 0;
-      }
-
-      .accordion-link i {
-        padding: 0.5rem;
-      }
+    .accordion-link i {
+      padding: 0.5rem;
+    }
 
 
-      .answer {
-        max-height: 0;
-        overflow: hidden;
-        position: relative;
-        color: rgb(48, 48, 48);
-        transition: max-height 650ms;
-      }
+    .answer {
+      max-height: 0;
+      overflow: hidden;
+      position: relative;
+      color: rgb(48, 48, 48);
+      transition: max-height 650ms;
+    }
 
-      .answer::before {
-        content: "";
-        position: absolute;
-        width: 0.6rem;
-        height: 90%;
-        background-color: #1a2037;
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
-      }
+    // .answer::before {
+    //   content: "";
+    //   position: absolute;
+    //   width: 0.6rem;
+    //   height: 90%;
+    //   background-color: #1a2037;
+    //   top: 50%;
+    //   left: 0;
+    //   transform: translateY(-50%);
+    // }
 
-      .answer p {
-        padding: 2rem;
-        font-size: 1rem;
-      }
+    .answer p {
+      padding: 2rem;
+      font-size: 1rem;
+    }
 
-      .accordion-item:target .answer {
-        max-height: 20rem;
-      }
+    .accordion-item:target .answer {
+      max-height: 20rem;
+    }
 
-      .answer {
-        max-height: 0;
-        overflow: hidden;
-        position: relative;
-        color: rgb(48, 48, 48);
-        border-radius: 0.2rem;
-        box-shadow: inset 0.5rem 2px 0.5rem rgba(0, 0, 0, 0.1);
-        transition: max-height 650ms;
+    .answer {
+      max-height: 0;
+      overflow: hidden;
+      position: relative;
+      color: rgb(48, 48, 48);
+      border-radius: 0.2rem;
+      box-shadow: inset 0.5rem 2px 0.5rem rgba(0, 0, 0, 0.1);
+      border-left: 4px solid #1a2037;
+      border-radius: 5px;
+      transition: max-height 650ms;
+      transition : all .3s ease ;
 
-        &.open {
-          max-height: 20rem;
-        }
+      &.open {
+        max-height: 15rem;
+        overflow-y: auto;
+        padding: 20px;
+        transition : all .3s ease ;
       }
     }
 
