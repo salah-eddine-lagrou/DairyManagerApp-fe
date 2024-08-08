@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-details-commande',
@@ -127,60 +128,48 @@ export class DetailsCommandePage implements OnInit {
     this.isEncaisserModalOpen = isOpen;
   }
 
-  public alertButtons = [
-    {
-      text: 'Annuler',
-      role: 'cancel',
-      handler: () => {
-        console.log('Alert canceled');
-        this.isAlertOpen = false;
-      },
-    },
-    {
-      text: 'Confirmer',
-      role: 'confirm',
-      handler: () => {
-        console.log('Alert confirmed');
-        this.deleteItem(this.itemToDelete);
-        this.isAlertOpen = false;
-      },
-    },
-  ];
-  public alertButtons2 = [
-    {
-      text: 'Annuler',
-      role: 'cancel',
-      handler: () => {
-        console.log('Alert canceled');
-        this.isAlertOpen = false;
-      },
-    },
-    {
-      text: 'Confirmer',
-      role: 'confirm',
-      handler: () => {
-        console.log('Alert confirmed');
-        this.deleteItem(this.itemToDelete);
-        this.isAlertOpen = false;
-        this.setOpen(false);
-      },
-    },
-  ];
+
 
   setResult(ev: any) {
     console.log(`Dismissed with role: ${ev.detail.role}`);
   }
 
-  public isAlertOpen = false;
-  private itemToDelete: any;
+
   presentAlert(item: any) {
-    this.itemToDelete = item;
-    this.isAlertOpen = true;
+    // this.itemToDelete = item;
+    // this.isAlertOpen = true;
+    Swal.fire({
+      title: "Confirmer la suppression ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Oui, retirer !",
+      cancelButtonText: "Annuler",
+      heightAuto: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteItem(item);
+      }
+    });
   }
-  public isAlertOpen2 = false;
+
   presentAlert2(item: any) {
-    this.itemToDelete = item;
-    this.isAlertOpen2 = true;
+    Swal.fire({
+      title: "Confirmer la suppression ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Oui, retirer !",
+      cancelButtonText: "Annuler",
+      heightAuto: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteItem(item);
+        this.setOpen(false);
+      }
+    });
   }
 
   currentOpen: string | null = null;
@@ -199,24 +188,24 @@ export class DetailsCommandePage implements OnInit {
         this.renderer.removeClass(this.itemElement.nativeElement, 'highlight-animation');
       }, 1500);
     }, 100);
+
   }
 
 
-  public alertCancelButtons = [
-    {
-      text: 'Annuler',
-      role: 'cancel',
-      handler: () => {
-        console.log('Alert canceled');
-        this.isCancelAlertOpen = false;
-      },
-    },
-    {
-      text: 'Confirmer',
-      role: 'confirm',
-      handler: () => {
+  presentCancelAlert(home=false) {
+    Swal.fire({
+      title: "Êtes-vous sûr ?",
+      text: "Voulez-vous vraiment annuler ? La création de commande sera annulée.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Confirmer",
+      cancelButtonText: "Annuler",
+      heightAuto: false
+    }).then((result) => {
+      if (result.isConfirmed) {
         console.log('Alert confirmed');
-        this.isCancelAlertOpen = false;
         localStorage.clear();
         this.commande = [];
         this.paiement = {
@@ -227,21 +216,13 @@ export class DetailsCommandePage implements OnInit {
         };
         this.gratuite = false;
         this.navCtrl.setDirection("back");
-        if (this.homeRouting)
+        if (home)
           this.router.navigateByUrl("vendeur-pages/home");
         else
           this.router.navigateByUrl("vendeur-pages/client-actions");
-      },
-    },
-  ];
-  public isCancelAlertOpen = false;
-  homeRouting = false;
-  presentCancelAlert(home=false) {
-    this.isCancelAlertOpen = true;
-    this.homeRouting = home;
-  }
-
-  backToHome() :void {
-    this.presentCancelAlert(true);
+      } else {
+        console.log('Alert canceled');
+      }
+    });
   }
 }

@@ -6,7 +6,7 @@
     <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px;">détails de la
       commande</h5>
   </div>
-  <a class="back-btn-home" (click)="backToHome()">
+  <a class="back-btn-home" (click)="presentCancelAlert(true)">
     <ion-icon name="home-outline" style="font-size: 25px; color: white;"></ion-icon>
   </a>
 </ion-header>
@@ -180,7 +180,7 @@
           <ion-icon name="trash-outline"></ion-icon>
         </ion-item-option>
       </ion-item-options>
-      <ion-alert [isOpen]="isAlertOpen" header="Confirmer à supprimer?" [buttons]="alertButtons"></ion-alert>
+      <!-- <ion-alert [isOpen]="isAlertOpen" header="Confirmer à supprimer?" [buttons]="alertButtons"></ion-alert> -->
 
     </ion-item-sliding>
 
@@ -243,7 +243,7 @@
           </div>
         </div>
       </ion-col>
-      <ion-alert [isOpen]="isCancelAlertOpen" header="Annuler la commande?" [buttons]="alertCancelButtons"></ion-alert>
+      <!-- <ion-alert [isOpen]="isCancelAlertOpen" header="Annuler la commande?" [buttons]="alertCancelButtons"></ion-alert> -->
     </ion-row>
   </ion-grid>
 </ion-footer>
@@ -280,7 +280,7 @@
             </div>
           </a>
           <div class="answer" [class.open]="currentOpen === 'product-name'">
-            <p>
+            <p style="margin: 0;">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique tempora ratione sit, quis amet
               repudiandae debitis officia porro minus nam esse laudantium in, ipsam ut aut. Beatae fuga ducimus eius!
             </p>
@@ -313,7 +313,7 @@
         <button class="btn delete-btn-commande" (click)="presentAlert2(selectedItem)">
           Supprimer
         </button>
-        <ion-alert [isOpen]="isAlertOpen2" header="Confirmer à supprimer?" [buttons]="alertButtons2"></ion-alert>
+        <!-- <ion-alert [isOpen]="isAlertOpen2" header="Confirmer à supprimer?" [buttons]="alertButtons2"></ion-alert> -->
       </div>
     </ion-footer>
   </ng-template>

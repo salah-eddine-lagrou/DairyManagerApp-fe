@@ -33,4 +33,16 @@ export class ClientActionsPage implements OnInit {
     const retour = true;
     this.router.navigate(['vendeur-pages/make-commande'], { state: { retour } });
   }
+
+  navigateToReglement() :void {
+    this.router.navigate(['vendeur-pages/reglement']);
+  }
+
+  navigateToBL() :void {
+    this.router.navigate(['vendeur-pages/bon-livraison']);
+  }
+
+  navigateToEquipement() :void {
+    this.router.navigate(['vendeur-pages/equipement']);
+  }
 }

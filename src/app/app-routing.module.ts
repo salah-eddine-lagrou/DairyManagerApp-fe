@@ -39,6 +39,24 @@ const routes: Routes = [
     path: 'vendeur-pages/details-commande',
     loadChildren: () => import('./vendeur-pages/details-commande/details-commande.module').then( m => m.DetailsCommandePageModule)
   },
+  {
+    path: 'vendeur-pages/bon-livraison',
+    loadChildren: () => import('./vendeur-pages/bon-livraison/bon-livraison.module').then( m => m.BonLivraisonPageModule)
+  },
+  {
+    path: 'vendeur-pages/reglement',
+    loadChildren: () => import('./vendeur-pages/reglement/reglement.module').then( m => m.ReglementPageModule)
+  },
+  {
+    path: 'vendeur-pages/equipement',
+    loadChildren: () => import('./vendeur-pages/equipement/equipement.module').then( m => m.EquipementPageModule)
+  },
+  {
+    path: 'vendeur-pages/reglement-list',
+    loadChildren: () => import('./vendeur-pages/reglement-list/reglement-list.module').then( m => m.ReglementListPageModule)
+  },
+
+
 
 
 

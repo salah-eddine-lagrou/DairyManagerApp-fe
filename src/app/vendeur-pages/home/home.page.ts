@@ -55,8 +55,12 @@ export class HomePage implements OnInit {
   }
 
   // navigations
-  navigateToClients(): void {
+  navigateToClients() :void {
     this.router.navigate(['vendeur-pages/clients']);
+  }
+
+  navigateToReglement() :void {
+    this.router.navigate(['vendeur-pages/reglement-list']);
   }
 
 

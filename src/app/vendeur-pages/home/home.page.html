@@ -68,7 +68,7 @@
         </div>
       </div>
       <div class="col-6 mb-4">
-        <div class="ag-courses_item shadow zoom-effect">
+        <div class="ag-courses_item shadow zoom-effect" (click)="navigateToReglement()">
           <div class="ag-courses-item_link">
             <ion-icon name="card-outline"></ion-icon>
             <div class="ag-courses-item_bg ag-courses-item_bg-reglem"></div>
@@ -173,8 +173,7 @@
       </ion-header>
       <ion-content class="ion-padding" style="--background: white;">
         <ion-segment [(ngModel)]="selectedSegment" style="position: absolute; top: 0; left: 0; height: 55px;">
-          <ion-segment-button value="informations" (click)="changeSegmentColorLabel('Informations')"
-            [style]="colorStyleInfo">
+          <ion-segment-button value="informations" (click)="changeSegmentColorLabel('Informations')" [style]="colorStyleInfo">
             <ion-label>Informations</ion-label>
           </ion-segment-button>
           <ion-segment-button value="securite" (click)="changeSegmentColorLabel('Securite')" [style]="colorStyleSec">

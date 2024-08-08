@@ -1,0 +1,131 @@
+<ion-header class="ion-header-cheking">
+  <a class="back-btn-header" routerDirection="back" routerLink="/vendeur-pages/client-actions">
+    <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
+  <div class="ion-title text-center">
+    <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px; color: white;">
+      Equipement
+    </h5>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding" style="--background: white;">
+  <ion-card class="equipement-card shadow ion-activatable" (click)="defineState()">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="9">
+            <div class="info-item">
+              <strong>Vitrine réfrigérée fromagerie</strong>
+            </div>
+          </ion-col>
+          <ion-col size="3">
+            <div class="info-item text-end">
+              <ion-icon name="checkmark-outline" style="margin-left: auto;    margin-left: auto;
+                color: #3e58bb;
+                font-size: 20px;">
+              </ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row style="margin: 0px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <span style="font-size: 12px;">RF007662</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-badge color="secondary" class="equipement-state-badge"><ion-icon name="build-outline"></ion-icon>
+                Confort</ion-badge>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span style="font-size: 12px; margin-left: auto;">20-03-2024 09:23</span>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+    <ion-ripple-effect></ion-ripple-effect>
+  </ion-card>
+  <ion-card class="equipement-card shadow ion-activatable" (click)="defineState()">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="9">
+            <div class="info-item">
+              <strong>Vitrine réfrigérée fromagerie</strong>
+            </div>
+          </ion-col>
+          <ion-col size="3">
+            <div class="info-item text-end">
+              <ion-icon name="checkmark-outline" style="margin-left: auto;    margin-left: auto;
+                color: #3e58bb;
+                font-size: 20px;">
+              </ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row style="margin: 0px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <span style="font-size: 12px;">RF007662</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-badge color="secondary" class="equipement-state-badge">
+                <ion-icon name="build-outline"></ion-icon>
+                Bon état mais vide
+              </ion-badge>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span style="font-size: 12px; margin-left: auto;">20-03-2024 09:23</span>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+    <ion-ripple-effect></ion-ripple-effect>
+  </ion-card>
+
+  <div class="state-equipement" [ngClass]="classNameState">
+    <div class="content">
+      <div class="state-title text-center">
+        état d'equipement
+      </div>
+      <hr style="margin: 7px;">
+      <div class="state-item text-center">
+        Confort
+      </div>
+      <div class="state-item text-center">
+        Bon état mais vide
+      </div>
+      <div class="state-item text-center">
+        Mal présenté
+      </div>
+      <div class="state-item text-center">
+        Autre produits
+      </div>
+    </div>
+    <button class="btn cancel-btn w-100" (click)="cancelStateDisplay()">Annuler</button>
+  </div>
+</ion-content>

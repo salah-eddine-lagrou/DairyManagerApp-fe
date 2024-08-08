@@ -1,0 +1,395 @@
+<ion-header class="ion-header-cheking">
+  <a class="back-btn-header" routerDirection="back" routerLink="/vendeur-pages/client-actions">
+    <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
+  <div class="ion-title text-center">
+    <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px; color: white;">
+      BL en cours
+    </h5>
+  </div>
+</ion-header>
+<ion-content class="ion-padding" style="--background: white;">
+  <ion-segment [(ngModel)]="selectedSegment" style="position: absolute; top: 0; left: 0; height: 55px;">
+    <ion-segment-button value="non-payee" (click)="changeSegmentColorLabel('non-payee')" [style]="colorStyleInfo">
+      <ion-label style="font-size: 13px;">Non Payées</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="tournee" (click)="changeSegmentColorLabel('tournee')" [style]="colorStyleSec">
+      <ion-label style="font-size: 13px;">Tournée actuelle</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+
+  <div *ngIf="selectedSegment === 'non-payee'" class="non-payee" style="margin-top: 60px;">
+    <ion-card class="bl-card shadow ion-activatable">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="albums-outline" class="me-2"></ion-icon>
+                <strong>Commande N:1</strong>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item text-end">
+                <strong style="margin-left: auto;">1100 Dhs</strong>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="margin: 0px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="sync-circle-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">En cours</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+                <ion-badge color="danger" style="margin-left: auto; font-size: 10px;">500 Dhs</ion-badge>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Client name</span>
+                <ion-badge color="danger"
+                  style="margin-left: auto; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">20-03-2024 09:23</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="chevron-forward-outline" style="margin-left: auto;"></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+    <ion-card class="bl-card shadow ion-activatable">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="albums-outline" class="me-2"></ion-icon>
+                <strong>Commande N:1</strong>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item text-end">
+                <strong style="margin-left: auto;">1100 Dhs</strong>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="margin: 0px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="sync-circle-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">En cours</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+                <ion-badge color="danger" style="margin-left: auto; font-size: 10px;">500 Dhs</ion-badge>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Client name</span>
+                <ion-badge color="danger"
+                  style="margin-left: auto; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">20-03-2024 09:23</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="chevron-forward-outline" style="margin-left: auto;"></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+    <ion-card class="bl-card shadow ion-activatable">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="albums-outline" class="me-2"></ion-icon>
+                <strong>Commande N:1</strong>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item text-end">
+                <strong style="margin-left: auto;">1100 Dhs</strong>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="margin: 0px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="sync-circle-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">En cours</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+                <ion-badge color="danger" style="margin-left: auto; font-size: 10px;">500 Dhs</ion-badge>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Client name</span>
+                <ion-badge color="danger"
+                  style="margin-left: auto; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">20-03-2024 09:23</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="chevron-forward-outline" style="margin-left: auto;"></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+    <ion-card class="bl-card shadow ion-activatable">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="albums-outline" class="me-2"></ion-icon>
+                <strong>Commande N:1</strong>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item text-end">
+                <strong style="margin-left: auto;">1100 Dhs</strong>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="margin: 0px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="sync-circle-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">En cours</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+                <ion-badge color="danger" style="margin-left: auto; font-size: 10px;">500 Dhs</ion-badge>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Client name</span>
+                <ion-badge color="danger"
+                  style="margin-left: auto; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">20-03-2024 09:23</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="chevron-forward-outline" style="margin-left: auto;"></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+  </div>
+
+  <div *ngIf="selectedSegment === 'tournee'" class="tournee" style="margin-top: 60px;">
+    <ion-card class="bl-card shadow ion-activatable">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="albums-outline" class="me-2"></ion-icon>
+                <strong>Commande N:1</strong>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item text-end">
+                <strong style="margin-left: auto;">1100 Dhs</strong>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="margin: 0px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="sync-circle-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">En cours</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+                <ion-badge color="danger" style="margin-left: auto; font-size: 10px;">500 Dhs</ion-badge>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Client name</span>
+                <ion-badge color="danger"
+                  style="margin-left: auto; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">20-03-2024 09:23</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="chevron-forward-outline" style="margin-left: auto;"></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+    <ion-card class="bl-card shadow ion-activatable">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="albums-outline" class="me-2"></ion-icon>
+                <strong>Commande N:1</strong>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item text-end">
+                <strong style="margin-left: auto;">1100 Dhs</strong>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="margin: 0px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="sync-circle-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">En cours</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+                <ion-badge color="danger" style="margin-left: auto; font-size: 10px;">500 Dhs</ion-badge>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Client name</span>
+                <ion-badge color="danger"
+                  style="margin-left: auto; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">20-03-2024 09:23</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="chevron-forward-outline" style="margin-left: auto;"></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+  </div>
+
+
+</ion-content>
