@@ -1,0 +1,142 @@
+<ion-header>
+  <a class="back-btn-header" routerDirection="back" routerLink="/magasinier-pages/home">
+    <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
+
+  <div class="ion-title text-center">
+    <h5 class="client-name" style="margin-bottom: 0px; font-size: 18px; text-transform: uppercase;">
+      Ajustement
+    </h5>
+
+  </div>
+</ion-header>
+
+<ion-content>
+  <div class="horizontal-scroll category-holder">
+    <ion-button *ngFor="let category of categories" class="category-btn-item"
+      [fill]="selectedCategory === category.value ? 'solid' : 'outline'" color="primary" size="small"
+      style="height: 23px;" (click)="segmentChanged(category.value)">
+      {{ category.label }}
+    </ion-button>
+  </div>
+
+  <div class="list-products" style="margin-top: 55px;">
+    <ion-searchbar></ion-searchbar>
+    <div *ngFor="let item of filteredItems" style="margin-bottom: -88px;">
+      <ion-card class="shadow ion-activatable" (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
+        <ion-card-content class="p-0">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3" class="img-item-container">
+                <img class="img-item" [src]="item.image" alt="">
+              </ion-col>
+              <ion-col size="6">
+                <h5 class="item-title">{{ item.name | truncate:15 }}</h5>
+                <ion-badge color="success" class="badge-price-item">{{ item.price }} Dhs/U</ion-badge><br>
+                <ion-badge color="dark" class="badge-quantity-stock-item">
+                  <ion-icon name="cube-outline" style="margin: 0px 0px -2px 0px;"></ion-icon>
+                  {{ item.quantityStock }} U
+                </ion-badge>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-card>
+      <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
+        <div>
+          <ng-container *ngIf="item.maxQuantityDisplayed; else notMax">
+            <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity"
+              disabled (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
+            <button class="btn max-btn" (click)="resetQuantity(item.id, $event)">reset</button>
+          </ng-container>
+          <ng-template #notMax>
+            <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity"
+              (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
+            <button class="btn max-btn" (click)="maxQuantity(item.id, $event)">MAX</button>
+          </ng-template>
+        </div>
+        <div style="margin-left: 10px;">
+          <button class="btn increase-btn" (click)="increaseQuantity(item.id, $event)">
+            <ion-icon name="add-outline"></ion-icon>
+          </button>
+          <button class="btn decrease-btn" (click)="decreaseQuantity(item.id, $event)">
+            <ion-icon name="remove-outline"></ion-icon>
+          </button>
+        </div>
+      </ion-col>
+    </div>
+
+
+  </div>
+</ion-content>
+
+<div class="custom-footer">
+  <button class="btn confirmer-btn ion-activatable" (click)="ajuster()">
+    Confirmer
+    <ion-ripple-effect></ion-ripple-effect>
+  </button>
+</div>
+
+<!-- Modal -->
+<ion-modal [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-header>
+      <button class="btn btn-back" (click)="setOpen(false)">
+        <ion-icon name="close-outline" class="back-icon"></ion-icon>
+      </button>
+      <div class="ion-title text-center">
+        <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px; color: #1a2037;">
+          Vue de Produit
+        </h5>
+      </div>
+    </ion-header>
+    <ion-content>
+
+
+      <div class="img-container">
+        <img [src]="selectedItem.image" alt="{{ selectedItem.name }}">
+      </div>
+
+      <div class="products-infos container">
+        <h4 class="item-price mb-1 text-center">{{ selectedItem.price }} Dhs</h4>
+        <div class="accordion-item" id="product-name">
+          <a href="javascript:void(0)" (click)="toggleAccordion('product-name')" class="accordion-link">
+            <h4 class="item-title item-name text-center">{{ selectedItem.name }}</h4>
+            <div class="w-100 text-center">
+              @if (currentOpen !== 'product-name') {
+              <ion-icon class="add-outline shadow" name="arrow-down-outline"></ion-icon>
+              } @else {
+              <ion-icon class="close-outline shadow" name="close-outline"></ion-icon>
+              }
+            </div>
+          </a>
+          <div class="answer" [class.open]="currentOpen === 'product-name'">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique tempora ratione sit, quis amet
+              repudiandae debitis officia porro minus nam esse laudantium in, ipsam ut aut. Beatae fuga ducimus eius!
+            </p>
+          </div>
+        </div>
+        <div class="row product-details" style="margin-top: 15px;">
+          <div class="col-6 text-center">
+            <ion-badge color="primary" style="padding: 5px 10px 5px 10px;
+              border-radius: 30px;
+              font-size: 16px;">
+              <ion-icon name="cube-outline" style="font-size: 15px; margin: 0px 0px -2px 0px;"></ion-icon>
+              {{ selectedItem.quantityStock }} unités
+            </ion-badge>
+          </div>
+          <div class="col-6 text-center">
+            <ion-badge color="dark" style="padding: 5px 10px 5px 10px;
+              border-radius: 30px;
+              font-size: 16px;">
+              <ion-icon name="list-outline" style="font-size: 15px; margin: 0px 0px -2px 0px;"></ion-icon>
+              Category
+            </ion-badge>
+          </div>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

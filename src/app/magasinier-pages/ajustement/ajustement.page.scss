@@ -1,0 +1,368 @@
+ion-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  box-shadow: none;
+  background-color: #1a2037;
+  z-index: 1000;
+  height: 60px;
+
+  .back-btn-header {
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: absolute;
+    left: 0;
+  }
+
+  .ion-title {
+    color: white;
+  }
+
+  ion-badge {
+    font-size: 10px;
+    margin-right: 5px;
+    border-radius: 20px;
+    padding: 5px 10px 5px 10px;
+  }
+
+}
+
+ion-content {
+
+  .category-holder {
+    background-color: #f5f7fd;
+    margin: 28px 0px 11px;
+    text-align: center;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    position: absolute;
+    top: -28px;
+    z-index: 1;
+    padding: 8px 11px;
+
+    .category-btn-item {
+      --border-radius: 30px;
+      --padding-start: 8px;
+      --padding-end: 8px;
+      --padding-top: 4px;
+      --padding-bottom: 4px;
+      --min-height: 36px;
+      --font-size: 14px;
+      --margin: 3px 2px;
+
+      font-size: 11px;
+      margin-inline: 4px;
+      display: inline-block;
+    }
+  }
+
+  ion-searchbar {
+    --box-shadow: none;
+    --background: #f3f3f3;
+    --color: #1a2037;
+    --border-radius: 1.2rem;
+    --placeholder-font-weight: 600;
+    --placeholder-opacity: 0.2;
+
+    padding: 5px 0px 10px 0px;
+  }
+
+  .badge-price-item {
+    background: #025b02;
+    border-radius: 50px;
+    padding-inline: 8px;
+    font-size: 11px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-bottom: -4px;
+  }
+  .badge-quantity-price-item {
+    background: #940101;
+    border-radius: 50px;
+    padding-inline: 8px;
+    font-size: 11px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+  .badge-quantity-stock-item {
+    background: black;
+    border-radius: 50px;
+    padding-inline: 8px;
+    font-size: 11px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+  .item-title {
+    font-size: 17px;
+    color: #1a2037;
+    text-transform: capitalize;
+  }
+  .img-item-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      height: 65px;
+    }
+  }
+
+  .decrease-btn {
+    background-color: gray;
+    color: white;
+    padding: 2px 2px 2px 2px;
+    display: flex;
+    height: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0px 0px 10px 10px;
+    margin-top: 1px;
+  }
+  .increase-btn {
+    background-color: gray;
+    color: white;
+    padding: 2px 2px 2px 2px;
+    display: flex;
+    height: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px 10px 0px 0px;
+  }
+  .max-btn {
+    border: none;
+    background-color: black;
+    color: white;
+    font-weight: 600;
+    width: 100%;
+    font-size: 10px;
+    padding: 2px 2px 2px 2px;
+    margin-top: 5px;
+  }
+
+  .btn-col-container {
+    position: revert-layer;
+    left: 71%;
+    top: -91px;
+  }
+
+  .highlight-animation {
+    animation: highlight 1.5s ease;
+  }
+
+  @keyframes highlight {
+    from {
+      background-color: yellow;
+    }
+    to {
+      background-color: transparent;
+    }
+  }
+
+}
+
+
+.custom-footer {
+  position: fixed;
+  bottom: 0%;
+  padding: 10px;
+  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: none;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+
+  .confirmer-btn {
+    width: 100%;
+    height: 45px;
+    border-radius: 50px;
+    color: white;
+    background: linear-gradient(135deg, #016331 0%, #74975a 100%);
+    font-weight: 600;
+  }
+}
+
+ion-modal {
+
+  ion-header {
+    background-color: #f5f7fd;
+
+    .btn-back {
+      font-size: 25px;
+      background: none;
+      border: none;
+      position: absolute;
+      left: 82%;
+      top: 18%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  ion-content {
+
+    .img-container {
+      background-color: #e3dfdf;
+      border-radius: 30px;
+      margin: 60px 15px 30px 15px;
+      height: 40%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 100%;
+        max-width: 315px;
+        margin: auto;
+      }
+    }
+
+    .products-infos {
+      margin-top: 30px;
+      padding: 20px;
+
+      .item-title {
+        font-weight: 700;
+        font-size: 17px;
+        color: #1a2037;
+        text-transform: capitalize;
+        margin-bottom: 20px;
+      }
+
+      .item-price {
+        color: #1a2037;
+        font-size: 25px;
+        font-family: none;
+        text-transform: capitalize;
+      }
+
+      .add-btn-commande {
+        width: 80%;
+        font-size: 20px;
+        border-radius: 50px;
+        color: #276f4d;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border: 1px solid #276f4d;
+        transition : all .3s ease ;
+      }
+      .add-btn-commande:hover {
+        width: 100%;
+        font-size: 20px;
+        border-radius: 50px;
+        color: white;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background: linear-gradient(135deg, #276f4d 0%, #0a9554 100%);
+        transition : all .3s ease ;
+      }
+
+      .description {
+        margin-top: 20px;
+
+        h5 {
+          font-size: 22px;
+          color: #1a2037;
+          margin-bottom: 10px;
+        }
+
+        p {
+          font-size: 16px;
+          color: #555;
+        }
+      }
+
+      .add-outline, .close-outline {
+        font-size: 30px;
+        padding: 15px;
+        border-radius: 50px;
+      }
+
+      .accordion {
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        overflow: -moz-scrollbars-none;
+      }
+
+      .accordion-item {
+        border-radius: 0.4rem;
+        margin-bottom: 1rem;
+      }
+
+      .accordion-link {
+        color: rgb(19, 19, 19);
+        font-size: 1.2rem;
+        text-decoration: none;
+        width: 100%;
+        padding: 1rem 0;
+      }
+
+      .accordion-link i {
+        padding: 0.5rem;
+      }
+
+
+      .answer {
+        max-height: 0;
+        overflow: hidden;
+        position: relative;
+        color: rgb(48, 48, 48);
+        transition: max-height 650ms;
+      }
+
+      .answer::before {
+        content: "";
+        position: absolute;
+        width: 0.6rem;
+        height: 90%;
+        background-color: #1a2037;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+
+      .answer p {
+        padding: 2rem;
+        font-size: 1rem;
+      }
+
+      .accordion-item:target .answer {
+        max-height: 20rem;
+      }
+
+      .answer {
+        max-height: 0;
+        overflow: hidden;
+        position: relative;
+        color: rgb(48, 48, 48);
+        border-radius: 0.2rem;
+        box-shadow: inset 0.5rem 2px 0.5rem rgba(0, 0, 0, 0.1);
+        transition: max-height 650ms;
+
+        &.open {
+          max-height: 20rem;
+        }
+      }
+    }
+  }
+
+}

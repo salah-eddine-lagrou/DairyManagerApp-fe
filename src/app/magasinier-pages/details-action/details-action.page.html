@@ -1,0 +1,251 @@
+<ion-header>
+  @if (charge) {
+  <a class="back-btn-header" routerDirection="back" routerLink="/magasinier-pages/charge-action">
+    <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
+  } @else if (decharge) {
+    <a class="back-btn-header" routerDirection="back" routerLink="/magasinier-pages/decharge-action">
+      <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+    </a>
+  }
+
+  <div class="ion-title text-center">
+    @if (charge) {
+      <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px;">
+        détails de charge #1
+      </h5>
+    } @else if (decharge) {
+      <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px;">
+        détails de décharge #1
+      </h5>
+    }
+
+  </div>
+  <a class="back-btn-home" routerLink="/magasinier-pages/home">
+    <ion-icon name="home-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
+</ion-header>
+
+<ion-content>
+  <ion-card class="client-card">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="reload-outline" class="me-2"></ion-icon>
+              <strong>Transfert #1</strong>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item text-end">
+              <span style="font-size: 12px; margin-left: auto;">20-03-2024 09:23</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row style="margin: 0px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="arrow-forward-outline" class="me-2" style="font-size: 10px; color: green;"></ion-icon>
+              <span style="font-size: 12px;">Charge</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="radio-button-on-outline" class="me-2" style="font-size: 10px; color: green;"></ion-icon>
+              <span style="font-size: 12px;">Confirmé</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+              <span style="font-size: 12px;">Responsable 1</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-icon style="font-size: 10px;" name="person-circle-outline" class="me-2"></ion-icon>
+              <span style="font-size: 12px;">Vendeur 1</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+
+  <div class="list-products" style="margin-top: 25px;">
+    <ion-item-sliding *ngFor="let item of items">
+      <ion-item>
+        <ion-card class="ion-activatable" (click)="openModal(item)">
+          <ion-card-content class="p-0">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="3" class="img-item-container">
+                  <img class="img-item" [src]="item.image" alt="">
+                </ion-col>
+                <ion-col size="6">
+                  <h5 class="item-title">{{ item.name | truncate:15 }}</h5>
+                  <ion-badge color="success" class="badge-price-item">{{ item.price }} Dhs/U</ion-badge><br>
+                  <ion-badge color="dark" class="badge-quantity-stock-item">
+                    <ion-icon name="cube-outline" style="margin: 0px 0px -2px 0px;"></ion-icon>
+                    {{ item.quantityStock - item.quantity }} U
+                  </ion-badge>
+                </ion-col>
+                <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
+                  <div>
+                    <ng-container *ngIf="item.maxQuantityDisplayed; else notMax">
+                      <input class="form-control text-center" type="number" style="height: 30px;"
+                        [(ngModel)]="item.quantity" disabled (input)="updateTotalPrice()"
+                        (click)="$event.stopPropagation()">
+                      <button class="btn max-btn" (click)="resetQuantity(item.id, $event)">reset</button>
+                    </ng-container>
+                    <ng-template #notMax>
+                      <input class="form-control text-center" type="number" style="height: 30px;"
+                        [(ngModel)]="item.quantity" (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
+                      <button class="btn max-btn" (click)="maxQuantity(item.id, $event)">MAX</button>
+                    </ng-template>
+                  </div>
+                  <div style="margin-left: 10px;">
+                    <button class="btn increase-btn" (click)="increaseQuantity(item.id, $event)">
+                      <ion-icon name="add-outline"></ion-icon>
+                    </button>
+                    <button class="btn decrease-btn" (click)="decreaseQuantity(item.id, $event)">
+                      <ion-icon name="remove-outline"></ion-icon>
+                    </button>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-card>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="presentAlert(item)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <!-- <ion-alert [isOpen]="isAlertOpen" header="Confirmer à supprimer?" [buttons]="alertButtons"></ion-alert> -->
+
+    </ion-item-sliding>
+
+  </div>
+
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-grid>
+    <ion-row class="d-flex justify-content-center align-items-center">
+      <ion-col>
+        <button class="btn"
+        style="
+          border-radius: 30px;
+          background-color: green;
+          color: white;
+          width: 100%;
+          font-size: 12px;
+        " (click)="confirmeCharge()">
+          Confirmer
+        </button>
+      </ion-col>
+      <ion-col>
+        <button class="btn"
+        style="
+          width: 100%;
+          border-radius: 30px;
+          background-color: red;
+          color: white;
+          font-size: 12px;
+        " (click)="soumieDemande()">
+          Validation responsable
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
+
+<!-- Modal view product -->
+<ion-modal [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-header>
+      <button class="btn btn-back" (click)="setOpen(false)">
+        <ion-icon name="close-outline" class="back-icon"></ion-icon>
+      </button>
+      <div class="ion-title text-center">
+        <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px; color: #1a2037;">
+          Vue de Produit
+        </h5>
+      </div>
+    </ion-header>
+    <ion-content>
+      <div class="img-container">
+        <img [src]="selectedItem.image" alt="{{ selectedItem.name }}">
+      </div>
+
+      <div class="products-infos container">
+        <h4 class="item-price mb-1 text-center">{{ selectedItem.price }} Dhs</h4>
+        <div class="accordion-item" id="product-name">
+          <a href="javascript:void(0)" (click)="toggleAccordion('product-name')" class="accordion-link">
+            <h4 class="item-title item-name text-center">{{ selectedItem.name }}</h4>
+            <div class="w-100 text-center">
+              @if (currentOpen !== 'product-name') {
+              <ion-icon class="add-outline shadow" name="arrow-down-outline"></ion-icon>
+              } @else {
+              <ion-icon class="close-outline shadow" name="close-outline"></ion-icon>
+              }
+            </div>
+          </a>
+          <div class="answer" [class.open]="currentOpen === 'product-name'">
+            <p style="margin: 0;">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique tempora ratione sit, quis amet
+              repudiandae debitis officia porro minus nam esse laudantium in, ipsam ut aut. Beatae fuga ducimus eius!
+            </p>
+          </div>
+        </div>
+        <div class="row product-details" style="margin-top: 15px;">
+          <div class="col-6 text-center">
+            <ion-badge color="primary" style="padding: 5px 10px 5px 10px;
+              border-radius: 30px;
+              font-size: 16px;">
+              <ion-icon name="cube-outline" style="font-size: 15px; margin: 0px 0px -2px 0px;"></ion-icon>
+              {{ selectedItem.quantityStock }} unités
+            </ion-badge>
+          </div>
+          <div class="col-6 text-center">
+            <ion-badge color="dark" style="padding: 5px 10px 5px 10px;
+              border-radius: 30px;
+              font-size: 16px;">
+              <ion-icon name="list-outline" style="font-size: 15px; margin: 0px 0px -2px 0px;"></ion-icon>
+              Category
+            </ion-badge>
+          </div>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
