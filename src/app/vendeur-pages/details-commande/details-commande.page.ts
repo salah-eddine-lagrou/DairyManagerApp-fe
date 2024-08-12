@@ -19,6 +19,16 @@ export class DetailsCommandePage implements OnInit {
   };
   totalPrice: number = 0;
   gratuite: boolean = false;
+  bl: boolean = false;
+  trasnfertList: boolean = false;
+
+  items = [
+    { id: 1, maxQuantityDisplayed: false, name: 'pizzarella', image: "assets/img/produits/pizzarella.png", category: 'mozarella', quantity: 5, quantityStock: 20, price: 35 },
+    { id: 2, maxQuantityDisplayed: false, name: 'pizza cheese', image: "assets/img/produits/pizza cheese.png", category: 'mozarella', quantity: 4, quantityStock: 25, price: 40 },
+    { id: 3, maxQuantityDisplayed: false, name: 'creme du chef', image: "assets/img/produits/creme du chef.png", category: 'creme', quantity: 2, quantityStock: 30, price: 20 },
+    { id: 4, maxQuantityDisplayed: false, name: 'creme pro', image: "assets/img/produits/creme pro.png", category: 'creme', quantity: 1, quantityStock: 10, price: 30 },
+    { id: 5, maxQuantityDisplayed: false, name: 'cucina blue', image: "assets/img/produits/cucina blue.png", category: 'creme', quantity: 4, quantityStock: 5, price: 25 },
+  ];
 
   constructor(
     private router: Router,
@@ -32,10 +42,26 @@ export class DetailsCommandePage implements OnInit {
     if (navigation?.extras.state) {
       this.commande = navigation.extras.state['commande'];
       const gratuite = navigation.extras.state['gratuite'];
+      const bl = navigation.extras.state['bl'];
+      const trasnfertList = navigation.extras.state['trasnfertList'];
       if (gratuite) {
         this.gratuite = gratuite;
+      } else if (bl) {
+        this.bl = bl;
+        for (const item of this.items) {
+          this.totalPrice += item.price * item.quantity;
+        }
+      } else if (trasnfertList) {
+        this.trasnfertList = trasnfertList;
       } else {
         console.log("coming from make gratuite: false");
+      }
+
+      if (this.commande) {
+        // calculating the total price to display it
+        for (const item of this.commande) {
+          this.totalPrice += item.quantity * item.price;
+        }
       }
     }
 
@@ -51,10 +77,7 @@ export class DetailsCommandePage implements OnInit {
       loading.dismiss();
     }, 200);
 
-    // calculating the total price to display it
-    for (const item of this.commande) {
-      this.totalPrice += item.quantity * item.price;
-    }
+
   }
 
   decreaseQuantity(id: number, event: Event) {
@@ -192,37 +215,43 @@ export class DetailsCommandePage implements OnInit {
   }
 
 
-  presentCancelAlert(home=false) {
-    Swal.fire({
-      title: "Êtes-vous sûr ?",
-      text: "Voulez-vous vraiment annuler ? La création de commande sera annulée.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Confirmer",
-      cancelButtonText: "Annuler",
-      heightAuto: false
-    }).then((result) => {
-      if (result.isConfirmed) {
-        console.log('Alert confirmed');
-        localStorage.clear();
-        this.commande = [];
-        this.paiement = {
-          "id": 0,
-          "montant": 0,
-          "modePaiement": "especes",
-          "note": ""
-        };
-        this.gratuite = false;
-        this.navCtrl.setDirection("back");
-        if (home)
-          this.router.navigateByUrl("vendeur-pages/home");
-        else
-          this.router.navigateByUrl("vendeur-pages/client-actions");
-      } else {
-        console.log('Alert canceled');
-      }
-    });
+  presentCancelAlert(home = false) {
+    if (this.bl || this.trasnfertList) {
+      this.navCtrl.setDirection("back");
+      this.router.navigateByUrl("vendeur-pages/home");
+    } else {
+      Swal.fire({
+        title: "Êtes-vous sûr ?",
+        text: "Voulez-vous vraiment annuler ? La création de commande sera annulée.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Confirmer",
+        cancelButtonText: "Annuler",
+        heightAuto: false
+      }).then((result) => {
+        if (result.isConfirmed) {
+          console.log('Alert confirmed');
+          localStorage.clear();
+          this.commande = [];
+          this.paiement = {
+            "id": 0,
+            "montant": 0,
+            "modePaiement": "especes",
+            "note": ""
+          };
+          this.gratuite = false;
+          this.navCtrl.setDirection("back");
+          if (home)
+            this.router.navigateByUrl("vendeur-pages/home");
+          else
+            this.router.navigateByUrl("vendeur-pages/client-actions");
+        } else {
+          console.log('Alert canceled');
+        }
+      });
+    }
+
   }
 }

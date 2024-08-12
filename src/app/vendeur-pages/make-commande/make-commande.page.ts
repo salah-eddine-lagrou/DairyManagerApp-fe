@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-make-commande',
@@ -54,28 +55,11 @@ export class MakeCommandePage implements OnInit {
   gratuite: boolean = false;
   gratuiteBack: boolean = false;
   retour: boolean = false;
-  totalPriceReturn = 0;
+  charge: boolean = false;
+  decharge: boolean = false;
+  transfert: boolean = false;
 
-  alertButtons = [
-    {
-      text: 'Non',
-      role: 'cancel',
-      handler: () => {
-        console.log('Alert canceled');
-        this.isAlertOpen = false;
-      },
-    },
-    {
-      text: 'Oui',
-      role: 'confirm',
-      handler: () => {
-        console.log('Alert confirmed');
-        // TODO discuss with the team about the process of the return
-        this.isAlertOpen = false;
-        this.router.navigate(['vendeur-pages/client-actions']);
-      },
-    },
-  ];
+
 
   constructor(
     private router: Router,
@@ -91,6 +75,9 @@ export class MakeCommandePage implements OnInit {
     if (navigation?.extras.state) {
       const gratuite = navigation.extras.state['gratuite'];
       const retour = navigation.extras.state['retour'];
+      const charge = navigation.extras.state['charge'];
+      const decharge = navigation.extras.state['decharge'];
+      const transfert = navigation.extras.state['transfert'];
       if (gratuite) {
         this.gratuite = gratuite;
         console.log("comming from gratuite : true");
@@ -102,13 +89,40 @@ export class MakeCommandePage implements OnInit {
           item: itemObj.item,       // Copy item details
           quantity: itemObj.quantity // Copy quantity
         }));
+      } else if (charge) {
+        this.charge = charge;
+        console.log("comming from charge : true");
+      } else if (decharge) {
+        this.decharge = decharge;
+        console.log("comming from decharge : true");
+      } else if (transfert) {
+        this.transfert = transfert;
+        console.log("comming from transfert : true");
       }
     }
   }
 
-  public isAlertOpen = false;
+
   presentAlert() {
-    this.isAlertOpen = true;
+    Swal.fire({
+      title: 'Retour est prêt',
+      text: 'Confirmer le retour !',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui',
+      cancelButtonText: 'Non',
+      heightAuto: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log('Alert confirmed');
+        // TODO discuss with the team about the process of the return
+        this.router.navigate(['vendeur-pages/client-actions']);
+      } else {
+        console.log('Alert canceled');
+      }
+    });
   }
 
   segmentChanged(category: string) {
@@ -313,10 +327,6 @@ export class MakeCommandePage implements OnInit {
     } else {
       console.log("back from details commande: false");
     }
-
-
-
-
   }
 
   currentOpen: string | null = null;
@@ -324,7 +334,41 @@ export class MakeCommandePage implements OnInit {
     this.currentOpen = this.currentOpen === id ? null : id;
   }
 
+  goBackToStock(): void {
+    // Determine the alert text based on the conditions
+    let alertText: string;
+    if (this.charge) {
+      alertText = 'Confirmer le chargement !';
+    } else if (this.decharge) {
+      alertText = 'Confirmer le déchargement !';
+    } else {
+      alertText = 'Confirmer le transfert au vendeur 1 !';
+    }
 
+    // Display the SweetAlert
+    Swal.fire({
+      text: alertText,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui',
+      cancelButtonText: 'Non',
+      heightAuto: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log('Alert confirmed');
+        this.router.navigate(['vendeur-pages/stock-vehicule']);
+      } else {
+        console.log('Alert canceled');
+      }
+    });
+  }
+
+
+  isAnyTrue(): boolean {
+    return this.charge || this.decharge || this.transfert;
+  }
 
 
 }

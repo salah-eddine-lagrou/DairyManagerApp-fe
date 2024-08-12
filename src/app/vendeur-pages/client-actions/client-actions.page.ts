@@ -7,12 +7,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./client-actions.page.scss'],
 })
 export class ClientActionsPage implements OnInit {
+  tournes: boolean = false;
 
   constructor(private router :Router) { }
 
   ngOnInit() {
     console.log("running from client-actions");
-
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state) {
+      this.tournes = navigation.extras.state['tournes'];
+    }
   }
 
   isModalOpen = false;

@@ -20,14 +20,6 @@ const routes: Routes = [
     loadChildren: () => import('./vendeur-pages/clients/clients.module').then(m => m.ClientsPageModule)
   },
   {
-    path: 'responsable-pages/home',
-    loadChildren: () => import('./responsable-pages/home/home.module').then( m => m.HomePageModule)
-  },
-  {
-    path: 'responsable-pages/vendeurs',
-    loadChildren: () => import('./responsable-pages/vendeurs/vendeurs.module').then( m => m.VendeursPageModule)
-  },
-  {
     path: 'vendeur-pages/client-actions',
     loadChildren: () => import('./vendeur-pages/client-actions/client-actions.module').then( m => m.ClientActionsPageModule)
   },
@@ -55,6 +47,53 @@ const routes: Routes = [
     path: 'vendeur-pages/reglement-list',
     loadChildren: () => import('./vendeur-pages/reglement-list/reglement-list.module').then( m => m.ReglementListPageModule)
   },
+  {
+    path: 'vendeur-pages/stock-vehicule',
+    loadChildren: () => import('./vendeur-pages/stock-vehicule/stock-vehicule.module').then( m => m.StockVehiculePageModule)
+  },
+  {
+    path: 'vendeur-pages/transferts-list',
+    loadChildren: () => import('./vendeur-pages/transferts-list/transferts-list.module').then( m => m.TransfertsListPageModule)
+  },
+  {
+    path: 'vendeur-pages/tournes',
+    loadChildren: () => import('./vendeur-pages/tournes/tournes.module').then( m => m.TournesPageModule)
+  },
+  {
+    path: 'magasinier-pages/home',
+    loadChildren: () => import('./magasinier-pages/home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'magasinier-pages/charge-action',
+    loadChildren: () => import('./magasinier-pages/charge-action/charge-action.module').then( m => m.ChargeActionPageModule)
+  },
+  {
+    path: 'magasinier-pages/decharge-action',
+    loadChildren: () => import('./magasinier-pages/decharge-action/decharge-action.module').then( m => m.DechargeActionPageModule)
+  },
+  {
+    path: 'magasinier-pages/details-action',
+    loadChildren: () => import('./magasinier-pages/details-action/details-action.module').then( m => m.DetailsActionPageModule)
+  },
+  {
+    path: 'magasinier-pages/ajustement',
+    loadChildren: () => import('./magasinier-pages/ajustement/ajustement.module').then( m => m.AjustementPageModule)
+  },
+  {
+    path: 'responsable-pages/home',
+    loadChildren: () => import('./responsable-pages/home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'responsable-pages/vendeurs',
+    loadChildren: () => import('./responsable-pages/vendeurs/vendeurs.module').then( m => m.VendeursPageModule)
+  },
+
+
+
+
+
+
+
 
 
 

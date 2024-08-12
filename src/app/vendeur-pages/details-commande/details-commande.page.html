@@ -1,10 +1,29 @@
 <ion-header>
+  @if (bl) {
+  <a class="back-btn-header" routerDirection="back" routerLink="/vendeur-pages/bon-livraison">
+    <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
+  } @else if (trasnfertList) {
+    <a class="back-btn-header" routerDirection="back" routerLink="/vendeur-pages/transferts-list">
+      <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+    </a>
+  } @else {
   <a class="back-btn-header" routerDirection="back" routerLink="/vendeur-pages/make-commande">
     <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
   </a>
+  }
+
   <div class="ion-title text-center">
-    <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px;">détails de la
-      commande</h5>
+    @if (trasnfertList) {
+      <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px;">
+        détails de transfert
+      </h5>
+    } @else {
+      <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px;">
+        détails de la commande
+      </h5>
+    }
+
   </div>
   <a class="back-btn-home" (click)="presentCancelAlert(true)">
     <ion-icon name="home-outline" style="font-size: 25px; color: white;"></ion-icon>
@@ -12,117 +31,214 @@
 </ion-header>
 
 <ion-content>
-  <ion-card class="client-card">
-    <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <div class="info-item">
-              <ion-icon name="albums-outline" class="me-2"></ion-icon>
-              <strong>Commande N:1</strong>
-            </div>
-          </ion-col>
-          <ion-col>
-            <div class="info-item text-end">
-              @if (gratuite) {
-              <strong style="margin-left: auto;">0 Dhs</strong>
-              } @else {
-              <strong style="margin-left: auto;">{{ totalPrice }} Dhs</strong>
-              }
-            </div>
-          </ion-col>
-        </ion-row>
+  @if (trasnfertList) {
+    <ion-card class="client-card">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="reload-outline" class="me-2"></ion-icon>
+                <strong>Transfert #1</strong>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item text-end">
+                <span style="font-size: 12px; margin-left: auto;">20-03-2024 09:23</span>
+              </div>
+            </ion-col>
+          </ion-row>
 
-        <ion-row style="margin: 0px -10px 0px">
-          <ion-col>
-            <div class="info-item">
-              <ion-icon style="font-size: 10px;" name="sync-circle-outline" class="me-2"></ion-icon>
-              <span style="font-size: 12px;">En cours</span>
-            </div>
-          </ion-col>
-          <ion-col>
-            <div class="info-item">
-              @if (gratuite) {
-              <ion-badge color="success" style="margin-left: auto; font-size: 10px;">Gratuité</ion-badge>
-              } @else {
-              <ion-badge color="danger" style="margin-left: auto; font-size: 10px;">500 Dhs</ion-badge>
-              }
-            </div>
-          </ion-col>
-        </ion-row>
-        <ion-row style="margin: -10px -10px 0px">
-          <ion-col>
-            <div class="info-item">
-              <ion-icon style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
-              <span style="font-size: 12px;">20-03-2024 09:23</span>
-            </div>
-          </ion-col>
-          <ion-col>
-            <div class="info-item">
-            </div>
-          </ion-col>
-        </ion-row>
-        <ion-row style="margin: -10px -10px 0px">
-          <ion-col>
-            <div class="info-item">
-              <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
-              <span style="font-size: 12px;">Client name</span>
-              <ion-badge color="danger"
-                style="margin-left: auto; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
-            </div>
-          </ion-col>
-          <ion-col>
-            <div class="info-item">
-            </div>
-          </ion-col>
-        </ion-row>
-        <ion-row style="margin: -10px -10px -10px">
-          <ion-col>
-            <div class="info-item">
-              <ion-icon style="font-size: 10px;" name="create-outline" class="me-2"></ion-icon>
-              <span style="font-size: 12px;">Note</span>
-            </div>
-          </ion-col>
-          <ion-col>
-            <div class="info-item">
-            </div>
-          </ion-col>
-        </ion-row>
-        @if (paiement.id !== 0) {
-        <hr>
-        <ion-row style="margin: -10px -10px 0px">
-          <ion-col>
-            <div class="info-item">
-              <ion-icon style="font-size: 10px;" name="wallet-outline" class="me-2"></ion-icon>
-              <span style="font-size: 12px;">Mode de paiement</span>
-            </div>
-          </ion-col>
-          <ion-col>
-            <div class="info-item">
-              <p style="margin-left: auto;">{{paiement.modePaiement}}</p>
-            </div>
-          </ion-col>
-        </ion-row>
-        <ion-row style="margin: -10px -10px 0px">
-          <ion-col>
-            <div class="info-item">
-              <ion-icon style="font-size: 10px;" name="cash-outline" class="me-2"></ion-icon>
-              <strong style="font-size: 12px;">Montant payée</strong>
-            </div>
-          </ion-col>
-          <ion-col>
-            <div class="info-item"><strong style="margin-left: auto;">{{paiement.montant}} Dhs</strong></div>
-          </ion-col>
-        </ion-row>
-        }
+          <ion-row style="margin: 0px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="arrow-forward-outline" class="me-2" style="font-size: 10px; color: green;"></ion-icon>
+                <span style="font-size: 12px;">Charge</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="radio-button-on-outline" class="me-2" style="font-size: 10px; color: green;"></ion-icon>
+                <span style="font-size: 12px;">Confirmé</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Responsable 1</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  } @else {
+    <ion-card class="client-card">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="albums-outline" class="me-2"></ion-icon>
+                <strong>Commande N:1</strong>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item text-end">
+                @if (gratuite) {
+                <strong style="margin-left: auto;">0 Dhs</strong>
+                } @else {
+                <strong style="margin-left: auto;">{{ totalPrice }} Dhs</strong>
+                }
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="margin: 0px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="sync-circle-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">En cours</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+                @if (gratuite) {
+                <ion-badge color="success" style="margin-left: auto; font-size: 10px;">Gratuité</ion-badge>
+                } @else {
+                <ion-badge color="danger" style="margin-left: auto; font-size: 10px;">500 Dhs</ion-badge>
+                }
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">20-03-2024 09:23</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Client name</span>
+                <ion-badge color="danger"
+                  style="margin-left: auto; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px -10px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="create-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Note</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          @if (paiement.id !== 0) {
+          <hr>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="wallet-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Mode de paiement</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+                <p style="margin-left: auto;">{{paiement.modePaiement}}</p>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="cash-outline" class="me-2"></ion-icon>
+                <strong style="font-size: 12px;">Montant payée</strong>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item"><strong style="margin-left: auto;">{{paiement.montant}} Dhs</strong></div>
+            </ion-col>
+          </ion-row>
+          }
 
 
 
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  }
+
 
   <div class="list-products" style="margin-top: 25px;">
+    @if (bl || trasnfertList) {
+    <ion-item-sliding *ngFor="let item of items" [disabled]="true">
+      <ion-item>
+        <ion-card class="ion-activatable" (click)="openModal(item)">
+          <ion-card-content class="p-0">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="3" class="img-item-container">
+                  <img class="img-item" [src]="item.image" alt="">
+                </ion-col>
+                <ion-col size="6">
+                  <h5 class="item-title">{{ item.name | truncate:15 }}</h5>
+                  <ion-badge color="success" class="badge-price-item">{{ item.price }} Dhs/U</ion-badge><br>
+                  <ion-badge color="dark" class="badge-quantity-stock-item">
+                    <ion-icon name="cube-outline" style="margin: 0px 0px -2px 0px;"></ion-icon>
+                    {{ item.quantityStock - item.quantity }} U
+                  </ion-badge>
+                </ion-col>
+                <ion-col size="3" class="d-flex align-items-center justify-content-center">
+                  <ion-icon name="chevron-forward-outline" style="font-size: 25px;"></ion-icon>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-card>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="presentAlert(item)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <!-- <ion-alert [isOpen]="isAlertOpen" header="Confirmer à supprimer?" [buttons]="alertButtons"></ion-alert> -->
+
+    </ion-item-sliding>
+    } @else {
     <ion-item-sliding *ngFor="let item of commande">
       <ion-item>
         <ion-card class="ion-activatable" (click)="openModal(item)">
@@ -136,13 +252,13 @@
                   <h5 class="item-title">{{ item.name | truncate:15 }}</h5>
                   <ion-badge color="success" class="badge-price-item">{{ item.price }} Dhs/U</ion-badge><br>
                   @if (gratuite) {
-                    <ion-badge color="dark" class="badge-quantity-stock-item">
-                      <ion-icon name="cube-outline" style="margin: 0px 0px -2px 0px;"></ion-icon>
-                      {{ item.quantityStock - item.quantity }} U
-                    </ion-badge>
+                  <ion-badge color="dark" class="badge-quantity-stock-item">
+                    <ion-icon name="cube-outline" style="margin: 0px 0px -2px 0px;"></ion-icon>
+                    {{ item.quantityStock - item.quantity }} U
+                  </ion-badge>
                   } @else {
-                    <ion-badge color="danger" class="badge-quantity-price-item">{{ item.price * item.quantity }}
-                      Dhs</ion-badge>
+                  <ion-badge color="danger" class="badge-quantity-price-item">{{ item.price * item.quantity }}
+                    Dhs</ion-badge>
                   }
                 </ion-col>
                 <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
@@ -183,38 +299,40 @@
       <!-- <ion-alert [isOpen]="isAlertOpen" header="Confirmer à supprimer?" [buttons]="alertButtons"></ion-alert> -->
 
     </ion-item-sliding>
-
-
+    }
   </div>
-  <button class="btn edit-commande-btn" (click)="backMakeMakeCommande()">
-    <ion-icon name="add-outline"></ion-icon>
-  </button>
+  @if (!(bl || trasnfertList)) {
+    <button class="btn edit-commande-btn" (click)="backMakeMakeCommande()">
+      <ion-icon name="add-outline"></ion-icon>
+    </button>
+  }
+
 </ion-content>
 
 <ion-footer class="ion-no-border">
   <ion-grid>
     <ion-row class="d-flex justify-content-center align-items-center">
       <ion-col size="4" class="mb-3">
-        @if (gratuite) {
-          <div class="ag-courses_item shadow zoom-effect">
-            <div class="ag-courses-item_link">
-              <ion-icon name="print-outline" class="icon-large"></ion-icon>
-              <div class="ag-courses-item_bg ag-courses-item_bg-imprimer"></div>
-              <div class="ag-courses-item_title text-center">
-                <h3>Imprimer</h3>
-              </div>
+        @if (gratuite || bl || trasnfertList) {
+        <div class="ag-courses_item shadow zoom-effect">
+          <div class="ag-courses-item_link">
+            <ion-icon name="print-outline" class="icon-large"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-imprimer"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Imprimer</h3>
             </div>
           </div>
+        </div>
         } @else {
-          <div class="ag-courses_item shadow zoom-effect" (click)="setEncaisserOpen(true)">
-            <div class="ag-courses-item_link">
-              <ion-icon name="wallet-outline" class="icon-large"></ion-icon>
-              <div class="ag-courses-item_bg ag-courses-item_bg-encaisser"></div>
-              <div class="ag-courses-item_title text-center">
-                <h3>Encaisser</h3>
-              </div>
+        <div class="ag-courses_item shadow zoom-effect" (click)="setEncaisserOpen(true)">
+          <div class="ag-courses-item_link">
+            <ion-icon name="wallet-outline" class="icon-large"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-encaisser"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Encaisser</h3>
             </div>
           </div>
+        </div>
         }
 
       </ion-col>
@@ -232,6 +350,7 @@
       </ion-col>
       }
 
+      @if (!(bl || trasnfertList)) {
       <ion-col size="4" class="mb-3">
         <div class="ag-courses_item shadow zoom-effect" (click)="presentCancelAlert()">
           <div class="ag-courses-item_link">
@@ -243,6 +362,8 @@
           </div>
         </div>
       </ion-col>
+      }
+
       <!-- <ion-alert [isOpen]="isCancelAlertOpen" header="Annuler la commande?" [buttons]="alertCancelButtons"></ion-alert> -->
     </ion-row>
   </ion-grid>
@@ -306,16 +427,18 @@
         </div>
       </div>
     </ion-content>
+    @if (!(bl || trasnfertList)) {
     <ion-footer class="ion-no-border ion-padding">
       <div class="row mt-3 text-center" style="display: flex;
-        justify-content: center;
-        align-items: center;">
+          justify-content: center;
+          align-items: center;">
         <button class="btn delete-btn-commande" (click)="presentAlert2(selectedItem)">
           Supprimer
         </button>
         <!-- <ion-alert [isOpen]="isAlertOpen2" header="Confirmer à supprimer?" [buttons]="alertButtons2"></ion-alert> -->
       </div>
     </ion-footer>
+    }
   </ng-template>
 </ion-modal>
 

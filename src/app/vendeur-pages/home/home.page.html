@@ -32,7 +32,11 @@
               height: 50px;
               padding: 0;
             ">
-              <button expand="block" (click)="setOpen(true)" style="background: none; border-radius: 50px;">
+              <button expand="block" (click)="setOpen(true)" style="background: none; border-radius: 50px;    background: none;
+              border-radius: 50px;
+              display: flex;
+              align-items: center;
+              justify-content: center;">
                 <ion-icon name="pencil-outline" style="color: white; font-size: 22px;"></ion-icon>
               </button>
             </div>
@@ -57,7 +61,7 @@
         </div>
       </div>
       <div class="col-6 mb-4">
-        <div class="ag-courses_item shadow zoom-effect">
+        <div class="ag-courses_item shadow zoom-effect" (click)="navigateToTournes()">
           <div class="ag-courses-item_link">
             <ion-icon name="car-outline"></ion-icon>
             <div class="ag-courses-item_bg ag-courses-item_bg-tourne"></div>
@@ -80,7 +84,7 @@
       </div>
 
       <div class="col-6 mb-4">
-        <div class="ag-courses_item shadow zoom-effect">
+        <div class="ag-courses_item shadow zoom-effect" (click)="navigateToBL()">
           <div class="ag-courses-item_link">
             <ion-icon name="document-text-outline"></ion-icon>
             <div class="ag-courses-item_bg ag-courses-item_bg-bl"></div>
@@ -91,7 +95,7 @@
         </div>
       </div>
       <div class="col-6 mb-4">
-        <div class="ag-courses_item shadow zoom-effect">
+        <div class="ag-courses_item shadow zoom-effect" (click)="navigateToStockVehicule()">
           <div class="ag-courses-item_link">
             <ion-icon name="cube-outline"></ion-icon>
             <div class="ag-courses-item_bg ag-courses-item_bg-stock"></div>
@@ -102,7 +106,7 @@
         </div>
       </div>
       <div class="col-6 mb-4">
-        <div class="ag-courses_item shadow zoom-effect">
+        <div class="ag-courses_item shadow zoom-effect" (click)="navigateTotrasnfertList()">
           <div class="ag-courses-item_link">
             <ion-icon name="time-outline"></ion-icon>
             <div class="ag-courses-item_bg ag-courses-item_bg-historique"></div>
@@ -125,13 +129,16 @@
       </div>
       <div class="col-6 mb-4">
         <div class="ag-courses_item shadow zoom-effect">
-          <div class="ag-courses-item_link">
-            <ion-icon name="call-outline"></ion-icon>
-            <div class="ag-courses-item_bg ag-courses-item_bg-appel"></div>
-            <div class="ag-courses-item_title text-center">
-              <h3>Appeler responsable</h3>
+          <a href="tel:+1234567890" style="text-decoration: none;">
+            <div class="ag-courses-item_link">
+              <ion-icon name="call-outline"></ion-icon>
+              <div class="ag-courses-item_bg ag-courses-item_bg-appel"></div>
+              <div class="ag-courses-item_title text-center">
+                <h3>Appeler responsable</h3>
+              </div>
             </div>
-          </div>
+          </a>
+
         </div>
       </div>
     </div>
@@ -180,7 +187,6 @@
             <ion-label>Sécurité</ion-label>
           </ion-segment-button>
         </ion-segment>
-
 
         <div *ngIf="selectedSegment === 'informations'" class="informations" style="margin-top: 60px;">
           <ion-card class="m-0">

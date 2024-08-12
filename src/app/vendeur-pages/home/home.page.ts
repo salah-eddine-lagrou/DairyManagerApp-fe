@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import Swiper from 'swiper';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  @ViewChild("swiper")
+  swiperRef: ElementRef | undefined;
+  swiper?: Swiper;
 
   constructor(private router :Router) { }
 
@@ -63,5 +67,21 @@ export class HomePage implements OnInit {
     this.router.navigate(['vendeur-pages/reglement-list']);
   }
 
+  navigateToBL() :void {
+    const commingFromHome = true;
+    this.router.navigate(['vendeur-pages/bon-livraison'], { state : { commingFromHome }});
+  }
+
+  navigateToStockVehicule() :void {
+    this.router.navigate(['vendeur-pages/stock-vehicule']);
+  }
+
+  navigateTotrasnfertList() :void {
+    this.router.navigate(['vendeur-pages/transferts-list']);
+  }
+
+  navigateToTournes() :void {
+    this.router.navigate(['vendeur-pages/tournes']);
+  }
 
 }

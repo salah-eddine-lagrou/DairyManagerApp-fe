@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bon-livraison',
@@ -6,11 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bon-livraison.page.scss'],
 })
 export class BonLivraisonPage implements OnInit {
+  commingFromHome: boolean = false;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    // ! this componenet can been access by one client or by them all
     console.log("running from bl page");
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state) {
+      this.commingFromHome = navigation.extras.state['commingFromHome'];
+    }
 
   }
 
@@ -29,6 +36,11 @@ export class BonLivraisonPage implements OnInit {
       this.colorStyleInfo = "color: #8b8b8b;";
       this.colorStyleSec = "";
     }
+  }
+
+  goToDetailsCommande() :void {
+    const bl = true;
+    this.router.navigate(['vendeur-pages/details-commande'], {state : { bl }});
   }
 
 }

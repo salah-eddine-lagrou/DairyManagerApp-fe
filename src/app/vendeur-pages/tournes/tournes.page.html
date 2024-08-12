@@ -1,0 +1,167 @@
+<ion-header class="ion-header-cheking">
+  <a class="back-btn-header" routerDirection="back" routerLink="/vendeur-pages/home">
+    <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
+
+  <div class="ion-title text-center">
+    <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px; color: white;">
+      Tournes
+    </h5>
+  </div>
+</ion-header>
+<ion-content class="ion-padding" style="--background: white;">
+  <ion-segment [(ngModel)]="selectedSegment" style="position: absolute; top: 0; left: 0; height: 55px;">
+    <ion-segment-button value="en-cours" (click)="changeSegmentColorLabel('en-cours')" [style]="colorStyleEnCours">
+      <ion-label style="font-size: 13px;">En cours</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="douteux" (click)="changeSegmentColorLabel('douteux')" [style]="colorStyleDouteux">
+      <ion-label style="font-size: 13px;">Douteux</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="visite" (click)="changeSegmentColorLabel('visite')" [style]="colorStyleVisite">
+      <ion-label style="font-size: 13px;">Visité</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="selectedSegment === 'en-cours'" class="en-cours" style="margin-top: 60px;">
+    <ion-card class="tourne-card shadow ion-activatable" (click)="goToClientActions()">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="10">
+              <div class="info-item">
+                <strong>Client 1</strong>
+                <ion-badge color="primary" style="margin-inline: 5px; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">En cours</ion-badge>
+              </div>
+              <div class="info-item mt-1">
+                <ion-icon style="font-size: 16px; color: skyblue;" name="location-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Gharb Chrarda Beni Hssen, Kénitra</span>
+              </div>
+            </ion-col>
+            <ion-col size="2" class="d-flex align-items-center justify-content-center">
+              <ion-icon name="chevron-forward-outline" style="font-size: 25px;"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+    <ion-card class="tourne-card shadow ion-activatable" (click)="goToClientActions()">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="10">
+              <div class="info-item">
+                <strong>Client 1</strong>
+                <ion-badge color="primary" style="margin-inline: 5px; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">En cours</ion-badge>
+              </div>
+              <div class="info-item mt-1">
+                <ion-icon style="font-size: 16px; color: skyblue;" name="location-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Gharb Chrarda Beni Hssen, Kénitra</span>
+              </div>
+            </ion-col>
+            <ion-col size="2" class="d-flex align-items-center justify-content-center">
+              <ion-icon name="chevron-forward-outline" style="font-size: 25px;"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+    <ion-card class="tourne-card shadow ion-activatable" (click)="goToClientActions()">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="10">
+              <div class="info-item">
+                <strong>Client 1</strong>
+                <ion-badge color="primary" style="margin-inline: 5px; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">En cours</ion-badge>
+              </div>
+              <div class="info-item mt-1">
+                <ion-icon style="font-size: 16px; color: skyblue;" name="location-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Gharb Chrarda Beni Hssen, Kénitra</span>
+              </div>
+            </ion-col>
+            <ion-col size="2" class="d-flex align-items-center justify-content-center">
+              <ion-icon name="chevron-forward-outline" style="font-size: 25px;"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+  </div>
+
+  <div *ngIf="selectedSegment === 'douteux'" class="douteux" style="margin-top: 60px;">
+    <ion-card class="tourne-card shadow ion-activatable" (click)="goToClientActions()">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="10">
+              <div class="info-item">
+                <strong>Client 1</strong>
+                <ion-badge color="danger" style="margin-inline: 5px; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
+              </div>
+              <div class="info-item mt-1">
+                <ion-icon style="font-size: 16px; color: skyblue;" name="location-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Gharb Chrarda Beni Hssen, Kénitra</span>
+              </div>
+            </ion-col>
+            <ion-col size="2" class="d-flex align-items-center justify-content-center">
+              <ion-icon name="chevron-forward-outline" style="font-size: 25px;"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+    <ion-card class="tourne-card shadow ion-activatable" (click)="goToClientActions()">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="10">
+              <div class="info-item">
+                <strong>Client 1</strong>
+                <ion-badge color="danger" style="margin-inline: 5px; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
+              </div>
+              <div class="info-item mt-1">
+                <ion-icon style="font-size: 16px; color: skyblue;" name="location-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Gharb Chrarda Beni Hssen, Kénitra</span>
+              </div>
+            </ion-col>
+            <ion-col size="2" class="d-flex align-items-center justify-content-center">
+              <ion-icon name="chevron-forward-outline" style="font-size: 25px;"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+  </div>
+
+  <div *ngIf="selectedSegment === 'visite'" class="visite" style="margin-top: 60px;">
+    <ion-card class="tourne-card shadow ion-activatable" (click)="goToClientActions()">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="10">
+              <div class="info-item">
+                <strong>Client 1</strong>
+                <ion-badge color="success" style="margin-inline: 5px; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">visité</ion-badge>
+              </div>
+              <div class="info-item mt-1">
+                <ion-icon style="font-size: 16px; color: skyblue;" name="location-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Gharb Chrarda Beni Hssen, Kénitra</span>
+              </div>
+            </ion-col>
+            <ion-col size="2" class="d-flex align-items-center justify-content-center">
+              <ion-icon name="chevron-forward-outline" style="font-size: 25px;"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+  </div>
+
+
+</ion-content>
