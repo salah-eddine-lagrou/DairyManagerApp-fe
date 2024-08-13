@@ -1,0 +1,201 @@
+<ion-header>
+  <a class="back-btn-header" routerDirection="back" routerLink="/responsable-pages/vendeurs">
+    <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
+
+  <div class="ion-title text-center">
+    <h4 class="client-name" style="margin-bottom: 0px;">Vendeurs Name</h4>
+    <!-- <ion-badge color="success">Plafond 4000 Dhs</ion-badge>
+    <ion-badge color="danger">Douteux</ion-badge> -->
+  </div>
+  <a class="back-btn-home" routerDirection="back" routerLink="/responsable-pages/home">
+    <ion-icon name="home-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
+</ion-header>
+
+<ion-content>
+  <ion-card class="client-card">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="id-card-outline" class="me-2"></ion-icon>
+              <strong>Code vendeur</strong>
+              <p style="position: absolute; left: 95%;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>VR0044</span>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="cash-outline" class="me-2"></ion-icon>
+              <strong>Credit</strong>
+              <p style="position: absolute; left: 95%;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>-5000 Dhs</span>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="person-outline" class="me-2"></ion-icon>
+              <strong>Vendeur</strong>
+              <p style="position: absolute; left: 95%;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>vendeur name</span>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="location-outline" class="me-2"></ion-icon>
+              <strong>Secteur</strong>
+              <p style="position: absolute; left: 95%;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>Gharb chrada bni hssan</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+      <div class="contain-btns-card">
+        <ion-button class="localisation-btn" fill="solid" color="primary" size="small" expand="block">
+          <ion-icon slot="start" name="locate-outline"></ion-icon>
+          Localisation
+        </ion-button>
+        <ion-button class="edit-infos-btn" expand="block" (click)="setOpen(true)" fill="outline" color="primary"
+          size="small" expand="block" style="height: 23px;">
+          <ion-icon slot="start" name="create-outline"></ion-icon>
+          Mise à jour
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" class="mb-3">
+        <div class="ag-courses_item shadow zoom-effect" (click)="goToReglement()">
+          <div class="ag-courses-item_link">
+            <ion-icon name="card-outline" class="icon-large"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-regl"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Réglement</h3>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="4" class="mb-3">
+        <div class="ag-courses_item shadow zoom-effect" (click)="goToBL()">
+          <div class="ag-courses-item_link">
+            <ion-icon name="document-text-outline" class="icon-large"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-bl"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>BL en cours</h3>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="4" class="mb-3">
+        <div class="ag-courses_item shadow zoom-effect">
+          <div class="ag-courses-item_link">
+            <ion-icon name="file-tray-stacked-outline" class="icon-large"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-equipement"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Equipement</h3>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-modal [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-header style="height: 69px;">
+      <div class="modal-container-header" style="width: 100%;">
+        <div class="row">
+          <div class="col-md-6 w-25"
+            style="padding-inline: 20px; display: flex; align-items: center; justify-content: center;">
+            <div class="profile-img profile-img-container"
+              style="padding: 8px; background: rgba(255, 255, 255, 0.28); border-radius: 35px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, 0.23); display: flex;">
+              <ion-icon name="pencil-outline" style="color: white; font-size: 22px;"></ion-icon>
+            </div>
+          </div>
+          <div class="col w-75 profile-info" style="padding: 10px;">
+            <div class="row">
+              <div class="col" style="padding: 0;">
+                <h5 class="profile-name m-0" style="color: white;">Vendeur name</h5>
+                <p class="profile-mission" style="color: #a5a5a5; font-size: 13px; margin: 0;">
+                  <ion-icon name="id-card-outline" style="margin-bottom: -1px;"></ion-icon> Code: VR0112
+                </p>
+              </div>
+              <div class="col-4 d-flex align-items-center justify-content-center">
+                <div class="profile-img profile-img-container"
+                  style="display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; padding: 0;">
+                  <button (click)="setOpen(false)" style="background: none; border-radius: 50px;">
+                    <ion-icon name="close-outline" style="color: white; font-size: 28px;"></ion-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-header>
+    <ion-content class="ion-padding" style="--background: white;">
+      <ion-card class="m-0">
+        <ion-card-header>
+          <ion-card-title style="color: #535353;" class="text-center">Modifier les Informations</ion-card-title>
+        </ion-card-header>
+        <hr class="m-0">
+        <ion-card-content>
+          <div class="mb-3">
+            <label for="raison-social" class="form-label">Raison social</label>
+            <input type="text" class="form-control" id="raison-social" placeholder="Entrer raison social"
+              value="Vendeur name">
+          </div>
+          <div class="mb-3">
+            <label for="telephone" class="form-label">Telephone</label>
+            <input type="text" class="form-control" id="telephone" placeholder="Entrer telephone" value="0606060606">
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Entrer votre email"
+              value="email-vendeur@gmail.com">
+          </div>
+        </ion-card-content>
+      </ion-card>
+      <div class="row mt-4">
+        <div class="col" style="flex: 0 0 50%; max-width: 50%;">
+          <ion-button fill="outline" style="width: 100%;
+            color: white;
+            --background: #0054e9;
+            border-color: #0054e9;">Enregistrer</ion-button>
+        </div>
+        <div class="col" style="flex: 0 0 50%; max-width: 50%;">
+          <ion-button fill="outline" style="width: 100%;">Annuler</ion-button>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+

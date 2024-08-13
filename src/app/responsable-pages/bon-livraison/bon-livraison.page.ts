@@ -13,7 +13,7 @@ export class BonLivraisonPage implements OnInit {
 
   ngOnInit() {
     // ! this componenet can been access by one client or by them all
-    console.log("running from bl vendeur page");
+    console.log("running from bl responsable page");
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
       this.commingFromHome = navigation.extras.state['commingFromHome'];
@@ -40,7 +40,7 @@ export class BonLivraisonPage implements OnInit {
 
   goToDetailsCommande() :void {
     const bl = true;
-    this.router.navigate(['vendeur-pages/details-commande'], {state : { bl }});
+    this.router.navigate(['responsable-pages/details-commande'], {state : { bl }});
   }
 
 }

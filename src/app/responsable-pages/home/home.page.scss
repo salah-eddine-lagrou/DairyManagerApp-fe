@@ -16,19 +16,20 @@ ion-header {
 }
 
 ion-content {
-
   .container-header {
     margin-bottom: 20px;
+    margin-top: -2px;
     padding: 10px;
-    border-radius: 0 0 27px 27px;
+    border-radius: 0 0 40px 40px;
     background-color: #1a2037;
     color: white;
-    height: 224px;
+    height: 97px;
 
     .profile-img {
       width: 67px;
       border-radius: 50%; // Makes the image rounded
     }
+
     .profile-img-container {
       padding: 8px;
       background: rgba(255, 255, 255, 0.28);
@@ -37,19 +38,6 @@ ion-content {
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
       border: 1px solid rgba(255, 255, 255, 0.23);
-    }
-    .card-mission-infos {
-      padding: 8px;
-      background: rgba(255, 255, 255, 0.28);
-      border-radius: 17px;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.23);
-
-      margin-top: 10px;
-      margin-bottom: 10px;
-      height: 121px;
     }
 
     .profile-info {
@@ -95,6 +83,13 @@ ion-content {
   .container {
     margin-top: 30px;
     margin-bottom: 100px;
+
+    .row {
+      .col {
+        width: 150px;
+        height: 150px;
+      }
+    }
   }
 
   .card {
@@ -134,7 +129,7 @@ ion-content {
     background-color: rgb(255, 255, 255);
     width: 100%;
     // height: 100px;
-    margin-bottom: 18px;
+    margin-bottom: -10px;
     margin-inline: auto;
     border-radius: 15px;
     border: none;
@@ -146,25 +141,27 @@ ion-content {
 
   .ag-courses-item_link {
     display: block;
-    padding: 30px 20px;
+    // padding: 30px 20px;
     background-color: #ffffff;
     overflow: hidden;
     position: relative;
+    height: 125px;
+    transition: transform 0.3s ease;
 
     ion-icon {
       position: absolute;
-      left: 90%;  // Adjusted to be a percentage of the width
-      top: 10px;  // Kept as a fixed value since top position is less likely to change significantly
+      left: 50%;
+      top: 32px;
       z-index: 2;
-      font-size: 40px;
+      font-size: 50px;
       color: white;
-      transform: translateX(-50%); // Centering the icon horizontally relative to the left position
+      transform: translateX(-50%);
     }
   }
 
 
-  .ag-courses-item_link:hover,
-  .ag-courses-item_link:hover .ag-courses-item_date {
+  .ag-courses-item_link,
+  .ag-courses-item_link .ag-courses-item_date {
     text-decoration: none;
     color: #000000;
 
@@ -174,7 +171,7 @@ ion-content {
     }
   }
 
-  .ag-courses-item_link:hover .ag-courses-item_bg {
+  .ag-courses-item_link .ag-courses-item_bg {
     -webkit-transform: scale(10);
     -ms-transform: scale(10);
     transform: scale(10);
@@ -191,10 +188,18 @@ ion-content {
     // font-weight: bold;
     // font-size: 30px;
     color: #000000;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-top: 45px;
 
     z-index: 2;
     position: relative;
     transition: all .5s ease;
+
+    h3 {
+      font-size: 14px;
+    }
   }
 
   .ag-courses-item_date-box {
@@ -217,8 +222,7 @@ ion-content {
   .ag-courses-item_bg {
     height: 128px;
     width: 128px;
-    background: linear-gradient(135deg, #4c49ea 0%, #bdbce1 100%);
-
+    background-color: #1f8d01;
     z-index: 1;
     position: absolute;
     top: -53px;
@@ -231,25 +235,34 @@ ion-content {
     transition: all .5s ease;
   }
 
-  .ag-courses_item:nth-child(2n) .ag-courses-item_bg {
-    background: linear-gradient(135deg, #cd3e94 0%, #bdbce1 100%);
+  .ag-courses-item_bg-tourne {
+    background-color: #02a6f7;
   }
 
-  .ag-courses_item:nth-child(3n) .ag-courses-item_bg {
-    background: linear-gradient(135deg, #952aff 0%, #bdbce1 100%);
+  .ag-courses-item_bg-reglem {
+    background-color: #ea1e63;
   }
 
-  .ag-courses_item:nth-child(4n) .ag-courses-item_bg {
-    background: linear-gradient(135deg, #e44002 0%, #bdbce1 100%);
+  .ag-courses-item_bg-bl {
+    background-color: #ff9700;
   }
 
-  .ag-courses_item:nth-child(5n) .ag-courses-item_bg {
-    background: linear-gradient(135deg, #3ecd5e 0%, #bdbce1 100%);
+  .ag-courses-item_bg-stock {
+    background-color: #0133ab;
   }
 
-  .ag-courses_item:nth-child(6n) .ag-courses-item_bg {
-    background: linear-gradient(135deg, #f9b234 0%, #bdbce1 100%);
+  .ag-courses-item_bg-historique {
+    background-color: #7ed5fe;
   }
+
+  .ag-courses-item_bg-qr {
+    background-color: #000000;
+  }
+
+  .ag-courses-item_bg-appel {
+    background-color: #217709;
+  }
+
 
 
 
@@ -285,13 +298,14 @@ ion-content {
     }
 
     .ag-courses-item_link {
-      padding: 22px 40px;
+      padding: 2px 10px;
     }
 
     .ag-courses-item_date-box {
       font-size: 16px;
     }
   }
+
 
   // !----->end
 
@@ -303,27 +317,35 @@ ion-content {
     padding: 5px;
     border-radius: 7px;
   }
+
   .infos-clients {
     border-left: 3px solid #4c49ea;
   }
+
   .infos-tournes {
     border-left: 3px solid #d50dfd;
   }
+
   .infos-reglement {
     border-left: 3px solid #952aff;
   }
+
   .infos-bl {
     border-left: 3px solid #e44002;
   }
+
   .infos-stock {
     border-left: 3px solid #3ecd5e;
   }
+
   .infos-historique {
     border-left: 3px solid #f9b234;
   }
+
   .infos-qr {
     border-left: 3px solid #4c49ea;
   }
+
   .infos-appelle {
     border-left: 3px solid #e44002;
   }
@@ -337,6 +359,19 @@ ion-content {
     width: 50px;
     margin-bottom: 1px;
   }
+
+
+  .ag-courses_item {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+
+  .zoom-effect:active {
+    transform: scale(1.10);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3) !important;
+  }
+
 
 
 }

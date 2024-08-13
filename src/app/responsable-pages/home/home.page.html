@@ -5,17 +5,23 @@
 <ion-content [fullscreen]="true">
   <div class="container-header">
     <div class="row">
-      <div class="col-md-6 w-25" style="padding-inline: 20px;">
+      <div id="click-trigger" class="col-md-6 w-25" style="padding-inline: 20px;">
         <div class="profile-img profile-img-container">
           <img class="profile-img" src="assets/img/bruce-mars.jpg" alt="Bruce Mars">
         </div>
       </div>
+      <ion-popover trigger="click-trigger" triggerAction="click">
+        <ng-template>
+          <ion-content class="ion-padding disconnected-button">Se deconnecter !</ion-content>
+        </ng-template>
+      </ion-popover>
+
       <div class="col w-75 profile-info" style="padding: 10px;">
         <div class="row">
           <div class="col">
             <h1 class="profile-name m-0" style="color: white;">Bruce Mars</h1>
-            <p class="profile-mission" style="color: #a5a5a5;"><ion-icon name="briefcase-outline"></ion-icon> Mission:
-              Vendeur</p>
+            <p class="profile-mission" style="color: #a5a5a5;"><ion-icon name="briefcase-outline" style="margin-bottom: 3px;"></ion-icon> Mission:
+              Responsable</p>
           </div>
           <div class="col-4 d-flex align-items-center justify-content-center">
             <div class="profile-img profile-img-container" style="
@@ -26,211 +32,274 @@
               height: 50px;
               padding: 0;
             ">
-              <ion-icon name="pencil-outline" style="color: white; font-size: 22px;"></ion-icon>
+              <button expand="block" (click)="setOpen(true)" style="background: none; border-radius: 50px;    background: none;
+              border-radius: 50px;
+              display: flex;
+              align-items: center;
+              justify-content: center;">
+                <ion-icon name="pencil-outline" style="color: white; font-size: 22px;"></ion-icon>
+              </button>
             </div>
           </div>
         </div>
 
       </div>
     </div>
-    <div class="card-mission-infos">
-
-    </div>
   </div>
+
   <div class="container">
-    <div class="ag-courses_item shadow">
-      <div class="ag-courses-item_link">
-        <ion-icon name="people-outline"></ion-icon>
-        <div class="ag-courses-item_bg"></div>
-        <div class="ag-courses-item_title">
-          <h3>Mes Vendeurs</h3>
-          <div class="card-list-infos infos-clients">
-            <div class="row">
-              <div class="col">
-                <p class="info-item">Totals Clients:</p>
-                <p class="info-item">Inactive Clients:</p>
-                <p class="info-item">Total plafond:</p>
-              </div>
-              <div class="col">
-                <span class="badge bg-success">15</span><br>
-                <span class="badge bg-secondary">3</span><br>
-                <span class="badge bg-primary">20</span>
-              </div>
+    <div class="row">
+      <div class="col-6 mb-4">
+        <div class="ag-courses_item shadow zoom-effect" (click)="goToVendeurs()">
+          <div class="ag-courses-item_link">
+            <ion-icon name="people-outline"></ion-icon>
+            <div class="ag-courses-item_bg"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Vendeurs</h3>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="ag-courses_item shadow">
-      <div class="ag-courses-item_link">
-        <ion-icon name="car-outline"></ion-icon>
-        <div class="ag-courses-item_bg"></div>
-        <div class="ag-courses-item_title">
-          <h3>Tournes</h3>
-          <div class="card-list-infos infos-tournes">
-            <div class="row">
-              <div class="col">
-                <p class="info-item">infos tourne 1:</p>
-                <p class="info-item">infos tourne 2:</p>
-                <p class="info-item">infos tourne 3:</p>
-              </div>
-              <div class="col">
-                <span class="badge bg-success">15</span><br>
-                <span class="badge bg-secondary">3</span><br>
-                <span class="badge bg-primary">20</span>
-              </div>
+      <div class="col-6 mb-4">
+        <div class="ag-courses_item shadow zoom-effect">
+          <div class="ag-courses-item_link">
+            <ion-icon name="car-outline"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-tourne"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Tournes</h3>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="ag-courses_item shadow">
-      <div class="ag-courses-item_link">
-        <ion-icon name="card-outline"></ion-icon>
-        <div class="ag-courses-item_bg"></div>
-        <div class="ag-courses-item_title">
-          <h3>Reglement en cours</h3>
-          <div class="card-list-infos infos-reglement">
-            <div class="row">
-              <div class="col">
-                <p class="info-item">infos reglem 1:</p>
-                <p class="info-item">infos reglem 2:</p>
-                <p class="info-item">infos reglem 3:</p>
-              </div>
-              <div class="col">
-                <span class="badge bg-success">15</span><br>
-                <span class="badge bg-secondary">3</span><br>
-                <span class="badge bg-primary">20</span>
-              </div>
+      <div class="col-6 mb-4">
+        <div class="ag-courses_item shadow zoom-effect">
+          <div class="ag-courses-item_link">
+            <ion-icon name="card-outline"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-reglem"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Reglement en cours</h3>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-
-    <div class="ag-courses_item shadow">
-      <div class="ag-courses-item_link">
-        <ion-icon name="document-text-outline"></ion-icon>
-        <div class="ag-courses-item_bg"></div>
-        <div class="ag-courses-item_title">
-          <h3>BL en cours</h3>
-          <div class="card-list-infos infos-bl">
-            <div class="row">
-              <div class="col">
-                <p class="info-item">Infos BL 1:</p>
-                <p class="info-item">Infos BL 2:</p>
-                <p class="info-item">Infos BL 3:</p>
-              </div>
-              <div class="col">
-                <span class="badge bg-success">10</span><br>
-                <span class="badge bg-secondary">5</span><br>
-                <span class="badge bg-primary">8</span>
-              </div>
+      <div class="col-6 mb-4">
+        <div class="ag-courses_item shadow zoom-effect" (click)="goToBL()">
+          <div class="ag-courses-item_link">
+            <ion-icon name="document-text-outline"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-bl"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>BL en cours</h3>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="ag-courses_item shadow">
-      <div class="ag-courses-item_link">
-        <ion-icon name="cube-outline"></ion-icon>
-        <div class="ag-courses-item_bg"></div>
-        <div class="ag-courses-item_title">
-          <h3>Mon stock</h3>
-          <div class="card-list-infos infos-stock">
-            <div class="row">
-              <div class="col">
-                <p class="info-item">Stock Item 1:</p>
-                <p class="info-item">Stock Item 2:</p>
-                <p class="info-item">Stock Item 3:</p>
-              </div>
-              <div class="col">
-                <span class="badge bg-success">25</span><br>
-                <span class="badge bg-secondary">10</span><br>
-                <span class="badge bg-primary">30</span>
-              </div>
+      <div class="col-6 mb-4">
+        <div class="ag-courses_item shadow zoom-effect">
+          <div class="ag-courses-item_link">
+            <ion-icon name="reader-outline"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-stock"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Demandes en cours</h3>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="ag-courses_item shadow">
-      <div class="ag-courses-item_link">
-        <ion-icon name="time-outline"></ion-icon>
-        <div class="ag-courses-item_bg"></div>
-        <div class="ag-courses-item_title">
-          <h3>Historique Transfert</h3>
-          <div class="card-list-infos infos-historique">
-            <div class="row">
-              <div class="col">
-                <p class="info-item">Transfer 1:</p>
-                <p class="info-item">Transfer 2:</p>
-                <p class="info-item">Transfer 3:</p>
-              </div>
-              <div class="col">
-                <span class="badge bg-success">12</span><br>
-                <span class="badge bg-secondary">7</span><br>
-                <span class="badge bg-primary">15</span>
-              </div>
+      <div class="col-6 mb-4">
+        <div class="ag-courses_item shadow zoom-effect">
+          <div class="ag-courses-item_link">
+            <ion-icon name="gift-outline"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-historique"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Gratuités</h3>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="ag-courses_item shadow">
-      <div class="ag-courses-item_link">
-        <ion-icon name="qr-code-outline"></ion-icon>
-        <div class="ag-courses-item_bg"></div>
-        <div class="ag-courses-item_title">
-          <h3>Mon code QR</h3>
-          <div class="card-list-infos infos-qr">
-            <div class="row">
-              <div class="col">
-                <p class="info-item">QR Code Info 1:</p>
-                <p class="info-item">QR Code Info 2:</p>
-                <p class="info-item">QR Code Info 3:</p>
-              </div>
-              <div class="col">
-                <span class="badge bg-success">5</span><br>
-                <span class="badge bg-secondary">3</span><br>
-                <span class="badge bg-primary">7</span>
-              </div>
+      <div class="col-6 mb-4">
+        <div class="ag-courses_item shadow zoom-effect">
+          <div class="ag-courses-item_link">
+            <ion-icon name="qr-code-outline"></ion-icon>
+            <div class="ag-courses-item_bg ag-courses-item_bg-qr"></div>
+            <div class="ag-courses-item_title text-center">
+              <h3>Mon code QR</h3>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="ag-courses_item shadow">
-      <div class="ag-courses-item_link">
-        <ion-icon name="call-outline"></ion-icon>
-        <div class="ag-courses-item_bg"></div>
-        <div class="ag-courses-item_title">
-          <h3>Appeler responsable</h3>
-          <div class="card-list-infos infos-appelle">
-            <div class="row">
-              <div class="col">
-                <p class="info-item">Responsable 1:</p>
-                <p class="info-item">Responsable 2:</p>
-                <p class="info-item">Responsable 3:</p>
-              </div>
-              <div class="col">
-                <span class="badge bg-success">2</span><br>
-                <span class="badge bg-secondary">1</span><br>
-                <span class="badge bg-primary">4</span>
+      <div class="col-6 mb-4">
+        <div class="ag-courses_item shadow zoom-effect">
+          <a href="tel:+1234567890" style="text-decoration: none;">
+            <div class="ag-courses-item_link">
+              <ion-icon name="call-outline"></ion-icon>
+              <div class="ag-courses-item_bg ag-courses-item_bg-appel"></div>
+              <div class="ag-courses-item_title text-center">
+                <h3>Appeler magasinier</h3>
               </div>
             </div>
-          </div>
+          </a>
+
         </div>
       </div>
     </div>
-
   </div>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header style="height: 69px;">
+        <div class="modal-container-header">
+          <div class="row">
+            <div class="col-md-6 w-25"
+              style="padding-inline: 20px; display: flex; align-items: center; justify-content: center;">
+              <div class="profile-img profile-img-container"
+                style="padding: 8px; background: rgba(255, 255, 255, 0.28); border-radius: 35px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, 0.23); display: flex;">
+                <img class="profile-img" src="assets/img/bruce-mars.jpg" alt="Bruce Mars"
+                  style="width: 111px; border-radius: 50%;">
+              </div>
+            </div>
+            <div class="col w-75 profile-info" style="padding: 10px;">
+              <div class="row">
+                <div class="col" style="padding: 0;">
+                  <h5 class="profile-name m-0" style="color: white;">Bruce Mars</h5>
+                  <p class="profile-mission" style="color: #a5a5a5; font-size: 13px; margin: 0;">
+                    <ion-icon name="briefcase-outline" style="margin-bottom: -1px;"></ion-icon> Mission: Vendeur
+                  </p>
+                </div>
+                <div class="col-4 d-flex align-items-center justify-content-center">
+                  <div class="profile-img profile-img-container"
+                    style="display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; padding: 0;">
+                    <button (click)="setOpen(false)" style="background: none; border-radius: 50px;">
+                      <ion-icon name="close-outline" style="color: white; font-size: 28px;"></ion-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-header>
+      <ion-content class="ion-padding" style="--background: white;">
+        <ion-segment [(ngModel)]="selectedSegment" style="position: absolute; top: 0; left: 0; height: 55px;">
+          <ion-segment-button value="informations" (click)="changeSegmentColorLabel('Informations')" [style]="colorStyleInfo">
+            <ion-label>Informations</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="securite" (click)="changeSegmentColorLabel('Securite')" [style]="colorStyleSec">
+            <ion-label>Sécurité</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+        <div *ngIf="selectedSegment === 'informations'" class="informations" style="margin-top: 60px;">
+          <ion-card class="m-0">
+            <ion-card-header>
+              <ion-card-title style="color: #535353;" class="text-center">Modifier les Informations</ion-card-title>
+            </ion-card-header>
+            <hr class="m-0">
+            <ion-card-content>
+              <div class="mb-3">
+                <label for="prenom" class="form-label">Prénom</label>
+                <input type="text" class="form-control" id="prenom" placeholder="Entrer votre prénom">
+              </div>
+              <div class="mb-3">
+                <label for="nom" class="form-label">Nom</label>
+                <input type="text" class="form-control" id="nom" placeholder="Entrer votre nom">
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Entrer votre email">
+              </div>
+            </ion-card-content>
+          </ion-card>
+          <div class="row mt-4">
+            <div class="col" style="flex: 0 0 50%; max-width: 50%;">
+              <ion-button fill="outline" style="width: 100%;
+              color: white;
+              --background: #0054e9;
+              border-color: #0054e9;">Enregistrer</ion-button>
+            </div>
+            <div class="col" style="flex: 0 0 50%; max-width: 50%;">
+              <ion-button fill="outline" style="width: 100%;">Annuler</ion-button>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="selectedSegment === 'securite'" class="securite" style="margin-top: 60px;">
+          <ion-card class="m-0">
+            <ion-card-header>
+              <ion-card-title style="color: #535353;" class="text-center">Securite</ion-card-title>
+            </ion-card-header>
+            <hr class="m-0">
+            <ion-card-content>
+              <div class="mb-3">
+                <label for="current-password" class="form-label">Mot de passe actuelle</label>
+                <div style="display: flex;
+                justify-content: center;
+                align-items: center;">
+                  <input type="password" class="form-control" id="current-password"
+                    placeholder="Entrer votre actuelle ici" style="padding-right: 27px;">
+                  <button class="toggle-password" (click)="togglePassword('current-password', $event)"
+                    style="background: none;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: absolute;
+                    left: 88%;">
+                    <ion-icon name="eye-off-outline" style="color: #757272; font-size: 17px;"></ion-icon>
+                  </button>
+                </div>
+
+              </div>
+              <div class="mb-3">
+                <label for="new-password" class="form-label">Nouveau mot de passe</label>
+                <div style="display: flex;
+                justify-content: center;
+                align-items: center;">
+                  <input type="password" class="form-control" id="new-password" placeholder="Entrer le nouveau ici" style="padding-right: 27px;">
+                  <button class="toggle-password" (click)="togglePassword('new-password', $event)"
+                    style="background: none;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: absolute;
+                    left: 88%;">
+                    <ion-icon name="eye-off-outline" style="color: #757272; font-size: 17px;"></ion-icon>
+                  </button>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="confirm-password" class="form-label">Confirme mot de passe</label>
+                <div style="display: flex;
+                justify-content: center;
+                align-items: center;">
+                  <input type="password" class="form-control" id="confirm-password" placeholder="Confirmer ici" style="padding-right: 27px;">
+                  <button class="toggle-password" (click)="togglePassword('confirm-password', $event)"
+                    style="background: none;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: absolute;
+                    left: 88%;">
+                    <ion-icon name="eye-off-outline" style="color: #757272; font-size: 17px;"></ion-icon>
+                  </button>
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+          <div class="row mt-4">
+            <div class="col" style="flex: 0 0 50%; max-width: 50%;">
+              <ion-button fill="outline" style="width: 100%;
+              color: white;
+              --background: #0054e9;
+              border-color: #0054e9;">Enregistrer</ion-button>
+            </div>
+            <div class="col" style="flex: 0 0 50%; max-width: 50%;">
+              <ion-button fill="outline" style="width: 100%;">Annuler</ion-button>
+            </div>
+          </div>
+        </div>
+
+
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 
 </ion-content>

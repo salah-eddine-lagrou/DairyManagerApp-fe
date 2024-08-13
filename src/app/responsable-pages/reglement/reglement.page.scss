@@ -1,0 +1,97 @@
+ion-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  box-shadow: none;
+  background-color: #1a2037;
+  z-index: 1000;
+  height: 60px;
+
+  .back-btn-header {
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: absolute;
+    left: 0;
+  }
+
+  .ion-title {
+    color: white;
+  }
+}
+
+ion-content {
+
+  .encaisser-infos {
+    input {
+      background: none;
+    }
+
+    .form-label {
+      font-weight: bold;
+    }
+
+    .form-check-input {
+      margin-right: 10px;
+    }
+
+    .form-check {
+      padding-inline: 25px;
+    }
+  }
+
+  .client-card {
+    padding: 0.5rem;
+
+    ion-card-content {
+      padding: 8px;
+
+      .info-item {
+        display: flex;
+        align-items: center;
+        color: #1a2037;
+
+        ion-icon {
+          color: #1a2037;
+          font-size: 18px;
+        }
+      }
+
+      .buttons-container {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+
+
+}
+
+ion-footer {
+  background: #f5f7fd;
+
+  .confirmer-btn-commande {
+    width: 80%;
+    font-size: 20px;
+    border-radius: 50px;
+    color: #016331;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #016331;
+    transition: all .3s ease;
+  }
+
+  .confirmer-btn-commande:hover {
+    width: 100%;
+    font-size: 20px;
+    border-radius: 50px;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: linear-gradient(135deg, #016331 0%, #74975a 100%);
+    transition: all .3s ease;
+  }
+}

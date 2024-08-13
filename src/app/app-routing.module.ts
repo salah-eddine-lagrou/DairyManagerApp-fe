@@ -87,19 +87,22 @@ const routes: Routes = [
     path: 'responsable-pages/vendeurs',
     loadChildren: () => import('./responsable-pages/vendeurs/vendeurs.module').then( m => m.VendeursPageModule)
   },
-
-
-
-
-
-
-
-
-
-
-
-
-
+  {
+    path: 'responsable-pages/vendeur-actions',
+    loadChildren: () => import('./responsable-pages/vendeur-actions/vendeur-actions.module').then( m => m.VendeurActionsPageModule)
+  },
+  {
+    path: 'responsable-pages/reglement',
+    loadChildren: () => import('./responsable-pages/reglement/reglement.module').then( m => m.ReglementPageModule)
+  },
+  {
+    path: 'responsable-pages/bon-livraison',
+    loadChildren: () => import('./responsable-pages/bon-livraison/bon-livraison.module').then( m => m.BonLivraisonPageModule)
+  },
+  {
+    path: 'responsable-pages/details-commande',
+    loadChildren: () => import('./responsable-pages/details-commande/details-commande.module').then( m => m.DetailsCommandePageModule)
+  },
 
 
 
