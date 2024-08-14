@@ -7,12 +7,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./vendeur-actions.page.scss'],
 })
 export class VendeurActionsPage implements OnInit {
+  tournes: boolean = false;
 
   constructor(private router: Router) { }
 
   ngOnInit() {
     console.log("running from vendeurs actions");
-
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state) {
+      this.tournes = navigation.extras.state['tournes'];
+    }
   }
 
   isModalOpen = false;
@@ -26,6 +30,10 @@ export class VendeurActionsPage implements OnInit {
 
   goToBL() :void {
     this.router.navigate(['responsable-pages/bon-livraison']);
+  }
+
+  goToEquipements() :void {
+    this.router.navigate(['responsable-pages/equipements']);
   }
 
 }

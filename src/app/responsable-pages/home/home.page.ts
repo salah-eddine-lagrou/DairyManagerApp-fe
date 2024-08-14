@@ -63,4 +63,16 @@ export class HomePage implements OnInit {
     this.router.navigate(['responsable-pages/bon-livraison'], { state : { commingFromHome }});
   }
 
+  goToTournes() :void {
+    this.router.navigate(['responsable-pages/tournes']);
+  }
+
+  goToReglementsList() :void {
+    this.router.navigate(['responsable-pages/reglements-list']);
+  }
+
+  goToDemandes() :void {
+    this.router.navigate(['responsable-pages/demandes']);
+  }
+
 }

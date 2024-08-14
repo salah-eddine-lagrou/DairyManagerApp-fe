@@ -1,0 +1,247 @@
+<ion-header class="ion-header-cheking">
+  <a class="back-btn-header" routerDirection="back" routerLink="/responsable-pages/home">
+    <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
+  <div class="ion-title text-center">
+    <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px; color: white;">
+      Demandes
+    </h5>
+  </div>
+</ion-header>
+
+<ion-content class="ion-padding" style="--background: white;">
+  <ion-segment [(ngModel)]="selectedSegment" style="position: absolute; top: 0; left: 0; height: 55px;">
+    <ion-segment-button value="en-cours" (click)="changeSegmentColorLabel('en-cours')" [style]="colorStyleInfo">
+      <ion-label>En cours</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="historique" (click)="changeSegmentColorLabel('historique')" [style]="colorStyleSec">
+      <ion-label>Historique</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <div *ngIf="selectedSegment === 'en-cours'" class="en-cours" style="margin-top: 60px;">
+    <ion-card class="demande-card charge-card shadow ion-activatable" (click)="goToDetailsDemande()">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="reload-outline" class="me-2"></ion-icon>
+                <strong>Demande #1</strong>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item text-end">
+                <span style="font-size: 12px; margin-left: auto;">20-03-2024 09:23</span>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="margin: 0px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="arrow-forward-outline" class="me-2" style="font-size: 10px; color: green;"></ion-icon>
+                <span style="font-size: 12px;">Charge</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="radio-button-on-outline" class="me-2" style="font-size: 10px; color: green;"></ion-icon>
+                <span style="font-size: 12px;">Confirmé</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Responsable 1</span>
+
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col size="9">
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="cube-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">
+                  10 U.Pizzarella, 5 U.Pizza Cheese
+                </span>
+              </div>
+            </ion-col>
+            <ion-col size="3">
+              <div class="info-item">
+                <ion-icon name="chevron-forward-outline" style="margin-left: auto;"></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+    <ion-card class="demande-card decharge-card shadow ion-activatable" (click)="goToDetailsDemande()">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="reload-outline" class="me-2"></ion-icon>
+                <strong>Demande #1</strong>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item text-end">
+                <span style="font-size: 12px; margin-left: auto;">20-03-2024 09:23</span>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="margin: 0px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="arrow-back-outline" class="me-2" style="font-size: 10px; color: red;"></ion-icon>
+                <span style="font-size: 12px;">Décharge</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="radio-button-on-outline" class="me-2" style="font-size: 10px; color: red;"></ion-icon>
+                <span style="font-size: 12px;">En attente</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Responsable 1</span>
+
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col size="9">
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="cube-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">
+                  10 U.Pizzarella, 5 U.Pizza Cheese
+                </span>
+              </div>
+            </ion-col>
+            <ion-col size="3">
+              <div class="info-item">
+                <ion-icon name="chevron-forward-outline" style="margin-left: auto;"></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+  </div>
+
+  <div *ngIf="selectedSegment === 'historique'" class="historique" style="margin-top: 60px;">
+    <ion-card class="demande-card transf-card shadow ion-activatable" (click)="goToDetailsDemande()">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="reload-outline" class="me-2"></ion-icon>
+                <strong>Demande #1</strong>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item text-end">
+                <span style="font-size: 12px; margin-left: auto;">20-03-2024 09:23</span>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="margin: 0px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="reload-outline" class="me-2" style="font-size: 10px; color: blue;"></ion-icon>
+                <span style="font-size: 12px;">Demande</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon name="radio-button-on-outline" class="me-2" style="font-size: 10px; color: green;"></ion-icon>
+                <span style="font-size: 12px;">Confirmé</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col>
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">Responsable 1</span>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div class="info-item">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin: -10px -10px 0px">
+            <ion-col size="9">
+              <div class="info-item">
+                <ion-icon style="font-size: 10px;" name="cube-outline" class="me-2"></ion-icon>
+                <span style="font-size: 12px;">
+                  10 U.Pizzarella, 5 U.Pizza Cheese
+                </span>
+              </div>
+            </ion-col>
+            <ion-col size="3">
+              <div class="info-item">
+                <ion-icon name="chevron-forward-outline" style="margin-left: auto;"></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+  </div>
+
+
+
+</ion-content>

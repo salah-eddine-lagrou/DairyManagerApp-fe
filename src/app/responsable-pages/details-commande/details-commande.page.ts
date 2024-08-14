@@ -10,7 +10,6 @@ import Swal from 'sweetalert2';
 })
 export class DetailsCommandePage implements OnInit {
   @ViewChild('itemElement') itemElement!: ElementRef;
-  commande: any[] = [];
   paiement = {
     "id": 0,
     "montant": 0,
@@ -18,9 +17,7 @@ export class DetailsCommandePage implements OnInit {
     "note": ""
   };
   totalPrice: number = 0;
-  gratuite: boolean = false;
-  bl: boolean = false;
-  trasnfertList: boolean = false;
+  demandes: boolean = false;
 
   items = [
     { id: 1, maxQuantityDisplayed: false, name: 'pizzarella', image: "assets/img/produits/pizzarella.png", category: 'mozarella', quantity: 5, quantityStock: 20, price: 35 },
@@ -36,9 +33,15 @@ export class DetailsCommandePage implements OnInit {
   ) { }
 
   async ngOnInit() {
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state) {
+      this.demandes = navigation.extras.state['demandes'];
+    }
+
     for (const item of this.items) {
       this.totalPrice += item.quantity * item.price;
     }
+
     const loading = await this.loadingController.create({
       message: 'Loading...',
       duration: 200,

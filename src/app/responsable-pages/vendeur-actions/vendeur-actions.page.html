@@ -1,10 +1,17 @@
 <ion-header>
-  <a class="back-btn-header" routerDirection="back" routerLink="/responsable-pages/vendeurs">
-    <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
-  </a>
+  @if (tournes) {
+    <a class="back-btn-header" routerDirection="back" routerLink="/responsable-pages/tournes">
+      <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+    </a>
+  } @else {
+    <a class="back-btn-header" routerDirection="back" routerLink="/responsable-pages/vendeurs">
+      <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+    </a>
+  }
+
 
   <div class="ion-title text-center">
-    <h4 class="client-name" style="margin-bottom: 0px;">Vendeurs Name</h4>
+    <h4 class="client-name" style="margin-bottom: 0px;">Vendeur Name</h4>
     <!-- <ion-badge color="success">Plafond 4000 Dhs</ion-badge>
     <ion-badge color="danger">Douteux</ion-badge> -->
   </div>
@@ -114,7 +121,7 @@
         </div>
       </ion-col>
       <ion-col size="4" class="mb-3">
-        <div class="ag-courses_item shadow zoom-effect">
+        <div class="ag-courses_item shadow zoom-effect" (click)="goToEquipements()">
           <div class="ag-courses-item_link">
             <ion-icon name="file-tray-stacked-outline" class="icon-large"></ion-icon>
             <div class="ag-courses-item_bg ag-courses-item_bg-equipement"></div>

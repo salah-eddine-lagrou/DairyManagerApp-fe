@@ -103,6 +103,31 @@ const routes: Routes = [
     path: 'responsable-pages/details-commande',
     loadChildren: () => import('./responsable-pages/details-commande/details-commande.module').then( m => m.DetailsCommandePageModule)
   },
+  {
+    path: 'responsable-pages/equipements',
+    loadChildren: () => import('./responsable-pages/equipements/equipements.module').then( m => m.EquipementsPageModule)
+  },
+  {
+    path: 'responsable-pages/tournes',
+    loadChildren: () => import('./responsable-pages/tournes/tournes.module').then( m => m.TournesPageModule)
+  },
+  {
+    path: 'responsable-pages/reglements-list',
+    loadChildren: () => import('./responsable-pages/reglements-list/reglements-list.module').then( m => m.ReglementsListPageModule)
+  },
+  {
+    path: 'responsable-pages/demandes',
+    loadChildren: () => import('./responsable-pages/demandes/demandes.module').then( m => m.DemandesPageModule)
+  },  {
+    path: 'gratuites',
+    loadChildren: () => import('./responsable-pages/gratuites/gratuites.module').then( m => m.GratuitesPageModule)
+  },
+
+
+
+
+
+
 
 
 

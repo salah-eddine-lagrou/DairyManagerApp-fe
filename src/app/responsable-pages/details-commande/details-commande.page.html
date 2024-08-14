@@ -1,12 +1,26 @@
 <ion-header>
-  <a class="back-btn-header" routerDirection="back" routerLink="/responsable-pages/bon-livraison">
-    <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
-  </a>
+  @if (demandes) {
+    <a class="back-btn-header" routerDirection="back" routerLink="/responsable-pages/demandes">
+      <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+    </a>
+  } @else {
+    <a class="back-btn-header" routerDirection="back" routerLink="/responsable-pages/bon-livraison">
+      <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+    </a>
+  }
+
 
   <div class="ion-title text-center">
-    <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px;">
-      détails de la commande
-    </h5>
+    @if (demandes) {
+      <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px;">
+        détails de la demande
+      </h5>
+    } @else {
+      <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px;">
+        détails de la commande
+      </h5>
+    }
+
   </div>
   <a class="back-btn-home" routerLink="/responsable-pages/home">
     <ion-icon name="home-outline" style="font-size: 25px; color: white;"></ion-icon>
