@@ -449,6 +449,35 @@ ion-footer {
     }
   }
 
+  .refus-btn-demande {
+    width: 100%;
+    font-size: 15px;
+    border-radius: 50px;
+    color: #e73d3d;
+    border: 1px solid #e73d3d;
+    transition : all .3s ease ;
+  }
+  .refus-btn-demande:hover {
+    color: white;
+    background: linear-gradient(135deg, #e73d3d 0%, #e87272 100%);
+    transition : all .3s ease ;
+  }
+
+  .confirmer-btn-demande {
+    width: 100%;
+    font-size: 15px;
+    border-radius: 50px;
+    color: #016331;
+    border: 1px solid #016331;
+    transition: all 0.3s ease;
+  }
+
+  .confirmer-btn-demande:hover {
+    color: white;
+    background: linear-gradient(135deg, #016331 0%, #74975a 100%);
+    transition : all .3s ease ;
+  }
+
 }
 
 ion-modal {
@@ -672,52 +701,6 @@ ion-modal {
 
 
 
-  }
-
-  ion-footer {
-
-    .delete-btn-commande {
-      width: 80%;
-      font-size: 20px;
-      border-radius: 50px;
-      color: #e73d3d;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      border: 1px solid #e73d3d;
-      transition : all .3s ease ;
-    }
-    .delete-btn-commande:hover {
-      width: 100%;
-      font-size: 20px;
-      border-radius: 50px;
-      color: white;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      background: linear-gradient(135deg, #e73d3d 0%, #e87272 100%);
-      transition : all .3s ease ;
-    }
-
-    .confirmer-btn-commande {
-      width: 80%;
-      font-size: 20px;
-      border-radius: 50px;
-      color: #016331;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      border: 1px solid #016331;
-      transition : all .3s ease ;
-    }
-
-    .confirmer-btn-commande:hover {
-      width: 100%;
-      font-size: 20px;
-      border-radius: 50px;
-      color: white;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      background: linear-gradient(135deg, #016331 0%, #74975a 100%);
-      transition : all .3s ease ;
-    }
   }
 
 }

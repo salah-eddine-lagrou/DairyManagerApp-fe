@@ -1,13 +1,208 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>gratuites</ion-title>
-  </ion-toolbar>
+<ion-header class="ion-header-cheking">
+  <a class="back-btn-header" routerDirection="back" routerLink="/responsable-pages/home">
+    <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
+  <div class="ion-title text-center">
+    <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px; color: white;">
+      Gratuités
+    </h5>
+  </div>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">gratuites</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding" style="--background: white;">
+  <ion-card class="gratuite-card shadow ion-activatable" (click)="goToDetailCommande()">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="receipt-outline" class="me-2"></ion-icon>
+              <strong>Commande N° 4</strong>
+            </div>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row style="margin: 0px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="radio-button-on-outline" class="me-2" style="font-size: 10px; color: green;"></ion-icon>
+              <span style="font-size: 12px;">En cours</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+              <span style="font-size: 12px;">Client 1</span>
+
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col size="9">
+            <div class="info-item">
+              <ion-icon style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
+              <span style="font-size: 12px;">20-03-2024 09:23</span>
+            </div>
+          </ion-col>
+          <ion-col size="3">
+            <div class="info-item">
+              <ion-icon name="chevron-forward-outline" style="margin-left: auto;"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+    <ion-ripple-effect></ion-ripple-effect>
+  </ion-card>
+  <ion-card class="gratuite-card shadow ion-activatable" (click)="goToDetailCommande()">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="receipt-outline" class="me-2"></ion-icon>
+              <strong>Commande N° 4</strong>
+            </div>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row style="margin: 0px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="radio-button-on-outline" class="me-2" style="font-size: 10px; color: green;"></ion-icon>
+              <span style="font-size: 12px;">En cours</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+              <span style="font-size: 12px;">Client 1</span>
+
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col size="9">
+            <div class="info-item">
+              <ion-icon style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
+              <span style="font-size: 12px;">20-03-2024 09:23</span>
+            </div>
+          </ion-col>
+          <ion-col size="3">
+            <div class="info-item">
+              <ion-icon name="chevron-forward-outline" style="margin-left: auto;"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+    <ion-ripple-effect></ion-ripple-effect>
+  </ion-card>
+  <ion-card class="gratuite-card shadow ion-activatable" (click)="goToDetailCommande()">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="receipt-outline" class="me-2"></ion-icon>
+              <strong>Commande N° 4</strong>
+            </div>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row style="margin: 0px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-icon name="radio-button-on-outline" class="me-2" style="font-size: 10px; color: green;"></ion-icon>
+              <span style="font-size: 12px;">En cours</span>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col>
+            <div class="info-item">
+              <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+              <span style="font-size: 12px;">Client 1</span>
+
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="margin: -10px -10px 0px">
+          <ion-col size="9">
+            <div class="info-item">
+              <ion-icon style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
+              <span style="font-size: 12px;">20-03-2024 09:23</span>
+            </div>
+          </ion-col>
+          <ion-col size="3">
+            <div class="info-item">
+              <ion-icon name="chevron-forward-outline" style="margin-left: auto;"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+    <ion-ripple-effect></ion-ripple-effect>
+  </ion-card>
 </ion-content>

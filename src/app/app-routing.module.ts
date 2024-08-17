@@ -118,8 +118,9 @@ const routes: Routes = [
   {
     path: 'responsable-pages/demandes',
     loadChildren: () => import('./responsable-pages/demandes/demandes.module').then( m => m.DemandesPageModule)
-  },  {
-    path: 'gratuites',
+  },
+  {
+    path: 'responsable-pages/gratuites',
     loadChildren: () => import('./responsable-pages/gratuites/gratuites.module').then( m => m.GratuitesPageModule)
   },
 

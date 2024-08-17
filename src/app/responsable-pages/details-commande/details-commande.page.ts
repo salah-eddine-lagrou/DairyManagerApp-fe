@@ -18,6 +18,7 @@ export class DetailsCommandePage implements OnInit {
   };
   totalPrice: number = 0;
   demandes: boolean = false;
+  gratuites: boolean = false;
 
   items = [
     { id: 1, maxQuantityDisplayed: false, name: 'pizzarella', image: "assets/img/produits/pizzarella.png", category: 'mozarella', quantity: 5, quantityStock: 20, price: 35 },
@@ -30,12 +31,14 @@ export class DetailsCommandePage implements OnInit {
   constructor(
     private router: Router,
     private loadingController: LoadingController,
+    private navCtrl: NavController
   ) { }
 
   async ngOnInit() {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
       this.demandes = navigation.extras.state['demandes'];
+      this.gratuites = navigation.extras.state['gratuites'];
     }
 
     for (const item of this.items) {
@@ -72,6 +75,65 @@ export class DetailsCommandePage implements OnInit {
   currentOpen: string | null = null;
   toggleAccordion(id: string) {
     this.currentOpen = this.currentOpen === id ? null : id;
+  }
+
+  confirmerAction() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "bottom",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+    Toast.fire({
+      icon: "success",
+      title: "La demande a été confirmée avec succèe"
+    });
+    this.navCtrl.setDirection("back");
+    if (this.demandes)
+      this.router.navigateByUrl("responsable-pages/demandes");
+    else if (this.gratuites)
+      this.router.navigateByUrl("responsable-pages/gratuites");
+  }
+
+  refuserAction()  {
+    Swal.fire({
+      title: "Êtes-vous sûr de vouloir refuser ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Oui, refuser !",
+      cancelButtonText: "Annuler",
+      heightAuto: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "bottom",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "info",
+          title: "La demande a été refuser avec succèe"
+        });
+        this.navCtrl.setDirection("back");
+        if (this.demandes)
+          this.router.navigateByUrl("responsable-pages/demandes");
+        else if (this.gratuites)
+          this.router.navigateByUrl("responsable-pages/gratuites");
+      }
+    });
   }
 
 }

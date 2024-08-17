@@ -75,4 +75,8 @@ export class HomePage implements OnInit {
     this.router.navigate(['responsable-pages/demandes']);
   }
 
+  goToGratuites() :void {
+    this.router.navigate(['responsable-pages/gratuites']);
+  }
+
 }

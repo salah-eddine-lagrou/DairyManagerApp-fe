@@ -3,6 +3,10 @@
     <a class="back-btn-header" routerDirection="back" routerLink="/responsable-pages/demandes">
       <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
     </a>
+  } @else if (gratuites) {
+    <a class="back-btn-header" routerDirection="back" routerLink="/responsable-pages/gratuites">
+      <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+    </a>
   } @else {
     <a class="back-btn-header" routerDirection="back" routerLink="/responsable-pages/bon-livraison">
       <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
@@ -138,17 +142,30 @@
 <ion-footer class="ion-no-border">
   <ion-grid>
     <ion-row class="d-flex justify-content-center align-items-center">
-      <ion-col size="4" class="mb-3">
-        <div class="ag-courses_item shadow zoom-effect">
-          <div class="ag-courses-item_link">
-            <ion-icon name="print-outline" class="icon-large"></ion-icon>
-            <div class="ag-courses-item_bg ag-courses-item_bg-imprimer"></div>
-            <div class="ag-courses-item_title text-center">
-              <h3>Imprimer</h3>
+      @if (demandes || gratuites) {
+        <ion-col class="d-flex justify-content-center align-items-center">
+          <button class="btn confirmer-btn-demande" (click)="confirmerAction()">
+            Confirmer
+          </button>
+        </ion-col>
+        <ion-col class="d-flex justify-content-center align-items-center">
+          <button class="btn refus-btn-demande" (click)="refuserAction()">
+            Refuser
+          </button>
+        </ion-col>
+      } @else {
+        <ion-col size="4" class="mb-3">
+          <div class="ag-courses_item shadow zoom-effect">
+            <div class="ag-courses-item_link">
+              <ion-icon name="print-outline" class="icon-large"></ion-icon>
+              <div class="ag-courses-item_bg ag-courses-item_bg-imprimer"></div>
+              <div class="ag-courses-item_title text-center">
+                <h3>Imprimer</h3>
+              </div>
             </div>
           </div>
-        </div>
-      </ion-col>
+        </ion-col>
+      }
       <!-- <ion-alert [isOpen]="isCancelAlertOpen" header="Annuler la commande?" [buttons]="alertCancelButtons"></ion-alert> -->
     </ion-row>
   </ion-grid>

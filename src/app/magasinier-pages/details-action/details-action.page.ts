@@ -20,7 +20,7 @@ export class DetailsActionPage implements OnInit {
     { id: 5, maxQuantityDisplayed: false, name: 'cucina blue', image: "assets/img/produits/cucina blue.png", category: 'creme', quantity: 4, quantityStock: 5, price: 25 },
   ];
 
-  constructor(private router: Router, private navCtrl: NavController,) { }
+  constructor(private router: Router, private navCtrl: NavController) { }
 
   async ngOnInit() {
     console.log("running from details action for charge and decharge pages");
