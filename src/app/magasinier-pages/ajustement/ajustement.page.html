@@ -20,7 +20,7 @@
     </ion-button>
   </div>
 
-  <div class="list-products" style="margin-top: 55px;">
+  <div class="list-products" style="margin-top: 55px; margin-bottom: 50%;">
     <ion-searchbar></ion-searchbar>
     <div *ngFor="let item of filteredItems" style="margin-bottom: -88px;">
       <ion-card class="shadow ion-activatable" (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
