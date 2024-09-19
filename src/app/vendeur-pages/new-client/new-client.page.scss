@@ -1,0 +1,107 @@
+ion-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  box-shadow: none;
+  background-color: #1a2037;
+  z-index: 1000;
+  height: 60px;
+
+  .back-btn-header {
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: absolute;
+    left: 0;
+  }
+
+  .ion-title {
+    color: white;
+  }
+}
+
+ion-content {
+  --background: white;
+
+  .client-infos {
+    padding-inline: 0;
+
+    input {
+      background: none;
+    }
+
+    .form-label {
+      font-weight: bold;
+    }
+
+    .form-check-input {
+      margin-right: 10px;
+    }
+
+    .form-check {
+      padding-inline: 25px;
+    }
+
+    ion-input {
+      --color: gray;
+      --placeholder-opacity: 0; // Hide the placeholder when typing
+
+      &:focus-within {
+        --color: black; // Change text color to black when focused
+      }
+    }
+
+    ion-select {
+      color: gray;
+    }
+
+
+  }
+
+  .new-client-btn {
+    background-color: #ffb507;
+    border-radius: 200px;
+    height: 65px;
+    width: 65px;
+    position: sticky;
+    left: 80%;
+    bottom: 4%;
+    z-index: 5;
+    color: white;
+    font-size: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.3) !important;
+  }
+
+}
+
+ion-footer {
+  background: white;
+
+  .confirmer-btn-commande {
+    width: 80%;
+    font-size: 16px;
+    border-radius: 50px;
+    color: #016331;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: 1px solid #016331;
+    transition: all .3s ease;
+  }
+
+  .confirmer-btn-commande:hover {
+    width: 100%;
+    font-size: 16px;
+    border-radius: 50px;
+    color: white;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background: linear-gradient(135deg, #016331 0%, #74975a 100%);
+    transition: all .3s ease;
+  }
+}

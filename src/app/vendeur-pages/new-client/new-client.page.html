@@ -1,0 +1,116 @@
+<ion-header class="ion-header-cheking">
+  <a class="back-btn-header" routerDirection="back" routerLink="/vendeur-pages/clients">
+    <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
+  <div class="ion-title text-center">
+    <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px; color: white;">
+      Nouveau client
+    </h5>
+  </div>
+</ion-header>
+<ion-content>
+  <div class="client-infos container">
+    <!-- Client Name -->
+    <div>
+    <ion-input label="Nom client *" label-placement="floating" fill="solid" placeholder="Entrer nom du client">
+      </ion-input>
+    </div>
+
+    <!-- Phone -->
+    <div>
+      <ion-input label="Téléphone *" label-placement="floating" fill="solid"
+        placeholder="Entrer numéro téléphone"
+        required></ion-input>
+    </div>
+
+    <!-- Address -->
+    <div>
+      <ion-input label="Adresse *" label-placement="floating" fill="solid"
+        placeholder="Entrer adresse"
+        required></ion-input>
+    </div>
+
+    <!-- Client Subcategory -->
+    <div>
+      <ion-select label="Sous-categorie client *" label-placement="floating" fill="solid"
+        placeholder="Selectionner sous-categorie">
+        <ion-select-option value="1">Subcategory 1</ion-select-option>
+        <ion-select-option value="2">Subcategory 2</ion-select-option>
+      </ion-select>
+    </div>
+
+     <!-- Contact Name -->
+     <div>
+      <ion-input label="Contact Name" label-placement="floating" fill="solid"
+        placeholder="Entrer nom contact"></ion-input>
+    </div>
+
+    <!-- Email -->
+    <div>
+      <ion-input label="Email" label-placement="floating" fill="solid" type="email" placeholder="Entrer email"
+        required></ion-input>
+    </div>
+
+    <!-- TODO City -->
+
+    <!-- Agency -->
+    <div>
+      <ion-select label="Agence" label-placement="floating" fill="solid"
+        placeholder="Selectionner Agence">
+        <ion-select-option value="1">Agency 1</ion-select-option>
+        <ion-select-option value="2">Agency 2</ion-select-option>
+      </ion-select>
+    </div>
+
+    <!-- Warehouse -->
+    <div>
+      <ion-select label="Warehouse" label-placement="floating" fill="solid"
+        placeholder="Selectionner warehouse">
+        <ion-select-option value="1">Warehouse 1</ion-select-option>
+        <ion-select-option value="2">Warehouse 2</ion-select-option>
+      </ion-select>
+    </div>
+
+    <!-- Zone -->
+    <div>
+      <ion-select label="Zone" label-placement="floating" fill="solid"
+        placeholder="Selectionner zone">
+        <ion-select-option value="1">Zone 1</ion-select-option>
+        <ion-select-option value="2">Zone 2</ion-select-option>
+      </ion-select>
+    </div>
+
+    <!-- Sector -->
+    <div>
+      <ion-select label="Secteur" label-placement="floating" fill="solid"
+        placeholder="Selectionner secteur">
+        <ion-select-option value="1">Sector 1</ion-select-option>
+        <ion-select-option value="2">Sector 2</ion-select-option>
+      </ion-select>
+    </div>
+
+    <!-- TODO Price List -->
+
+
+    <!-- Note -->
+    <div>
+      <ion-input label="Note" label-placement="floating" fill="solid"
+        placeholder="Entrer des notes"></ion-input>
+    </div>
+  </div>
+
+  <button class="btn new-client-btn">
+    <ion-icon name="location-outline"></ion-icon>
+  </button>
+
+</ion-content>
+
+<ion-footer class="ion-no-border ion-padding">
+  <div class="row text-center" style="display: flex;
+        justify-content: center;
+        align-items: center;">
+    <button class="btn confirmer-btn-commande">
+      Confirmer
+    </button>
+  </div>
+</ion-footer>

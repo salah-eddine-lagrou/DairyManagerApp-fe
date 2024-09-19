@@ -102,5 +102,22 @@ ion-content {
     }
   }
 
+  .new-client-btn {
+    background-color: #3d83ff;
+    border-radius: 200px;
+    height: 65px;
+    width: 65px;
+    position: sticky;
+    left: 80%;
+    bottom: 2%;
+    z-index: 5;
+    color: white;
+    font-size: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.3) !important;
+  }
+
 
 }

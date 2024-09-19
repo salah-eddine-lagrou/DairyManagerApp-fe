@@ -60,6 +60,10 @@ const routes: Routes = [
     loadChildren: () => import('./vendeur-pages/tournes/tournes.module').then( m => m.TournesPageModule)
   },
   {
+    path: 'vendeur-pages/new-client',
+    loadChildren: () => import('./vendeur-pages/new-client/new-client.module').then( m => m.NewClientPageModule)
+  },
+  {
     path: 'magasinier-pages/home',
     loadChildren: () => import('./magasinier-pages/home/home.module').then( m => m.HomePageModule)
   },
@@ -123,6 +127,7 @@ const routes: Routes = [
     path: 'responsable-pages/gratuites',
     loadChildren: () => import('./responsable-pages/gratuites/gratuites.module').then( m => m.GratuitesPageModule)
   },
+
 
 
 

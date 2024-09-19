@@ -15,7 +15,11 @@ export class ClientsPage implements OnInit {
 
   }
 
-  goToClientActions() :void{
+  goToClientActions() :void {
     this.router.navigate(['vendeur-pages/client-actions']);
+  }
+
+  navigateToNewClient() :void {
+    this.router.navigate(['vendeur-pages/new-client']);
   }
 }
