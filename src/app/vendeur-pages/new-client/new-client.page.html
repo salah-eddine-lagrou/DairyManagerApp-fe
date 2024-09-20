@@ -97,6 +97,12 @@
       <ion-input label="Note" label-placement="floating" fill="solid"
         placeholder="Entrer des notes"></ion-input>
     </div>
+
+    <h5>
+      @if (location) {
+        {{location.display_name}}
+      }
+    </h5>
   </div>
 
   <button class="btn new-client-btn" (click)="getLocation()">

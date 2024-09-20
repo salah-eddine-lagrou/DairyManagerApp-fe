@@ -16,92 +16,81 @@ export class NewClientPage implements OnInit {
     console.log("running from new client page");
   }
 
-  getLocation() {
-    this.locationService.getCurrentLocation().then((position) => {
+  async getLocation() {
+    const hasPermission = await this.locationService.checkPermissions();
+    if (!hasPermission) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Location permission denied',
+        toast: true,
+        position: 'bottom',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true
+      });
+      return;
+    }
+
+    try {
+      const position = await this.locationService.getCurrentLocation();
       const lat = position.coords.latitude;
       const lng = position.coords.longitude;
 
-      console.log('Latitude:', lat, 'Longitude:', lng);  // Log coordinates
+      console.log('Latitude:', lat, 'Longitude:', lng);
 
       this.locationService.reverseGeocode(lat, lng).subscribe((response: any) => {
         if (response && response.display_name) {
           this.location = response;
 
-          console.log(this.location.display_name); // Corrected for Nominatim API
-          const Toast = Swal.mixin({
+          console.log(this.location.display_name);
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Location detected successfully',
             toast: true,
-            position: "bottom",
+            position: 'bottom',
             showConfirmButton: false,
             timer: 2000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            }
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Location detected successfully"
+            timerProgressBar: true
           });
         } else {
           console.error('No results found in reverse geocode response');
-          const Toast = Swal.mixin({
+
+          Swal.fire({
+            icon: 'error',
+            title: 'No results found in reverse geocode response',
             toast: true,
-            position: "bottom",
+            position: 'bottom',
             showConfirmButton: false,
             timer: 2000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            }
-          });
-          Toast.fire({
-            icon: "error",
-            title: "No results found in reverse geocode response"
+            timerProgressBar: true
           });
         }
       }, (error) => {
-        const Toast = Swal.mixin({
+        Swal.fire({
+          icon: 'error',
+          title: 'Error during reverse geocoding',
           toast: true,
-          position: "bottom",
+          position: 'bottom',
           showConfirmButton: false,
           timer: 2000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          }
-        });
-        Toast.fire({
-          icon: "error",
-          title: "Error during reverse geocoding"
+          timerProgressBar: true
         });
         console.error('Error during reverse geocoding', error);
       });
 
-    }).catch((error) => {
-      const Toast = Swal.mixin({
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error getting location',
         toast: true,
-        position: "bottom",
+        position: 'bottom',
         showConfirmButton: false,
         timer: 2000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        }
-      });
-      Toast.fire({
-        icon: "error",
-        title: "Error getting location"
+        timerProgressBar: true
       });
       console.error('Error getting location', error);
-    });
+    }
   }
-
-
-
-
 
 }
