@@ -188,12 +188,25 @@ ion-content {
   transition: all 0.3s ease;
 
   .confirmer-btn {
+    width: 80%;
+    font-size: 18px;
+    border-radius: 50px;
+    color: #016331;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: 1px solid #016331;
+    transition: all .3s ease;
+  }
+
+  .confirmer-btn:hover {
     width: 100%;
-    height: 45px;
+    font-size: 18px;
     border-radius: 50px;
     color: white;
+    padding-top: 8px;
+    padding-bottom: 8px;
     background: linear-gradient(135deg, #016331 0%, #74975a 100%);
-    font-weight: 600;
+    transition: all .3s ease;
   }
 }
 

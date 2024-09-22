@@ -37,17 +37,17 @@
 
   <div class="list-products" style="margin-top: 55px; margin-bottom: 50%;">
     @if (transfert) {
-      <div class="mb-3">
-        <select class="form-select" id="exampleSelectMultiple">
-          <option value="1">Selectionner vendeur</option>
-          <option value="1">vedeur 1</option>
-          <option value="2">vedeur 2</option>
-          <option value="3">vedeur 3</option>
-          <option value="4">vedeur 4</option>
-        </select>
-      </div>
+    <div class="mb-3">
+      <select class="form-select" id="exampleSelectMultiple">
+        <option value="1">Selectionner vendeur</option>
+        <option value="1">vedeur 1</option>
+        <option value="2">vedeur 2</option>
+        <option value="3">vedeur 3</option>
+        <option value="4">vedeur 4</option>
+      </select>
+    </div>
     } @else {
-      <ion-searchbar></ion-searchbar>
+    <ion-searchbar></ion-searchbar>
     }
     @if (retour) {
     <div *ngFor="let item of filteredItems" style="margin-bottom: -88px;">
@@ -100,50 +100,50 @@
     </div>
 
     } @else if (isAnyTrue()) {
-      <div *ngFor="let item of filteredItems" style="margin-bottom: -88px;">
-        <ion-card class="shadow ion-activatable" (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
-          <ion-card-content class="p-0">
-            <ion-grid>
-              <ion-row>
-                <ion-col size="3" class="img-item-container">
-                  <img class="img-item" [src]="item.image" alt="">
-                </ion-col>
-                <ion-col size="6">
-                  <h5 class="item-title">{{ item.name | truncate:15 }}</h5>
-                  <ion-badge color="success" class="badge-price-item">{{ item.price }} Dhs/U</ion-badge><br>
-                  <ion-badge color="dark" class="badge-quantity-stock-item">
-                    <ion-icon name="cube-outline" style="margin: 0px 0px -2px 0px;"></ion-icon>
-                    {{ item.quantityStock }} U
-                  </ion-badge>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card-content>
-          <ion-ripple-effect></ion-ripple-effect>
-        </ion-card>
-        <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
-          <div>
-            <ng-container *ngIf="item.maxQuantityDisplayed; else notMax">
-              <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity"
-                disabled (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
-              <button class="btn max-btn" (click)="resetQuantity(item.id, $event)">reset</button>
-            </ng-container>
-            <ng-template #notMax>
-              <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity"
-                (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
-              <button class="btn max-btn" (click)="maxQuantity(item.id, $event)">MAX</button>
-            </ng-template>
-          </div>
-          <div style="margin-left: 10px;">
-            <button class="btn increase-btn" (click)="increaseQuantity(item.id, $event)">
-              <ion-icon name="add-outline"></ion-icon>
-            </button>
-            <button class="btn decrease-btn" (click)="decreaseQuantity(item.id, $event)">
-              <ion-icon name="remove-outline"></ion-icon>
-            </button>
-          </div>
-        </ion-col>
-      </div>
+    <div *ngFor="let item of filteredItems" style="margin-bottom: -88px;">
+      <ion-card class="shadow ion-activatable" (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
+        <ion-card-content class="p-0">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3" class="img-item-container">
+                <img class="img-item" [src]="item.image" alt="">
+              </ion-col>
+              <ion-col size="6">
+                <h5 class="item-title">{{ item.name | truncate:15 }}</h5>
+                <ion-badge color="success" class="badge-price-item">{{ item.price }} Dhs/U</ion-badge><br>
+                <ion-badge color="dark" class="badge-quantity-stock-item">
+                  <ion-icon name="cube-outline" style="margin: 0px 0px -2px 0px;"></ion-icon>
+                  {{ item.quantityStock }} U
+                </ion-badge>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-card>
+      <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
+        <div>
+          <ng-container *ngIf="item.maxQuantityDisplayed; else notMax">
+            <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity"
+              disabled (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
+            <button class="btn max-btn" (click)="resetQuantity(item.id, $event)">reset</button>
+          </ng-container>
+          <ng-template #notMax>
+            <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity"
+              (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
+            <button class="btn max-btn" (click)="maxQuantity(item.id, $event)">MAX</button>
+          </ng-template>
+        </div>
+        <div style="margin-left: 10px;">
+          <button class="btn increase-btn" (click)="increaseQuantity(item.id, $event)">
+            <ion-icon name="add-outline"></ion-icon>
+          </button>
+          <button class="btn decrease-btn" (click)="decreaseQuantity(item.id, $event)">
+            <ion-icon name="remove-outline"></ion-icon>
+          </button>
+        </div>
+      </ion-col>
+    </div>
     } @else {
     <div *ngFor="let item of filteredItems" style="margin-bottom: -88px;">
       <ion-card class="shadow ion-activatable" (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
@@ -202,46 +202,45 @@
 
 <div class="custom-footer">
   @if (!isAnyTrue()) {
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <p [ngStyle]="{'color': gratuite || gratuiteBack ? 'green' : 'red'}">Total</p>
-        </div>
-        <div class="col text-end">
-          @if (gratuite || gratuiteBack) {
-          <strong style="color: green;">0 Dhs</strong>
-          } @else {
-          <strong style="color: red;">{{ totalPrice }} Dhs</strong>
-          }
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <p [ngStyle]="{'color': gratuite || gratuiteBack ? 'green' : 'red'}">Total</p>
+      </div>
+      <div class="col text-end">
+        @if (gratuite || gratuiteBack) {
+        <strong style="color: green;">0 Dhs</strong>
+        } @else {
+        <strong style="color: red;">{{ totalPrice }} Dhs</strong>
+        }
       </div>
     </div>
+  </div>
   }
 
-  @if (totalPrice > 0) {
-  @if (retour) {
-  <button class="btn confirmer-btn ion-activatable" (click)="presentAlert()">
-    Confirmer
-    <ion-ripple-effect></ion-ripple-effect>
-  </button>
-
-  } @else if (isAnyTrue()) {
-    <button class="btn confirmer-btn ion-activatable" (click)="goBackToStock()">
+  <div class="d-flex align-items-center justify-content-center">
+    @if (totalPrice > 0) {
+    @if (retour) {
+    <button class="btn confirmer-btn " (click)="presentAlert()">
       Confirmer
-      <ion-ripple-effect></ion-ripple-effect>
     </button>
-  } @else {
-  <button class="btn confirmer-btn ion-activatable" (click)="goToCommandeDetails()">
-    Confirmer
-    <ion-ripple-effect></ion-ripple-effect>
-  </button>
-  }
 
-  } @else {
-  <button class="btn confirmer-btn" disabled>
-    Confirmer
-  </button>
-  }
+    } @else if (isAnyTrue()) {
+    <button class="btn confirmer-btn " (click)="goBackToStock()">
+      Confirmer
+    </button>
+    } @else {
+    <button class="btn confirmer-btn " (click)="goToCommandeDetails()">
+      Confirmer
+    </button>
+    }
+
+    } @else {
+    <button class="btn confirmer-btn" disabled>
+      Confirmer
+    </button>
+    }
+  </div>
 
 </div>
 

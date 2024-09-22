@@ -8,7 +8,7 @@ import { Geolocation } from '@capacitor/geolocation';
   providedIn: 'root'
 })
 export class LocationService {
-  private geocodingApiUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
+  private apiKey = 'AlzaSyFP00HEIEruLRmgOKQj3JGtWz2Mle-REDT';
 
   constructor(private http: HttpClient, private platform: Platform) { }
 
@@ -38,7 +38,7 @@ export class LocationService {
   }
 
   reverseGeocode(lat: number, lng: number): Observable<any> {
-    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
+    const url = `https://maps.gomaps.pro/maps/api/geocode/json?latlng=${lat},${lng}&key=${this.apiKey}`;
     return this.http.get(url);
   }
 

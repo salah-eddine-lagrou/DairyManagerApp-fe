@@ -201,7 +201,7 @@
   }
 
 
-  <div class="list-products" style="margin-top: 25px;">
+  <div class="list-products" style="margin-top: 25px; margin-bottom: 50%;">
     @if (bl || trasnfertList) {
     <ion-item-sliding *ngFor="let item of items" [disabled]="true">
       <ion-item>
@@ -309,12 +309,11 @@
 
 </ion-content>
 
-<ion-footer class="ion-no-border">
+<div class="custom-footer">
   <ion-grid>
     <ion-row class="d-flex justify-content-center align-items-center">
-
       @if (!(gratuite || bl || trasnfertList) && paiement.id === 0) {
-      <ion-col size="4" class="mb-3">
+      <ion-col size="4" class="" style="height: 80px;">
         <div class="ag-courses_item shadow zoom-effect" (click)="setEncaisserOpen(true)">
           <div class="ag-courses-item_link">
             <ion-icon name="wallet-outline" class="icon-large"></ion-icon>
@@ -326,7 +325,7 @@
         </div>
       </ion-col>
       } @else if (paiement.id !== 0) {
-      <ion-col size="4" class="mb-3">
+      <ion-col size="4" class="" style="height: 80px;">
         <div class="ag-courses_item shadow zoom-effect" (click)="setEncaisserOpen(true)">
           <div class="ag-courses-item_link">
             <ion-icon name="create-outline" class="icon-large"></ion-icon>
@@ -340,7 +339,7 @@
       }
 
       <!-- @if (paiement.id !== 0) {
-      <ion-col size="4" class="mb-3">
+      <ion-col size="4" class="" style="height: 80px;">
         <div class="ag-courses_item shadow zoom-effect" #itemElement>
           <div class="ag-courses-item_link">
             <ion-icon name="print-outline" class="icon-large"></ion-icon>
@@ -352,7 +351,7 @@
         </div>
       </ion-col>
       } @else {
-      <ion-col size="4" class="mb-3">
+      <ion-col size="4" class="" style="height: 80px;">
         <div class="ag-courses_item shadow zoom-effect" #itemElement>
           <div class="ag-courses-item_link">
             <ion-icon name="print-outline" class="icon-large"></ion-icon>
@@ -364,7 +363,7 @@
         </div>
       </ion-col>
       } -->
-      <ion-col size="4" class="mb-3">
+      <ion-col size="4" class="" style="height: 80px;">
         <div class="ag-courses_item shadow zoom-effect" #itemElement>
           <div class="ag-courses-item_link">
             <ion-icon name="print-outline" class="icon-large"></ion-icon>
@@ -377,7 +376,7 @@
       </ion-col>
 
       @if (!(bl || trasnfertList)) {
-      <ion-col size="4" class="mb-3">
+      <ion-col size="4" class="" style="height: 80px;">
         <div class="ag-courses_item shadow zoom-effect" (click)="presentCancelAlert()">
           <div class="ag-courses-item_link">
             <ion-icon name="close-outline" class="icon-large"></ion-icon>
@@ -393,7 +392,7 @@
       <!-- <ion-alert [isOpen]="isCancelAlertOpen" header="Annuler la commande?" [buttons]="alertCancelButtons"></ion-alert> -->
     </ion-row>
   </ion-grid>
-</ion-footer>
+</div>
 
 <!-- Modal view product -->
 <ion-modal [isOpen]="isModalOpen">
@@ -455,7 +454,7 @@
     </ion-content>
     @if (!(bl || trasnfertList)) {
     <ion-footer class="ion-no-border ion-padding">
-      <div class="row mt-3 text-center" style="display: flex;
+      <div class="row text-center" style="display: flex;
           justify-content: center;
           align-items: center;">
         <button class="btn delete-btn-commande" (click)="presentAlert2(selectedItem)">
@@ -642,7 +641,7 @@
       </div>
     </ion-content>
     <ion-footer class="ion-no-border ion-padding" style="background: #ffffff;">
-      <div class="row mt-3 text-center" style="display: flex;
+      <div class="row text-center" style="display: flex;
         justify-content: center;
         align-items: center;">
         <button class="btn confirmer-btn-commande" (click)="confirmPaiement()">
