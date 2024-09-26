@@ -1,0 +1,98 @@
+<ion-content [fullscreen]="true" class="auth-page">
+  <div class="profile-img-container">
+    <img class="profile-img" src="assets/img/LOGO-GASTROMIXTE-RGB-2.png" alt="Background Image">
+  </div>
+
+  <div class="container-header">
+    <h1 class="login-title text-center" data-text="Bienvenue de retour!">Bienvenue de retour!</h1>
+
+
+    <div class="form-login">
+      @if (!forget) {
+      <form (ngSubmit)="login()">
+        <!-- Email Input -->
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">
+            <ion-icon name="person-outline"></ion-icon>
+          </span>
+          <input type="email" class="form-control" id="email" placeholder="Email" aria-label="Email"
+            aria-describedby="basic-addon1" [(ngModel)]="authUser.email" name="email" required>
+        </div>
+        <p class="error-message" *ngIf="errorMessageEmail">{{ errorMessageEmail }}</p>
+
+        <!-- Password Input -->
+        <div class="input-group mb-3 position-relative">
+          <span class="input-group-text" id="basic-addon2">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+          </span>
+          <input type="password" class="form-control" id="current-password" placeholder="Entrer votre mot de passe"
+            aria-label="Password" aria-describedby="basic-addon2" [(ngModel)]="authUser.password" name="password"
+            required>
+          <button class="btn btn-outline-secondary toggle-password" (click)="togglePassword('current-password', $event)"
+            type="button">
+            <ion-icon name="eye-off-outline" style="color: #757272; font-size: 17px;"></ion-icon>
+          </button>
+        </div>
+        <p class="error-message" *ngIf="errorMessagePassword">{{ errorMessagePassword }}</p>
+
+        <!-- Auth Button -->
+        <div class="input-group mb-3 position-relative">
+          <button class="btn auth-btn ion-activatable ripple-border" type="submit" [disabled]="isLoading">
+            <ng-container *ngIf="!isLoading; else loadingTemplate">Confirmer</ng-container>
+            <ng-template #loadingTemplate>
+              <ion-spinner name="dots" color="light"></ion-spinner> <!-- Change name as needed -->
+            </ng-template>
+            <ion-ripple-effect></ion-ripple-effect>
+          </button>
+        </div>
+
+      </form>
+
+      <div class="input-group mb-3 position-relative">
+        <div class="row w-100" style="height: 20px; margin-inline: auto;">
+          <div class="col w-50 p-0" style="display: flex; align-items: center;">
+            <ion-checkbox checked="true"></ion-checkbox>
+            <label style="margin-right: 8px; font-size: 12px; color: #707693;;">Remember Me</label>
+          </div>
+          <div class="col w-50 p-0 text-end" style="font-size: 12px;
+            color: #1a2037;
+            letter-spacing: 0px;
+            font-weight: 600;">
+            <strong (click)="forgetPassword()">Forgot password ?</strong>
+          </div>
+        </div>
+      </div>
+      } @else {
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">
+          <ion-icon name="person-outline"></ion-icon>
+        </span>
+        <input type="email" class="form-control" id="email" placeholder="Email" aria-label="Email"
+          aria-describedby="basic-addon1">
+      </div>
+
+      <!-- Auth Button -->
+      <div class="input-group mb-3 position-relative">
+        <button class="btn auth-btn ion-activatable ripple-border">
+          Get code
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
+      </div>
+      <!-- Auth Button -->
+      <div class="input-group mb-3 position-relative">
+        <button class="btn auth-btn-back ion-activatable ripple-border" (click)="backToAuth()">
+          Back
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
+      </div>
+      }
+
+
+      <div class="copyrights-infos text-center">
+        <p style="font-style: italic; color: rgb(89 87 87); font-style: italic;">Tous droits réservés. Développé en
+          collaboration avec <a href="https://www.gastromixte.com/" style="color: black;">Gastromixte</a>.</p>
+      </div>
+    </div>
+
+  </div>
+</ion-content>
