@@ -5,6 +5,7 @@ import { IonContent, ModalController } from '@ionic/angular';
 import { Client } from 'src/app/models/client';
 import { ClientService } from 'src/app/services/client.service';
 import { Router } from '@angular/router';
+import { Network } from '@capacitor/network';
 
 @Component({
   selector: 'app-new-client',
@@ -94,8 +95,10 @@ export class NewClientPage implements OnInit {
         return;
 
       } else if ((!this.newClient.address || this.newClient.address.trim() === '')
-        && (!this.newClient.city || this.newClient.city.trim() === '')
+        || (!this.newClient.city || this.newClient.city.trim() === '')
       ) {
+        this.located = false;
+
         setTimeout(() => {
           this.renderer.addClass(this.itemElement.nativeElement, 'highlight-animation');
           setTimeout(() => {
@@ -271,9 +274,6 @@ export class NewClientPage implements OnInit {
   located: boolean = false;
   async getLocation() {
     if (this.located) {
-      // ! ERROR DISPLAYING MAP WE NEED IT HERE ....
-      // TODO display map process...
-
       Swal.fire({
         icon: 'error',
         title: 'Error displaying map',
@@ -282,13 +282,13 @@ export class NewClientPage implements OnInit {
         showConfirmButton: false,
         timer: 2000,
       });
-
       return;
-
     }
+
     this.locatedOn = true;
     this.loading = true; // Start loading
     const hasPermission = await this.locationService.checkPermissions();
+
     if (!hasPermission) {
       this.loading = false;
       Swal.fire({
@@ -298,21 +298,36 @@ export class NewClientPage implements OnInit {
         position: 'bottom',
         showConfirmButton: false,
         timer: 2000,
-
       });
       return;
     }
 
+    const position = await this.locationService.getCurrentLocation();
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
+    this.lat = lat;
+    this.lng = lng;
+
+    // Check network status
+    const networkStatus = await Network.getStatus();
+    if (!networkStatus.connected) {
+      // No internet: Only store lat/lng
+      this.newClient.location_gps_coordinates = `${lat}, ${lng}`;
+      Swal.fire({
+        icon: 'info',
+        title: 'GPS coordinates saved (No Internet)',
+        toast: true,
+        position: 'bottom',
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      this.located = true;
+      this.loading = false;
+      return;
+    }
+
+    // Reverse geocode if the internet is available
     try {
-      const position = await this.locationService.getCurrentLocation();
-      const lat = position.coords.latitude;
-      const lng = position.coords.longitude;
-
-      console.log('Latitude:', lat, 'Longitude:', lng);
-      this.lat = lat;
-      this.lng = lng;
-
-      // Reverse geocode to get the address
       this.locationService.reverseGeocode(lat, lng).subscribe(
         (response: any) => {
           this.loading = false;
@@ -320,43 +335,27 @@ export class NewClientPage implements OnInit {
             const addressComponents = response.results[3].address_components;
             const formattedAddress = response.results[0].formatted_address;
 
+            // Use the getAddressComponent method to extract specific parts
             const country = this.getAddressComponent(addressComponents, 'country');
-            const city = this.getAddressComponent(addressComponents, 'locality') || this.getAddressComponent(addressComponents, 'administrative_area_level_1');
-            const neighborhood = this.getAddressComponent(addressComponents, 'sublocality') || this.getAddressComponent(addressComponents, 'neighborhood');
+            const city = this.getAddressComponent(addressComponents, 'locality') ||
+                         this.getAddressComponent(addressComponents, 'administrative_area_level_1');
+            const neighborhood = this.getAddressComponent(addressComponents, 'sublocality') ||
+                                 this.getAddressComponent(addressComponents, 'neighborhood');
             const route = this.getAddressComponent(addressComponents, 'route');
 
-            const addressParts = formattedAddress.split(',');
-            const primaryAddress = formattedAddress || 'N/A';
-
-            const finalNeighborhood = neighborhood !== 'N/A' ? neighborhood : addressParts[0] || 'N/A'; // Use first part if neighborhood is "N/A"
-
-            const completeAddress = `
-              Address: ${primaryAddress}
-              Country: ${country || 'N/A'}
-              City: ${city || 'N/A'}
-              Neighborhood: ${finalNeighborhood}
-              Route: ${route || 'N/A'}
-            `;
-
-            console.log('Formatted Address:', completeAddress);
-
-            this.location = completeAddress;
-
-            // TODO * fill the new client adress infos
+            // Prepare the complete address from the components
             const addressPartsJoin: string[] = [];
             if (neighborhood) addressPartsJoin.push(neighborhood);
             if (route) addressPartsJoin.push(route);
             if (city) {
               addressPartsJoin.push(city);
-              this.newClient.city = city;
+              this.newClient.city = city; // Fill client city field
             }
             if (country) addressPartsJoin.push(country);
-            this.newClient.address = addressPartsJoin.join(", ");
-            const coordinates = [];
-            if (lat !== null && lat !== undefined) coordinates.push(lat);
-            if (lng !== null && lng !== undefined) coordinates.push(lng);
-            this.newClient.location_gps_coordinates = coordinates.join(", ");
-            this.newClient.location = formattedAddress;
+
+            this.newClient.address = addressPartsJoin.join(", "); // Set the complete address
+            this.newClient.location_gps_coordinates = `${lat}, ${lng}`; // Set the GPS coordinates
+            this.newClient.location = formattedAddress; // Store the formatted address
 
             Swal.fire({
               icon: 'success',
@@ -365,11 +364,8 @@ export class NewClientPage implements OnInit {
               position: 'bottom',
               showConfirmButton: false,
               timer: 1200,
-
             });
             this.located = true;
-            // ! problems adressing here displaying the map in the modal...
-            // this.openMapModal();
           } else {
             Swal.fire({
               icon: 'error',
@@ -378,7 +374,6 @@ export class NewClientPage implements OnInit {
               position: 'bottom',
               showConfirmButton: false,
               timer: 2000,
-
             });
           }
         },
@@ -391,7 +386,6 @@ export class NewClientPage implements OnInit {
             position: 'bottom',
             showConfirmButton: false,
             timer: 2000,
-
           });
         }
       );
@@ -404,10 +398,16 @@ export class NewClientPage implements OnInit {
         position: 'bottom',
         showConfirmButton: false,
         timer: 2000,
-
       });
     }
   }
+
+  // Helper method to extract specific address components
+  getAddressComponent(components: any[], type: string): string | null {
+    const component = components.find(c => c.types.includes(type));
+    return component ? component.long_name : null;
+  }
+
 
   isModalOpen = false;
   async openMapModal() {
@@ -425,11 +425,5 @@ export class NewClientPage implements OnInit {
 
   closeModal() {
     this.isModalOpen = false;
-  }
-
-  // Helper method to extract specific address components
-  getAddressComponent(components: any[], type: string): string | null {
-    const component = components.find(c => c.types.includes(type));
-    return component ? component.long_name : null;
   }
 }
