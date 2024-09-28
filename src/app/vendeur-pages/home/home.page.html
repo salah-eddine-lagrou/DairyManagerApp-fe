@@ -12,9 +12,11 @@
       </div>
       <ion-popover trigger="click-trigger" triggerAction="click">
         <ng-template>
-          <ion-content class="ion-padding disconnected-button">Se deconnecter !</ion-content>
+          <ion-content class="ion-padding disconnected-button" [routerLink]="['/auth']" routerLinkActive="router-link-active">Se déconnecter !</ion-content>
         </ng-template>
       </ion-popover>
+      <ion-backdrop part="backdrop" tabindex="-1" inert class="md hydrated"></ion-backdrop>
+
 
       <div class="col w-75 profile-info" style="padding: 10px;">
         <div class="row">

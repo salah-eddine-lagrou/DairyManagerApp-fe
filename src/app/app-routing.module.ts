@@ -127,16 +127,10 @@ const routes: Routes = [
     path: 'responsable-pages/gratuites',
     loadChildren: () => import('./responsable-pages/gratuites/gratuites.module').then( m => m.GratuitesPageModule)
   },
-
-
-
-
-
-
-
-
-
-
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth-page/auth-page.module').then( m => m.AuthPagePageModule)
+  },
 ];
 
 

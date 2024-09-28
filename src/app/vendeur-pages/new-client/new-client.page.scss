@@ -27,6 +27,7 @@ ion-content {
   --background: white;
 
   .client-infos {
+    margin-top: 22%;
     padding-inline: 0;
 
     input {
@@ -58,10 +59,48 @@ ion-content {
       color: gray;
     }
 
+    .required-field {
+      color: red;
+      margin-left: 2px;
+      /* Optional: add some space between the text and the asterisk */
+    }
+
+    ion-input {
+      &.filled {
+        color: black; // Change text color to black when filled
+      }
+
+      // Optionally, you can add transitions for a smoother effect
+      transition: color 0.3s ease;
+    }
+
+    ion-select {
+      &.filled {
+        color: black; // Change text color to black when filled
+      }
+
+      // Optionally, you can add transitions for a smoother effect
+      transition: color 0.3s ease;
+    }
+
+    .title {
+      padding: 15px .75rem 0px .75rem;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      color: #1a2037;
+
+      ion-icon {
+        color: #1a2037;
+        font-size: 18px;
+      }
+    }
 
   }
 
-  .new-client-btn {
+  .location-client-btn {
     background-color: #ffb507;
     border-radius: 200px;
     height: 65px;
@@ -76,14 +115,150 @@ ion-content {
     align-items: center;
     justify-content: center;
     box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.3s ease;
+
+    // Animation for zoom and wiggle effects
+    &.highlight-animation {
+      animation: wiggle 0.5s ease-in-out infinite;
+      // font-size: 46px;
+      background-color: #ff0000;
+    }
   }
+
+  .location-detected {
+    background-color: #016331;
+  }
+
+  // Wiggle keyframes
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(0deg) scale(1);
+    }
+
+    25% {
+      transform: rotate(15deg) scale(1.1);
+    }
+
+    75% {
+      transform: rotate(-15deg) scale(1.1);
+    }
+  }
+
+
+  // TODO stepper process design
+  .stepper-process {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75px;
+    padding: 10px;
+    width: 100%;
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 0px 0px 30px 30px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+
+
+
+    .step {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+      background: none;
+      border: 3px solid #d9d9db;
+      border-radius: 50px;
+      font-size: 15px;
+      transition: border-color 0.5s ease; /* Add smooth transition */
+    }
+
+    .active-step {
+      border: 3px solid #1a2037;
+      animation: borderFill 0.5s ease-in-out forwards; /* Animate border color fill */
+    }
+
+    ion-icon {
+      color: #d9d9db;
+    }
+
+    .active-step-recap {
+      background-color: #1a2037;
+      animation: backgroundFill 0.5s ease-in-out forwards; /* Animate border color fill */
+      ion-icon {
+        color: white;
+      }
+    }
+
+    @keyframes borderFill {
+      0% {
+        border-color: #d9d9db;
+      }
+      100% {
+        border-color: #1a2037;
+      }
+    }
+
+    @keyframes backgroundFill {
+      0% {
+        border-color: #fbfbfb;
+      }
+      100% {
+        border-color: #1a2037;
+      }
+    }
+
+
+    .line {
+      width: 10%;
+      margin-bottom: 14px;
+      border: none;
+      height: 3px;
+      background-color: rgb(180, 180, 180);
+      transition: background-color 0.5s ease; /* Ensure transition happens smoothly */
+    }
+
+    .active-line {
+      background-color: #1a2037;
+      transition: background-color 0.5s ease; /* Apply smooth transition */
+      background-size: 200% 100%;
+      background-position: 100% 0;
+      animation: fillColor 1s ease-in-out forwards; /* Use animation when class is added */
+    }
+
+    @keyframes fillColor {
+      0% {
+        background-position: 100% 0;
+      }
+      100% {
+        background-position: 0 0;
+      }
+    }
+
+
+
+    p {
+      font-size: 10px;
+      margin: 0;
+    }
+  }
+
 
 }
 
 ion-footer {
   background: white;
 
-  .confirmer-btn-commande {
+  .confirmer-btn {
     width: 80%;
     font-size: 18px;
     border-radius: 50px;
@@ -94,7 +269,7 @@ ion-footer {
     transition: all .3s ease;
   }
 
-  .confirmer-btn-commande:hover {
+  .confirmer-btn:hover {
     width: 100%;
     font-size: 18px;
     border-radius: 50px;
@@ -104,4 +279,69 @@ ion-footer {
     background: linear-gradient(135deg, #016331 0%, #74975a 100%);
     transition: all .3s ease;
   }
+
+  .btn-next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45%;
+    font-size: 18px;
+    border-radius: 50px;
+    color: white;
+    background-color: #1a2037;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: 1px solid #1a2037;
+    margin-inline: 1%;
+    transition: all .3s ease;
+  }
+
+  .btn-next-alone {
+    width: 80%;
+    transition: all .3s ease;
+  }
+
+  .btn-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45%;
+    font-size: 18px;
+    border-radius: 50px;
+    color: #1a2037;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: 1px solid #1a2037;
+    margin-inline: 1%;
+    transition: all .3s ease;
+  }
+
+  .btn-back-alone {
+    width: 80%;
+    transition: all .3s ease;
+  }
+
+  .bounce-animation {
+    animation: bounce 1s ease;
+  }
+
+  @keyframes bounce {
+    0% {
+      transform: translateY(0);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    100% {
+      transform: translateY(0);
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    }
+  }
+}
+
+.map-modal-class {
+  --height: 100%;
+  --width: 100%;
 }

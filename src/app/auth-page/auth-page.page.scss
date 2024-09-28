@@ -1,0 +1,222 @@
+ion-content {
+  --background: url('../../assets/img/bg-auth-page.jpeg') no-repeat center center / cover;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .container-header {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    padding: 10px;
+    border: none !important;
+    border-radius: 100px 0 0 0;
+    color: white;
+    height: 80%;
+    padding: 8px;
+    background: linear-gradient(to bottom,
+        rgba(255, 255, 255, 0.28) 0%,
+        rgba(255, 255, 255, 0.6) 20%,
+        rgb(255, 255, 255) 100%);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    /* Applies the blur for the glass effect */
+    -webkit-backdrop-filter: blur(10px);
+    /* Ensures compatibility with WebKit browsers */
+    border: 1px solid rgba(255, 255, 255, 0.23);
+    transition: background 0.3s ease;
+    /* Smooth transition between the two backgrounds */
+
+    .login-title {
+      margin-top: 10%;
+      font-size: 35px;
+      color: #1a2037;
+      letter-spacing: 1px;
+      padding-left: 25px;
+      padding-right: 25px;
+      font-family: 'Georgia', 'Times New Roman', Times, serif;
+      text-align: center;
+      /* Center the title */
+      line-height: 1.2;
+      /* Improved line spacing for better readability */
+      text-transform: capitalize;
+      /* Makes the text look more impactful */
+      position: relative;
+      /* Enables any additional styling or effects */
+
+      /* Optional: Adding a subtle text-shadow for a more refined look */
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+
+
+
+    .form-login {
+      margin-top: 10%;
+      padding-inline: 10px;
+
+      .input-group {
+        height: 50px;
+
+        span {
+          border: none;
+          border-radius: 20px 0px 0px 20px;
+          background-color: #f1f1f1;
+          position: absolute;
+          height: 100%;
+
+          ion-icon {
+            z-index: 1001;
+          }
+        }
+
+        input {
+          border: none;
+          border-radius: 20px 20px 20px 20px;
+          background-color: #f1f1f1;
+          padding-left: 40px;
+        }
+
+        .auth-btn {
+          width: 100%;
+          height: 50px;
+          font-size: 18px;
+          border-radius: 20px;
+          color: white;
+          padding: 8px;
+          border: none;
+          background: linear-gradient(135deg, #03112c 0%, #7a8bcc 100%);
+          transition: all .3s ease;
+          overflow: hidden; // Ensure ripple effect stays within the button border
+          position: relative;
+        }
+
+        .auth-btn-back {
+          width: 100%;
+          height: 50px;
+          font-size: 18px;
+          border-radius: 20px;
+          color: #03112c;
+          padding: 8px;
+          border: 1px solid #03112c;
+          transition: all .3s ease;
+          overflow: hidden; // Ensure ripple effect stays within the button border
+          position: relative;
+        }
+
+        .ripple-border ion-ripple-effect {
+          --border-radius: 50px; // Ensure ripple matches the button's border radius
+          --opacity: 0.5; // Slight transparency for the ripple effect
+          --color: white; // Set the ripple color (optional, adjust to your liking)
+          --width: 110%; // Increase width to make ripple larger
+          --height: 110%;
+          --transition-duration: 0.2s;
+        }
+
+        .ripple-border ion-ripple-effect::part(native-ripple) {
+          border-radius: 50px; // Match the button’s border-radius to ensure ripple fits
+        }
+
+        ion-checkbox {
+          --size: 18px;
+          --checkbox-background-checked: #1a2037;
+          margin-right: 5px;
+        }
+
+        ion-checkbox::part(container) {
+          border-radius: 20px;
+          border: 2px solid #1a2037;
+          --background: white;
+        }
+      }
+
+      .error-message {
+        color: red;
+        font-weight: 600;
+        margin-top: -3%;
+        padding-left: 15px;
+        margin-bottom: 1%;
+      }
+
+      .copyrights-infos {
+        font-size: 12px;
+        padding-inline: 25px;
+        position: fixed;
+        bottom: 2%;
+      }
+    }
+
+    .toggle-password {
+      background: none;
+      z-index: 5;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      left: 88%;
+      top: 20%;
+    }
+
+    // Profile Image Styles
+    .profile-img {
+      width: 67px;
+      border-radius: 50%; // Makes the image rounded
+    }
+
+    .profile-info {
+      padding-left: 10px;
+    }
+
+    .profile-name {
+      font-size: 1.2rem; // Adjusted to be a little smaller
+      color: #000; // Clear and prominent
+    }
+
+    .profile-description,
+    .profile-mission,
+    .profile-email,
+    .profile-location {
+      font-size: 0.9rem; // Adjusted to be a little smaller
+      color: rgba(0, 0, 0, 0.8); // Less prominent, indicating additional info
+      margin: 0;
+    }
+
+    .profile-mission,
+    .profile-email,
+    .profile-location {
+      display: flex;
+      align-items: center;
+    }
+
+    .profile-mission ion-icon,
+    .profile-email ion-icon,
+    .profile-location ion-icon {
+      margin-right: 5px;
+    }
+
+    .view-button {
+      margin-top: 10px;
+      --padding-start: 10px;
+      --padding-end: 10px;
+    }
+  }
+
+  .profile-img-container {
+    position: absolute;
+    left: calc(50% - 50px);
+    z-index: 1000;
+    padding: 8px;
+    margin-top: 7%;
+    margin-inline: auto;
+    background: rgb(149 149 149 / 28%);
+    width: 100px;
+    height: 100px;
+    border-radius: 35px 0 35px 0;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.23);
+    transition: all .3s ease;
+  }
+}

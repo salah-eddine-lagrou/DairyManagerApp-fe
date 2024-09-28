@@ -9,99 +9,459 @@
   </div>
 </ion-header>
 <ion-content>
-  <div class="client-infos container">
-    <!-- Client Name -->
-    <div>
-    <ion-input label="Nom client *" label-placement="floating" fill="solid" placeholder="Entrer nom du client">
-      </ion-input>
+  <div class="stepper-process">
+    <div class="text-center">
+      <div class="step step-1 active-step" id="step-1">
+        1
+      </div>
+      <p>Client</p>
     </div>
+    <div class="line line-till-2" id="line-till-2"></div>
 
-    <!-- Phone -->
-    <div>
-      <ion-input label="Téléphone *" label-placement="floating" fill="solid"
-        placeholder="Entrer numéro téléphone"
-        required></ion-input>
+    <div class="text-center">
+      <div class="step step-2" id="step-2">
+        2
+      </div>
+      <p>Crédit</p>
     </div>
+    <div class="line line-till-3" id="line-till-3"></div>
 
-    <!-- Address -->
-    <div>
-      <ion-input label="Adresse *" label-placement="floating" fill="solid"
-        placeholder="Entrer adresse"
-        required></ion-input>
+    <div class="text-center">
+      <div class="step step-3" id="step-3">
+        3
+      </div>
+      <p>Logistique</p>
     </div>
+    <div class="line line-till-4" id="line-till-4"></div>
 
-    <!-- Client Subcategory -->
-    <div>
-      <ion-select label="Sous-categorie client *" label-placement="floating" fill="solid"
-        placeholder="Selectionner sous-categorie">
-        <ion-select-option value="1">Subcategory 1</ion-select-option>
-        <ion-select-option value="2">Subcategory 2</ion-select-option>
-      </ion-select>
-    </div>
-
-     <!-- Contact Name -->
-     <div>
-      <ion-input label="Contact Name" label-placement="floating" fill="solid"
-        placeholder="Entrer nom contact"></ion-input>
-    </div>
-
-    <!-- Email -->
-    <div>
-      <ion-input label="Email" label-placement="floating" fill="solid" type="email" placeholder="Entrer email"
-        required></ion-input>
-    </div>
-
-    <!-- TODO City -->
-
-    <!-- Agency -->
-    <div>
-      <ion-select label="Agence" label-placement="floating" fill="solid"
-        placeholder="Selectionner Agence">
-        <ion-select-option value="1">Agency 1</ion-select-option>
-        <ion-select-option value="2">Agency 2</ion-select-option>
-      </ion-select>
-    </div>
-
-    <!-- Warehouse -->
-    <div>
-      <ion-select label="Warehouse" label-placement="floating" fill="solid"
-        placeholder="Selectionner warehouse">
-        <ion-select-option value="1">Warehouse 1</ion-select-option>
-        <ion-select-option value="2">Warehouse 2</ion-select-option>
-      </ion-select>
-    </div>
-
-    <!-- Zone -->
-    <div>
-      <ion-select label="Zone" label-placement="floating" fill="solid"
-        placeholder="Selectionner zone">
-        <ion-select-option value="1">Zone 1</ion-select-option>
-        <ion-select-option value="2">Zone 2</ion-select-option>
-      </ion-select>
-    </div>
-
-    <!-- Sector -->
-    <div>
-      <ion-select label="Secteur" label-placement="floating" fill="solid"
-        placeholder="Selectionner secteur">
-        <ion-select-option value="1">Sector 1</ion-select-option>
-        <ion-select-option value="2">Sector 2</ion-select-option>
-      </ion-select>
-    </div>
-
-    <!-- TODO Price List -->
-
-
-    <!-- Note -->
-    <div>
-      <ion-input label="Note" label-placement="floating" fill="solid"
-        placeholder="Entrer des notes"></ion-input>
+    <div class="text-center">
+      <div class="step step-4" id="step-4" style="font-size: 20px;">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+      </div>
+      <p>Prêt</p>
     </div>
   </div>
 
-  <button class="btn new-client-btn" (click)="getLocation()">
-    <ion-icon name="location-outline"></ion-icon>
+  <div class="client-infos container">
+    <div *ngIf="client" class="client" id="client">
+      <div class="title">
+        <h2 style="font-size: 25px; font-weight: 600;">Client</h2>
+      </div>
+      <!-- Client Name -->
+      <div class="form-control" style="border: none;">
+        <ion-input label="Nom client *" label-placement="floating" fill="outline" [(ngModel)]="newClient.name"
+          [ngClass]="{'filled': isFieldFilled('name')}" required>
+        </ion-input>
+      </div>
+      <!-- Phone -->
+      <div class="form-control" style="border: none;">
+        <ion-input label="Téléphone *" label-placement="floating" fill="outline" type="number"
+          [(ngModel)]="newClient.phone" [ngClass]="{'filled': isFieldFilled('phone')}" required>
+        </ion-input>
+      </div>
+      <!-- Contact Name -->
+      <div class="form-control" style="border: none;">
+        <ion-input label="Contact Name *" label-placement="floating" fill="outline" [(ngModel)]="newClient.contact_name"
+          [ngClass]="{'filled': isFieldFilled('contact_name')}" required>
+        </ion-input>
+      </div>
+      @if (locatedOn) {
+      <!-- Address -->
+      <div class="form-control" style="border: none;">
+        <ion-input label="Adresse *" label-placement="floating" fill="outline" [(ngModel)]="newClient.address"
+          [ngClass]="{'filled': isFieldFilled('address')}" required>
+        </ion-input>
+      </div>
+      <!-- City -->
+      <div class="form-control" style="border: none;">
+        <ion-input label="Ville *" label-placement="floating" fill="outline" [(ngModel)]="newClient.city"
+          [ngClass]="{'filled': isFieldFilled('city')}" required>
+        </ion-input>
+      </div>
+      <!-- Location -->
+      <div class="form-control" style="border: none;">
+        <ion-input label="Location" label-placement="floating" fill="outline" [(ngModel)]="newClient.location"
+          [ngClass]="{'filled': isFieldFilled('location')}">
+        </ion-input>
+      </div>
+      }
+      <!-- Email -->
+      <div class="form-control" style="border: none;">
+        <ion-input label="Email" label-placement="floating" fill="outline" type="email" [(ngModel)]="newClient.email"
+          [ngClass]="{'filled': isFieldFilled('email')}">
+        </ion-input>
+      </div>
+      <!-- Client Subcategory -->
+      <div class="form-control" style="border: none;">
+        <ion-select label="Sous-categorie client *" label-placement="floating" fill="outline"
+          [(ngModel)]="newClient.client_subcategory_id" [ngClass]="{'filled': isFieldFilled('client_subcategory_id')}"
+          required>
+          <ion-select-option value="1">Subcategory 1</ion-select-option>
+          <ion-select-option value="2">Subcategory 2</ion-select-option>
+        </ion-select>
+      </div>
+    </div>
+
+    <div *ngIf="credit" class="credit" id="credit">
+      <div class="title">
+        <h2 style="font-size: 25px; font-weight: 600;">Crédit</h2>
+      </div>
+      <!-- Credit limit -->
+      <div class="form-control" style="border: none;">
+        <ion-input label="Limite de crédit" label-placement="floating" fill="outline" type="number"
+          [(ngModel)]="newClient.credit_limit" [ngClass]="{'filled': isFieldFilled('credit_limit')}">
+        </ion-input>
+      </div>
+      <!-- Note de crédit -->
+      <div class="form-control" style="border: none;">
+        <ion-input label="Note de crédit" label-placement="floating" fill="outline" type="number"
+          [(ngModel)]="newClient.credit_note_balance" [ngClass]="{'filled': isFieldFilled('credit_note_balance')}">
+        </ion-input>
+      </div>
+      <!-- Solde limite globale -->
+      <div class="form-control" style="border: none;">
+        <ion-input label="Solde limite globale" label-placement="floating" fill="outline" type="number"
+          [(ngModel)]="newClient.global_limit" [ngClass]="{'filled': isFieldFilled('global_limit')}">
+        </ion-input>
+      </div>
+      <!-- PriceList -->
+      <div class="form-control" style="border: none;">
+        <ion-select label="Liste de prix *" label-placement="floating" fill="outline"
+          [(ngModel)]="newClient.price_list_id" required [ngClass]="{'filled': isFieldFilled('price_list_id')}"
+          required>
+          <ion-select-option value="1">PriceList 1</ion-select-option>
+          <ion-select-option value="2">PriceList 2</ion-select-option>
+        </ion-select>
+      </div>
+    </div>
+
+    <div *ngIf="logistique" class="logistique" id="logistique">
+      <div class="title">
+        <h2 style="font-size: 25px; font-weight: 600;">Logistique</h2>
+      </div>
+      <!-- Agency -->
+      <div class="form-control" style="border: none;">
+        <ion-select label="Agence" label-placement="floating" fill="outline" [(ngModel)]="newClient.agency_id" required
+          [ngClass]="{'filled': isFieldFilled('agency_id')}">
+          <ion-select-option value="1">Agency 1</ion-select-option>
+          <ion-select-option value="2">Agency 2</ion-select-option>
+        </ion-select>
+      </div>
+      <!-- Warehouse -->
+      <div class="form-control" style="border: none;">
+        <ion-select label="Warehouse" label-placement="floating" fill="outline" [(ngModel)]="newClient.warehouse_id"
+          [ngClass]="{'filled': isFieldFilled('warehouse_id')}">
+          <ion-select-option value="1">Warehouse 1</ion-select-option>
+          <ion-select-option value="2">Warehouse 2</ion-select-option>
+        </ion-select>
+      </div>
+      <!-- Zone -->
+      <div class="form-control" style="border: none;">
+        <ion-select label="Zone" label-placement="floating" fill="outline" [(ngModel)]="newClient.zone_id" required
+          [ngClass]="{'filled': isFieldFilled('zone_id')}">
+          <ion-select-option value="1">Zone 1</ion-select-option>
+          <ion-select-option value="2">Zone 2</ion-select-option>
+        </ion-select>
+      </div>
+      <!-- Sector -->
+      <div class="form-control" style="border: none;">
+        <ion-select label="Secteur" label-placement="floating" fill="outline" [(ngModel)]="newClient.sector_id" required
+          [ngClass]="{'filled': isFieldFilled('sector_id')}">
+          <ion-select-option value="1">Sector 1</ion-select-option>
+          <ion-select-option value="2">Sector 2</ion-select-option>
+        </ion-select>
+      </div>
+    </div>
+
+    <div *ngIf="recap" class="recap" id="recap">
+      <div class="title">
+        <h2 style="font-size: 25px; font-weight: 600;">Récapitulation</h2>
+      </div>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div>
+              <strong style="display: flex; align-items: center; font-size: 20px; border-bottom: 1px solid #1a2037;">
+                Informations de base
+                <ion-badge color="secondary"
+                  style="margin-left: 5px; border-radius: 20px; padding-inline: 10px; background-color: #1a2037;">1/3</ion-badge>
+              </strong>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <strong>Nom</strong>
+              <p style="position: absolute; left: 95%; margin: 0;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>{{ truncate(newClient.name) }}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <strong>Téléphone</strong>
+              <p style="position: absolute; left: 95%; margin: 0;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>{{ newClient.phone }}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <strong>Contact Name</strong>
+              <p style="position: absolute; left: 95%; margin: 0;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>{{ truncate(newClient.contact_name) }}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <strong>Adresse</strong>
+              <p style="position: absolute; left: 95%; margin: 0;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>{{ truncate(newClient.address) }}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <strong>Ville</strong>
+              <p style="position: absolute; left: 95%; margin: 0;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>{{ truncate(newClient.city) }}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <strong>Location</strong>
+              <p style="position: absolute; left: 95%; margin: 0;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>{{ truncate(newClient.location) }}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <strong>Email</strong>
+              <p style="position: absolute; left: 95%; margin: 0;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>{{ truncate(newClient.email) }}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <strong>Sous-catégorie client</strong>
+              <p style="position: absolute; left: 95%; margin: 0;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <!-- TODO display the subcategory by the id choosen in the client -->
+              <span>{{ newClient.client_subcategory_id }}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <!-- Credit Information Section -->
+        <ion-row>
+          <ion-col>
+            <div>
+              <strong style="display: flex; align-items: center; font-size: 20px; border-bottom: 1px solid #1a2037;">
+                Informations de crédit et sold
+                <ion-badge color="secondary"
+                  style="margin-left: 5px; border-radius: 20px; padding-inline: 10px; background-color: #1a2037;">2/3</ion-badge>
+              </strong>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <strong>Limite de crédit</strong>
+              <p style="position: absolute; left: 95%; margin: 0;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>{{ newClient.credit_limit }}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <strong>Note de crédit</strong>
+              <p style="position: absolute; left: 95%; margin: 0;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>{{ newClient.credit_note_balance }}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <strong>Solde limite globale</strong>
+              <p style="position: absolute; left: 95%; margin: 0;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <span>{{ newClient.global_limit }}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <strong>Liste de prix</strong>
+              <p style="position: absolute; left: 95%; margin: 0;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <!-- TODO same here disolay the price list by the id choosen in the client -->
+              <span>{{ newClient.price_list_id }}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div>
+              <strong style="display: flex; align-items: center; font-size: 20px; border-bottom: 1px solid #1a2037;">
+                Information de logistique
+                <ion-badge color="secondary"
+                  style="margin-left: 5px; border-radius: 20px; padding-inline: 10px; background-color: #1a2037;">3/3</ion-badge>
+              </strong>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <strong>Agence</strong>
+              <p style="position: absolute; left: 95%; margin: 0;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <!-- TODO same here -->
+              <span>Agence Gatsromixte</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <strong>Warehouse</strong>
+              <p style="position: absolute; left: 95%; margin: 0;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <!-- TODO same here -->
+              <span>Entrepôt Central</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <strong>Zone</strong>
+              <p style="position: absolute; left: 95%; margin: 0;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <!-- TODO same here -->
+              <span>Zone 1</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <strong>Secteur</strong>
+              <p style="position: absolute; left: 95%; margin: 0;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <!-- TODO same here -->
+              <span>Secteur A</span>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+  <button class="btn location-client-btn" (click)="getLocation()" [ngClass]="{'location-detected': located}"
+    #itemElement>
+    <ng-container *ngIf="located; else locationButtonContent">
+      <ion-icon name="map-outline"></ion-icon>
+    </ng-container>
+    <ng-template #locationButtonContent>
+      <ion-icon *ngIf="!loading; else loadingSpinner" name="location-outline"></ion-icon>
+    </ng-template>
+    <ng-template #loadingSpinner>
+      <ion-spinner color="light"></ion-spinner>
+    </ng-template>
   </button>
+
+
 
 </ion-content>
 
@@ -109,23 +469,51 @@
   <div class="row text-center" style="display: flex;
         justify-content: center;
         align-items: center;">
-    <button class="btn confirmer-btn-commande">
+    <!-- <button class="btn confirmer-btn" (click)="createNewClient()">
       Confirmer
+    </button> -->
+
+
+    @if (recap) {
+    <button class="btn btn-back" (click)="backSection()" style="width: 20%;
+          height: 45px;
+          font-size: 18px;">
+      <ion-icon name="arrow-back-outline" style="color: #1a2037;"></ion-icon>
     </button>
+    <button class="btn btn-next" (click)="createNewClient()" style="width: 60%;">
+      Confirmer <ion-icon name="checkmark-outline" style="margin-left: 3%;"></ion-icon>
+    </button>
+    } @else if (client) {
+    <button class="btn btn-next btn-next-alone" (click)="nextSection()">
+      Continue <ion-icon name="arrow-forward-outline" style="margin-left: 3%;"></ion-icon>
+    </button>
+    } @else {
+    <button class="btn btn-back" (click)="backSection()">
+      <ion-icon name="arrow-back-outline" style="color: #1a2037; margin-right: 3%;"></ion-icon> Retour
+    </button>
+    <button class="btn btn-next" (click)="nextSection()">
+      Continue <ion-icon name="arrow-forward-outline" style="margin-left: 3%;"></ion-icon>
+    </button>
+    }
   </div>
 </ion-footer>
 
-<!-- Modal view product -->
-<ion-modal [isOpen]="">
+<!-- Modal for Map -->
+<ion-modal [isOpen]="isModalOpen">
   <ng-template>
     <ion-header>
-
+      <ion-toolbar>
+        <ion-title>Map</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeModal()">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
     </ion-header>
+
     <ion-content>
-
+      <div #mapContainer style="height: 100%;"></div>
     </ion-content>
-    <ion-footer class="ion-no-border ion-padding">
 
-    </ion-footer>
+    <ion-footer class="ion-no-border ion-padding"></ion-footer>
   </ng-template>
 </ion-modal>
