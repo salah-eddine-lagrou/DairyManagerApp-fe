@@ -1,5 +1,5 @@
 export class PriceListProductDetails {
-    id!: number;
+    id?: number;
     product_id?: number; // Foreign key
     price_list_id?: number; // Foreign key
     code!: string;
@@ -10,9 +10,8 @@ export class PriceListProductDetails {
     closed!: boolean;
     created_at?: Date;
     updated_at?: Date;
-  
+
     constructor(data?: Partial<PriceListProductDetails>) {
       Object.assign(this, data);
     }
   }
-  

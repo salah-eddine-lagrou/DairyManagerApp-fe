@@ -1,3 +1,4 @@
+
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
@@ -55,7 +56,7 @@ export class MakeCommandePage implements OnInit {
   gratuite: boolean = false;
   gratuiteBack: boolean = false;
   retour: boolean = false;
-  charge: boolean = false;
+  charge: boolean = false;  // ! takes its own page interface !
   decharge: boolean = false;
   transfert: boolean = false;
 

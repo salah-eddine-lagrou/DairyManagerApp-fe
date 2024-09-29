@@ -22,6 +22,41 @@ export class StockVehiculePage implements OnInit {
 
   filteredItems = this.items;
 
+  public actionSheetButtons = [
+    {
+      text: 'Charger',
+      icon: 'cloud-upload-outline',
+      data: {
+        action: 'charge',
+      },
+      cssClass: 'custom-action-sheet-btn',  // Add custom class
+    },
+    {
+      text: 'Décharger',
+      icon: 'cloud-download-outline',
+      data: {
+        action: 'discharge',
+      },
+      cssClass: 'custom-action-sheet-btn',
+    },
+    {
+      text: 'Transférer',
+      icon: 'swap-horizontal-outline',
+      data: {
+        action: 'transfer',
+      },
+      cssClass: 'custom-action-sheet-btn',
+    },
+    {
+      text: 'Annuler',
+      role: 'cancel',
+      icon: 'close-outline',
+      data: {
+        action: 'cancel',
+      },
+      cssClass: 'custom-action-sheet-cancel',
+    },
+  ];
 
 
   constructor(
@@ -35,6 +70,28 @@ export class StockVehiculePage implements OnInit {
     console.log("running from stock vehicule");
   }
 
+  handleActionSheetDismiss(event: any) {
+    const action = event.detail.data?.action;
+
+    if (action) {
+      switch (action) {
+        case 'charge':
+          this.navigateToChargeMakeCommande();
+          break;
+        case 'discharge':
+          this.navigateToDechargeMakeCommande();
+          break;
+        case 'transfer':
+          this.navigateToTransfertMakeCommande();
+          break;
+        case 'cancel':
+          console.log('Action cancelled');
+          break;
+        default:
+          break;
+      }
+    }
+  }
 
   isModalOpen = false;
   selectedItem: any;
@@ -65,5 +122,8 @@ export class StockVehiculePage implements OnInit {
     const transfert = true;
     this.router.navigate(["vendeur-pages/make-commande"], {state : {transfert}})
   }
-
 }
+function ViewChild(arg0: string, arg1: { static: boolean; }): (target: StockVehiculePage, propertyKey: "actionSheet") => void {
+  throw new Error('Function not implemented.');
+}
+

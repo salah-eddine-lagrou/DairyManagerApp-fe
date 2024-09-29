@@ -1,5 +1,5 @@
 export class BatchProduct {
-    id!: number;
+    id?: number;
     measure_batch!: number;
     measure_items!: number;
     weight_batch!: number;
@@ -8,9 +8,8 @@ export class BatchProduct {
     product_id?: number;
     created_at?: Date;
     updated_at?: Date;
-  
+
     constructor(data?: Partial<BatchProduct>) {
       Object.assign(this, data);
     }
   }
-  

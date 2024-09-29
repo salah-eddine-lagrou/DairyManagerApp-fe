@@ -1,5 +1,5 @@
 export class Equipement {
-    id!: number;
+    id?: number;
     name!: string;
     code!: string;
     quantity!: number;
@@ -7,10 +7,9 @@ export class Equipement {
     equipement_state!: 'confort' | 'bon-etat-mais-vide' | 'mal-presente' | 'autres-produits';
     created_at?: Date;
     updated_at?: Date;
-  
+
     constructor(data?: Partial<Equipement>) {
       Object.assign(this, data);
     }
   }
 
-  

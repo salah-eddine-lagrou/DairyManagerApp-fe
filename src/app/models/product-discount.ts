@@ -1,5 +1,5 @@
 export class ProductDiscount {
-    id!: number;
+    id?: number;
     discount_rate!: number;
     discount_type!: string;
     start_date!: Date;
@@ -8,9 +8,8 @@ export class ProductDiscount {
     status!: 'actif' | 'inactif';
     created_at?: Date;
     updated_at?: Date;
-  
+
     constructor(data?: Partial<ProductDiscount>) {
       Object.assign(this, data);
     }
   }
-  

@@ -1,5 +1,5 @@
 export class ProductStock {
-    id!: number;
+    id?: number;
     stock_id?: number;
     product_id?: number;
     product_stock_status!: 'vendable' | 'non-vendable' | 'reserve';
@@ -11,9 +11,8 @@ export class ProductStock {
     total_measures!: number;
     created_at?: Date;
     updated_at?: Date;
-  
+
     constructor(data?: Partial<ProductStock>) {
       Object.assign(this, data);
     }
   }
-  

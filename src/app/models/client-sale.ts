@@ -1,5 +1,5 @@
 export class ClientSale {
-    id!: number;
+    id?: number;
     total!: number;
     measure_items!: number;
     total_measures!: number;
@@ -11,9 +11,8 @@ export class ClientSale {
     batch_product_client_sale_id?: number;
     created_at?: Date;
     updated_at?: Date;
-  
+
     constructor(data?: Partial<ClientSale>) {
       Object.assign(this, data);
     }
   }
-  

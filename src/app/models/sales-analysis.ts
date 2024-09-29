@@ -1,5 +1,5 @@
 export class SalesAnalysis {
-    id!: number;
+    id?: number;
     vendeur_id?: number;
     period!: string;
     total_sales?: number;
@@ -8,9 +8,8 @@ export class SalesAnalysis {
     net_sales?: number;
     created_at?: Date;
     updated_at?: Date;
-  
+
     constructor(data?: Partial<SalesAnalysis>) {
       Object.assign(this, data);
     }
   }
-  

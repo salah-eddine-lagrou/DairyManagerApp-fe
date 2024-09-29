@@ -8,17 +8,25 @@
 </ion-header>
 
 <ion-content>
-  <div class="horizontal-scroll category-holder">
-    <button class="btn btn-action charge-btn" (click)="navigateToChargeMakeCommande()" style="background-color: rgb(5, 116, 5); color: white;">Charge</button>
-    <button class="btn btn-action decharge-btn" (click)="navigateToDechargeMakeCommande()" style="background-color: rgb(169, 6, 6); color: white; margin-inline: 10px;">Décharge</button>
-    <button class="btn btn-action transfert-btn" (click)="navigateToTransfertMakeCommande()" style="background-color: rgb(2, 2, 166); color: white;">Transférer</button>
-  </div>
+  <!-- TODO segments for what can be sell and what is commands that should be dilivered and what is return -->
+  <ion-segment value="default" style="height: 60px;">
+    <ion-segment-button value="default">
+      <ion-label style="font-size: 13px;">Vendable</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="commande">
+      <ion-label style="font-size: 13px;">Commande</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="retour">
+      <ion-label style="font-size: 13px;">Retour</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
-  <div class="list-products" style="margin-top: 55px;">
-    <ion-searchbar></ion-searchbar>
+  <!-- TODO make the filtered process -->
+
+  <div class="list-products">
     <div *ngFor="let item of filteredItems">
-      <ion-card class="shadow ion-activatable" (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
-        <ion-card-content class="p-0">
+      <ion-card class="shadow" (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
+        <ion-card-content class="p-0 ion-activatable">
           <ion-grid>
             <ion-row>
               <ion-col size="3" class="img-item-container">
@@ -37,11 +45,22 @@
               </ion-col>
             </ion-row>
           </ion-grid>
+          <ion-ripple-effect></ion-ripple-effect>
         </ion-card-content>
-        <ion-ripple-effect></ion-ripple-effect>
       </ion-card>
     </div>
   </div>
+
+  <button class="btn new-action-btn" id="open-action-sheet">
+    <ion-icon name="list-outline"></ion-icon>
+  </button>
+  <ion-action-sheet
+    trigger="open-action-sheet"
+    header="Actions"
+    [buttons]="actionSheetButtons"
+    (ionActionSheetDidDismiss)="handleActionSheetDismiss($event)"
+  ></ion-action-sheet>
+
 </ion-content>
 
 <!-- Modal -->

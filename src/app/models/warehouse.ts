@@ -1,5 +1,5 @@
 export class Warehouse {
-    id!: number;
+    id?: number;
     code!: string;
     name!: string;
     location!: string;
@@ -10,9 +10,8 @@ export class Warehouse {
     agency_id?: number;
     created_at?: Date;
     updated_at?: Date;
-  
+
     constructor(data?: Partial<Warehouse>) {
       Object.assign(this, data);
     }
   }
-  

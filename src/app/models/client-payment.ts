@@ -1,5 +1,5 @@
 export class ClientPayment {
-    id!: number;
+    id?: number;
     amount!: number;
     transaction_date!: Date;
     payment_method!: 'avoir' | 'especes' | 'cheque' | 'virement' | 'versement' | 'effet';
@@ -12,9 +12,8 @@ export class ClientPayment {
     notes!: string;
     created_at?: Date;
     updated_at?: Date;
-  
+
     constructor(data?: Partial<ClientPayment>) {
       Object.assign(this, data);
     }
   }
-  

@@ -1,5 +1,5 @@
 export class Product {
-    id!: number;
+    id?: number;
     code!: string;
     name!: string;
     description!: string;
@@ -18,9 +18,8 @@ export class Product {
     image!: string;
     created_at?: Date;
     updated_at?: Date;
-  
+
     constructor(data?: Partial<Product>) {
       Object.assign(this, data);
     }
   }
-  

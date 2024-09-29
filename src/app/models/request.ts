@@ -1,5 +1,5 @@
 export class Request {
-    id!: number;
+    id?: number;
     code!: string;
     reason!: string;
     location!: string;
@@ -13,9 +13,8 @@ export class Request {
     stock_id?: number;
     created_at?: Date;
     updated_at?: Date;
-  
+
     constructor(data?: Partial<Request>) {
       Object.assign(this, data);
     }
   }
-  

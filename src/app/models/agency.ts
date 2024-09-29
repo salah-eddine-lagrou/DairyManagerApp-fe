@@ -1,5 +1,5 @@
 export class Agency {
-    id!: number;
+    id?: number;
     code!: string;
     name!: string;
     location!: string;
@@ -8,9 +8,8 @@ export class Agency {
     status!: 'actif' | 'inactif';
     created_at?: Date;
     updated_at?: Date;
-  
+
     constructor(data?: Partial<Agency>) {
       Object.assign(this, data);
     }
   }
-  

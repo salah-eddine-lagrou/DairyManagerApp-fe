@@ -171,6 +171,28 @@ ion-content {
     }
   }
 
+  .new-action-btn {
+    background-color: #1a2037;
+    border-radius: 200px;
+    height: 65px;
+    width: 65px;
+    position: sticky;
+    left: 80%;
+    bottom: 4%;
+    z-index: 5;
+    color: white;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  ion-action-sheet.my-custom-class .action-sheet-button,
+  ion-action-sheet.my-custom-class .action-sheet-button.ion-focused {
+    color: #1a2037;
+  }
+
 }
 
 

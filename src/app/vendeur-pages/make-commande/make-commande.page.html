@@ -51,8 +51,8 @@
     }
     @if (retour) {
     <div *ngFor="let item of filteredItems" style="margin-bottom: -88px;">
-      <ion-card class="shadow ion-activatable" (click)="openModal(item.item)" [id]="'item' + item.item.id"
-        class="item-container">
+      <ion-card class="shadow " (click)="openModal(item.item)" [id]="'item' + item.item.id"
+        class="item-container ion-activatable">
         <ion-card-content class="p-0">
           <ion-grid>
             <ion-row>
@@ -71,8 +71,8 @@
 
             </ion-row>
           </ion-grid>
-        </ion-card-content>
         <ion-ripple-effect></ion-ripple-effect>
+        </ion-card-content>
       </ion-card>
       <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
         <!-- TODO in binding we used quantity items of products just to show counter -->
@@ -101,8 +101,8 @@
 
     } @else if (isAnyTrue()) {
     <div *ngFor="let item of filteredItems" style="margin-bottom: -88px;">
-      <ion-card class="shadow ion-activatable" (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
-        <ion-card-content class="p-0">
+      <ion-card class="shadow " (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
+        <ion-card-content class="p-0 ion-activatable">
           <ion-grid>
             <ion-row>
               <ion-col size="3" class="img-item-container">
@@ -118,8 +118,8 @@
               </ion-col>
             </ion-row>
           </ion-grid>
-        </ion-card-content>
         <ion-ripple-effect></ion-ripple-effect>
+        </ion-card-content>
       </ion-card>
       <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
         <div>
@@ -146,8 +146,8 @@
     </div>
     } @else {
     <div *ngFor="let item of filteredItems" style="margin-bottom: -88px;">
-      <ion-card class="shadow ion-activatable" (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
-        <ion-card-content class="p-0">
+      <ion-card class="shadow " (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
+        <ion-card-content class="p-0 ion-activatable">
           <ion-grid>
             <ion-row>
               <ion-col size="3" class="img-item-container">
@@ -169,8 +169,8 @@
               </ion-col>
             </ion-row>
           </ion-grid>
-        </ion-card-content>
         <ion-ripple-effect></ion-ripple-effect>
+        </ion-card-content>
       </ion-card>
       <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
         <div>

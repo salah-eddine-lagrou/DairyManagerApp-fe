@@ -1,5 +1,5 @@
 export class ClientBalance {
-    id!: number;
+    id?: number;
     balance_amount?: number;
     bl_amount?: number;
     credit_note_amount?: number;
@@ -8,9 +8,8 @@ export class ClientBalance {
     client_id?: number;
     created_at?: Date;
     updated_at?: Date;
-  
+
     constructor(data?: Partial<ClientBalance>) {
       Object.assign(this, data);
     }
   }
-  

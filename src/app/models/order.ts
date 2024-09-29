@@ -1,5 +1,5 @@
 export class Order {
-    id!: number;
+    id?: number;
     code!: string;
     total_totals!: number;
     amount_total!: number;
@@ -9,9 +9,8 @@ export class Order {
     order_payment_status!: 'payee' | 'non-payee';
     created_at?: Date;
     updated_at?: Date;
-  
+
     constructor(data?: Partial<Order>) {
       Object.assign(this, data);
     }
   }
-  
