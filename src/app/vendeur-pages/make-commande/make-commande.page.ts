@@ -366,10 +366,18 @@ export class MakeCommandePage implements OnInit {
     });
   }
 
-
   isAnyTrue(): boolean {
     return this.charge || this.decharge || this.transfert;
   }
 
+  selectedSegment: string = 'default';
+  onSegmentChange(event: any) {
+    this.selectedSegment = event.detail.value;
+  }
+
+  goToDetailsCommande() :void {
+    const makeCommandeCharge = true;
+    this.router.navigate(['vendeur-pages/details-commande'], {state : { makeCommandeCharge }});
+  }
 
 }

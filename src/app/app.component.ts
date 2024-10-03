@@ -10,7 +10,12 @@ register();
 export class AppComponent {
   constructor(private router: Router) { }
 
-  isHomeVendeurPage(): boolean {
-    return this.router.url.includes("vendeur-pages/home") || this.router.url.includes("responsable-pages/home") || this.router.url.includes("magasinier-pages/home");
+  showTabs(): boolean {
+    return (
+      this.router.url.includes("vendeur-pages/home")
+      || this.router.url.includes("responsable-pages/home")
+      || this.router.url.includes("magasinier-pages/home")
+      || this.router.url.includes("vendeur-pages/demandes")
+    );
   }
 }

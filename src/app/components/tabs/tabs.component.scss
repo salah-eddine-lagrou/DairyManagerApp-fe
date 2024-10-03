@@ -3,7 +3,7 @@ a {
 	font-family: sans-serif;
 	text-transform: lowercase;
 	font-size: 1.5em;
-	color: #222;
+	color: #1a2037;
 }
 
 .menu {
@@ -43,7 +43,7 @@ a {
 			left: 50%;
 			transform: translate(-50%, 0);
 			font-size: 12px;
-			background: #222;
+			background: #1a2037;
 			color: #fff;
 			padding: 5px;
 			border-radius: 5px;
@@ -53,7 +53,7 @@ a {
 			&:before {
 				content: "";
 				position: absolute;
-				border-color: #222 transparent transparent transparent;
+				border-color: #1a2037 transparent transparent transparent;
 				border-style: solid;
 				border-width: 6px;
 				width: 0px;
@@ -213,4 +213,15 @@ a {
     top: 45px;
     transition: all 0.2s linear;
   }
+}
+
+.nav-item-text-active {
+  background: #1a2037;
+  color: white;
+  border-radius: 50px;
+  transition: all 0.2s linear;
+}
+
+ion-icon {
+  color: #1a2037;
 }

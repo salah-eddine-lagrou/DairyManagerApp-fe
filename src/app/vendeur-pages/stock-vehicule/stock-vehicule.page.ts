@@ -108,22 +108,24 @@ export class StockVehiculePage implements OnInit {
     this.currentOpen = this.currentOpen === id ? null : id;
   }
 
-  navigateToChargeMakeCommande() :void {
+  navigateToChargeMakeCommande(): void {
     const charge = true;
-    this.router.navigate(["vendeur-pages/make-commande"], {state : {charge}})
+    this.router.navigate(["vendeur-pages/make-commande"], { state: { charge } })
   }
 
-  navigateToDechargeMakeCommande() :void {
+  navigateToDechargeMakeCommande(): void {
     const decharge = true;
-    this.router.navigate(["vendeur-pages/make-commande"], {state : {decharge}})
+    this.router.navigate(["vendeur-pages/make-commande"], { state: { decharge } })
   }
 
-  navigateToTransfertMakeCommande() :void {
+  navigateToTransfertMakeCommande(): void {
     const transfert = true;
-    this.router.navigate(["vendeur-pages/make-commande"], {state : {transfert}})
+    this.router.navigate(["vendeur-pages/make-commande"], { state: { transfert } })
   }
-}
-function ViewChild(arg0: string, arg1: { static: boolean; }): (target: StockVehiculePage, propertyKey: "actionSheet") => void {
-  throw new Error('Function not implemented.');
+
+  selectedSegment: string = 'default';
+  onSegmentChange(event: any) {
+    this.selectedSegment = event.detail.value;
+  }
 }
 

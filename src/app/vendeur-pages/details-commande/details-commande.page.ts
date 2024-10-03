@@ -21,6 +21,7 @@ export class DetailsCommandePage implements OnInit {
   gratuite: boolean = false;
   bl: boolean = false;
   trasnfertList: boolean = false;
+  makeCommandeCharge: boolean = false;
 
   items = [
     { id: 1, maxQuantityDisplayed: false, name: 'pizzarella', image: "assets/img/produits/pizzarella.png", category: 'mozarella', quantity: 5, quantityStock: 20, price: 35 },
@@ -44,6 +45,7 @@ export class DetailsCommandePage implements OnInit {
       const gratuite = navigation.extras.state['gratuite'];
       const bl = navigation.extras.state['bl'];
       const trasnfertList = navigation.extras.state['trasnfertList'];
+      const makeCommandeCharge = navigation.extras.state['makeCommandeCharge'];
       if (gratuite) {
         this.gratuite = gratuite;
       } else if (bl) {
@@ -53,8 +55,8 @@ export class DetailsCommandePage implements OnInit {
         }
       } else if (trasnfertList) {
         this.trasnfertList = trasnfertList;
-      } else {
-        console.log("coming from make gratuite: false");
+      } else if (makeCommandeCharge) {
+        this.makeCommandeCharge = makeCommandeCharge;
       }
 
       if (this.commande) {
@@ -65,17 +67,15 @@ export class DetailsCommandePage implements OnInit {
       }
     }
 
-    const loading = await this.loadingController.create({
-      message: 'Loading...',
-      duration: 200,
-    });
-
-    await loading.present();
-
-    // Simulate some data fetching or processing
-    setTimeout(() => {
-      loading.dismiss();
-    }, 200);
+    // const loading = await this.loadingController.create({
+    //   message: 'Loading...',
+    //   duration: 200,
+    // });
+    // await loading.present();
+    // // Simulate some data fetching or processing
+    // setTimeout(() => {
+    //   loading.dismiss();
+    // }, 200);
 
 
   }

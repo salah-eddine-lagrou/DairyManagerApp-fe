@@ -7,6 +7,10 @@
   <a class="back-btn-header" routerDirection="back" routerLink="/vendeur-pages/transferts-list">
     <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
   </a>
+  } @else if (makeCommandeCharge) {
+  <a class="back-btn-header" routerDirection="back" routerLink="/vendeur-pages/make-commande" [queryParams]="{ charge: makeCommandeCharge }">
+    <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
+  </a>
   } @else {
   <a class="back-btn-header" routerDirection="back" routerLink="/vendeur-pages/make-commande">
     <ion-icon name="chevron-back-outline" style="font-size: 25px; color: white;"></ion-icon>
@@ -16,18 +20,24 @@
   <div class="ion-title text-center">
     @if (trasnfertList) {
     <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px;">
-      détails de transfert
+      détails transfert
     </h5>
     } @else {
     <h5 class="client-name" style="margin-bottom: 0px; text-transform: uppercase; font-size: 18px;">
-      détails de la commande
+      détails commande
     </h5>
     }
 
   </div>
-  <a class="back-btn-home" (click)="presentCancelAlert(true)">
-    <ion-icon name="home-outline" style="font-size: 25px; color: white;"></ion-icon>
-  </a>
+  @if (!(bl || makeCommandeCharge)) {
+    <a class="back-btn-home" (click)="presentCancelAlert(true)">
+      <ion-icon name="home-outline" style="font-size: 25px; color: white;"></ion-icon>
+    </a>
+  }  @else {
+    <a class="back-btn-home" routerDirection="back" routerLink="/vendeur-pages/home">
+      <ion-icon name="home-outline" style="font-size: 25px; color: white;"></ion-icon>
+    </a>
+  }
 </ion-header>
 
 <ion-content>
@@ -202,7 +212,7 @@
 
 
   <div class="list-products" style="margin-top: 25px; margin-bottom: 50%;">
-    @if (bl || trasnfertList) {
+    @if (bl || trasnfertList || makeCommandeCharge) {
     <ion-item-sliding *ngFor="let item of items" [disabled]="true">
       <ion-item>
         <ion-card class="ion-activatable" (click)="openModal(item)">
@@ -301,7 +311,7 @@
     </ion-item-sliding>
     }
   </div>
-  @if (!(bl || trasnfertList)) {
+  @if (!(bl || trasnfertList || makeCommandeCharge)) {
   <button class="btn edit-commande-btn" (click)="backMakeMakeCommande()">
     <ion-icon name="add-outline"></ion-icon>
   </button>
@@ -312,7 +322,7 @@
 <div class="custom-footer">
   <ion-grid>
     <ion-row class="d-flex justify-content-center align-items-center">
-      @if (!(gratuite || bl || trasnfertList) && paiement.id === 0) {
+      @if (!(gratuite || bl || trasnfertList || makeCommandeCharge) && paiement.id === 0) {
       <ion-col size="4" class="" style="height: 80px;">
         <div class="ag-courses_item shadow zoom-effect" (click)="setEncaisserOpen(true)">
           <div class="ag-courses-item_link">
@@ -375,7 +385,7 @@
         </div>
       </ion-col>
 
-      @if (!(bl || trasnfertList)) {
+      @if (!(bl || trasnfertList || makeCommandeCharge)) {
       <ion-col size="4" class="" style="height: 80px;">
         <div class="ag-courses_item shadow zoom-effect" (click)="presentCancelAlert()">
           <div class="ag-courses-item_link">
@@ -452,7 +462,7 @@
         </div>
       </div>
     </ion-content>
-    @if (!(bl || trasnfertList)) {
+    @if (!(bl || trasnfertList || makeCommandeCharge)) {
     <ion-footer class="ion-no-border ion-padding">
       <div class="row text-center" style="display: flex;
           justify-content: center;

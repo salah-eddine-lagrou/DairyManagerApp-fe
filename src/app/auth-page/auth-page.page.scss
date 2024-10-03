@@ -20,12 +20,9 @@ ion-content {
         rgb(255, 255, 255) 100%);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
-    /* Applies the blur for the glass effect */
     -webkit-backdrop-filter: blur(10px);
-    /* Ensures compatibility with WebKit browsers */
     border: 1px solid rgba(255, 255, 255, 0.23);
     transition: background 0.3s ease;
-    /* Smooth transition between the two backgrounds */
 
     .login-title {
       margin-top: 10%;

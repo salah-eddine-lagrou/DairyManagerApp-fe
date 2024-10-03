@@ -64,6 +64,14 @@ const routes: Routes = [
     loadChildren: () => import('./vendeur-pages/new-client/new-client.module').then( m => m.NewClientPageModule)
   },
   {
+    path: 'vendeur-pages/demandes',
+    loadChildren: () => import('./vendeur-pages/demandes/demandes.module').then( m => m.DemandesPageModule)
+  },
+  {
+    path: 'vendeur-pages/details-demande',
+    loadChildren: () => import('./vendeur-pages/details-demande/details-demande.module').then( m => m.DetailsDemandePageModule)
+  },
+  {
     path: 'magasinier-pages/home',
     loadChildren: () => import('./magasinier-pages/home/home.module').then( m => m.HomePageModule)
   },
@@ -131,6 +139,7 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./auth-page/auth-page.module').then( m => m.AuthPagePageModule)
   },
+
 ];
 
 

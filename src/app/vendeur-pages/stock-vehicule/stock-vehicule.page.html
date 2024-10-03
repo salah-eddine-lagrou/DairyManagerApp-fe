@@ -9,7 +9,7 @@
 
 <ion-content>
   <!-- TODO segments for what can be sell and what is commands that should be dilivered and what is return -->
-  <ion-segment value="default" style="height: 60px;">
+  <ion-segment value="default" style="height: 60px; position: fixed; z-index: 1002;">
     <ion-segment-button value="default">
       <ion-label style="font-size: 13px;">Vendable</ion-label>
     </ion-segment-button>
@@ -23,7 +23,7 @@
 
   <!-- TODO make the filtered process -->
 
-  <div class="list-products">
+  <div class="list-products" style="margin-top: 70px;">
     <div *ngFor="let item of filteredItems">
       <ion-card class="shadow" (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
         <ion-card-content class="p-0 ion-activatable">

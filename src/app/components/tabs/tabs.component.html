@@ -1,41 +1,21 @@
 <nav class="menu">
-  <a class="nav-item nav-item-t">
-    <ion-icon name="reader-outline"></ion-icon>
-    <p class="nav-item-text">History</p>
-    <span class="tab-title">History</span>
+  <a class="nav-item nav-item-t" (click)="selectTab('home')" routerLink="/vendeur-pages/home">
+    <ion-icon [name]="selectedTab === 'home' ? 'home' : 'home-outline'"></ion-icon>
+    <p class="nav-item-text" [ngClass]="{'nav-item-text-active': selectedTab === 'home'}">Home</p>
   </a>
 
-  <a class="nav-item nav-item-t">
-    <ion-icon name="cloud-upload-outline"></ion-icon>
-    <p class="nav-item-text">Upload</p>
-      <span class="tab-title">Upload</span>
-  </a>
-  <a class="nav-item nav-item-t">
-    <ion-icon name="notifications-outline"></ion-icon>
-    <p class="nav-item-text">Notification</p>
-      <span class="tab-title">Notification</span>
+  <a class="nav-item nav-item-t" (click)="selectTab('demandes')" routerLink="/vendeur-pages/demandes">
+    <ion-icon [name]="selectedTab === 'demandes' ? 'documents' : 'documents-outline'"></ion-icon>
+    <p class="nav-item-text" [ngClass]="{'nav-item-text-active': selectedTab === 'demandes'}">Demandes</p>
   </a>
 
+  <a class="nav-item nav-item-t" (click)="selectTab('notifications')" >
+    <ion-icon [name]="selectedTab === 'notifications' ? 'notifications' : 'notifications-outline'"></ion-icon>
+    <p class="nav-item-text" [ngClass]="{'nav-item-text-active': selectedTab === 'notifications'}">Notification</p>
+  </a>
 
-  <!-- <input type="checkbox" name="" class="checkbox checkbox-down">
-  <div class="checkbox-list">
-    <a class="nav-item" >
-      <ion-icon name="cloud-upload-outline"></ion-icon>
-      <span class="tab-title">Upload</span>
-    </a>
-    <a class="nav-item">
-      <ion-icon name="camera-outline" style="color: white; font-size: 36px;"></ion-icon>
-      <span class="tab-title">Camera</span>
-    </a>
-    <a class="nav-item" >
-      <ion-icon name="notifications-outline"></ion-icon>
-      <span class="tab-title">Notification</span>
-    </a>
-  </div> -->
-
-  <a class="nav-item nav-item-t" >
-    <ion-icon name="settings-outline"></ion-icon>
-    <p class="nav-item-text">Support</p>
-    <span class="tab-title">Support</span>
+  <a class="nav-item nav-item-t" (click)="selectTab('support')" >
+    <ion-icon [name]="selectedTab === 'support' ? 'settings' : 'settings-outline'"></ion-icon>
+    <p class="nav-item-text" [ngClass]="{'nav-item-text-active': selectedTab === 'support'}">Support</p>
   </a>
 </nav>

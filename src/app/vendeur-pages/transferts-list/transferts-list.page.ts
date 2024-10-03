@@ -20,4 +20,9 @@ export class TransfertsListPage implements OnInit {
     this.router.navigate(['vendeur-pages/details-commande'], {state : { trasnfertList }});
   }
 
+  selectedSegment: string = 'default';
+  onSegmentChange(event: any) {
+    this.selectedSegment = event.detail.value;
+  }
+
 }

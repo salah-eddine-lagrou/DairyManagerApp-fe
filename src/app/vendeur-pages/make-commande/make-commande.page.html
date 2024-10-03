@@ -27,15 +27,36 @@
 </ion-header>
 
 <ion-content>
-  <div class="horizontal-scroll category-holder">
-    <ion-button *ngFor="let category of categories" class="category-btn-item"
-      [fill]="selectedCategory === category.value ? 'solid' : 'outline'" color="primary" size="small"
-      style="height: 23px;" (click)="segmentChanged(category.value)">
-      {{ category.label }}
-    </ion-button>
-  </div>
-
-  <div class="list-products" style="margin-top: 55px; margin-bottom: 50%;">
+  @if (charge) {
+  <ion-segment value="default" (ionChange)="onSegmentChange($event)"
+    style="height: 60px; position: fixed; z-index: 1002; top: 60px; width: 100%;">
+    <ion-segment-button value="default">
+      <ion-label
+        style="font-size: 13px; display: flex; align-items: center; justify-content: center;">Charge</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="commande">
+      <ion-label style="
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;">
+        Commande
+        <div class="notif-badge"><ion-icon name="ellipse" style="color: white; font-size: 10px;"></ion-icon></div>
+      </ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  }
+  @if (selectedSegment !== 'commande') {
+    <div class="horizontal-scroll category-holder" [ngStyle]="{'top': charge ? '30px' : '-28px'}">
+      <ion-button *ngFor="let category of categories" class="category-btn-item"
+        [fill]="selectedCategory === category.value ? 'solid' : 'outline'" color="primary" size="small"
+        style="height: 23px;" (click)="segmentChanged(category.value)">
+        {{ category.label }}
+      </ion-button>
+    </div>
+  }
+  <div class="list-products" [ngStyle]="{'margin-top': charge ? '111px' : '55px','margin-bottom': '50%'}">
     @if (transfert) {
     <div class="mb-3">
       <select class="form-select" id="exampleSelectMultiple">
@@ -46,8 +67,6 @@
         <option value="4">vedeur 4</option>
       </select>
     </div>
-    } @else {
-    <ion-searchbar></ion-searchbar>
     }
     @if (retour) {
     <div *ngFor="let item of filteredItems" style="margin-bottom: -88px;">
@@ -71,7 +90,7 @@
 
             </ion-row>
           </ion-grid>
-        <ion-ripple-effect></ion-ripple-effect>
+          <ion-ripple-effect></ion-ripple-effect>
         </ion-card-content>
       </ion-card>
       <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
@@ -100,6 +119,9 @@
     </div>
 
     } @else if (isAnyTrue()) {
+    <!-- TODO : especiffacly if its charge -->
+    @if (charge) {
+    @if (selectedSegment === "default") {
     <div *ngFor="let item of filteredItems" style="margin-bottom: -88px;">
       <ion-card class="shadow " (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
         <ion-card-content class="p-0 ion-activatable">
@@ -118,7 +140,7 @@
               </ion-col>
             </ion-row>
           </ion-grid>
-        <ion-ripple-effect></ion-ripple-effect>
+          <ion-ripple-effect></ion-ripple-effect>
         </ion-card-content>
       </ion-card>
       <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
@@ -145,6 +167,378 @@
       </ion-col>
     </div>
     } @else {
+    <div class="container commande-container" style="margin-top: -37px; margin-bottom: 50%;">
+      <ion-card class="bl-card shadow ion-activatable" (click)="goToDetailsCommande()">
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon name="albums-outline" class="me-2"></ion-icon>
+                  <strong>Commande N:1</strong>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item text-end">
+                  <strong style="margin-left: auto;">1100 Dhs</strong>
+                </div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row style="margin: 0px -10px 0px">
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon style="font-size: 10px;" name="sync-circle-outline" class="me-2"></ion-icon>
+                  <span style="font-size: 12px;">En cours</span>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item">
+                  <ion-badge color="danger" style="margin-left: auto; font-size: 10px;">500 Dhs</ion-badge>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row style="margin: -10px -10px 0px">
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+                  <span style="font-size: 12px;">Client name</span>
+                  <ion-badge color="danger"
+                    style="margin-left: auto; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item">
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row style="margin: -10px -10px 0px">
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
+                  <span style="font-size: 12px;">20-03-2024 09:23</span>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item status-commande-charge status-bg-charged">
+                  <p style="color: white; margin-left: 86px; margin-bottom: 0;">Chargé</p>
+                  <ion-icon name="cloud-done"
+                    style="font-size: 21px; margin-left: auto; margin-right: 7px; color: white;"></ion-icon>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-card>
+      <ion-card class="bl-card shadow ion-activatable" (click)="goToDetailsCommande()">
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon name="albums-outline" class="me-2"></ion-icon>
+                  <strong>Commande N:1</strong>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item text-end">
+                  <strong style="margin-left: auto;">1100 Dhs</strong>
+                </div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row style="margin: 0px -10px 0px">
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon style="font-size: 10px;" name="sync-circle-outline" class="me-2"></ion-icon>
+                  <span style="font-size: 12px;">En cours</span>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item">
+                  <ion-badge color="danger" style="margin-left: auto; font-size: 10px;">500 Dhs</ion-badge>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row style="margin: -10px -10px 0px">
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+                  <span style="font-size: 12px;">Client name</span>
+                  <ion-badge color="danger"
+                    style="margin-left: auto; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item">
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row style="margin: -10px -10px 0px">
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
+                  <span style="font-size: 12px;">20-03-2024 09:23</span>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item status-commande-charge status-bg-charged">
+                  <p style="color: white; margin-left: 85px; margin-bottom: 0;">Chargé</p>
+                  <ion-icon name="cloud-done"
+                    style="font-size: 21px; margin-left: auto; margin-right: 7px; color: white;"></ion-icon>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-card>
+      <ion-card class="bl-card shadow ion-activatable" (click)="goToDetailsCommande()">
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon name="albums-outline" class="me-2"></ion-icon>
+                  <strong>Commande N:1</strong>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item text-end">
+                  <strong style="margin-left: auto;">1100 Dhs</strong>
+                </div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row style="margin: 0px -10px 0px">
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon style="font-size: 10px;" name="sync-circle-outline" class="me-2"></ion-icon>
+                  <span style="font-size: 12px;">En cours</span>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item">
+                  <ion-badge color="danger" style="margin-left: auto; font-size: 10px;">500 Dhs</ion-badge>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row style="margin: -10px -10px 0px">
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+                  <span style="font-size: 12px;">Client name</span>
+                  <ion-badge color="danger"
+                    style="margin-left: auto; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item">
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row style="margin: -10px -10px 0px">
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
+                  <span style="font-size: 12px;">20-03-2024 09:23</span>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item status-commande-charge status-bg-semi-charged">
+                  <p style="color: white; margin-left: 76px; margin-bottom: 0;">En cours</p>
+                  <ion-icon name="cloud"
+                    style="font-size: 21px; margin-left: auto; margin-right: 7px; color: white;"></ion-icon>
+                  <ion-icon name="time"
+                    style="color: #91b4d1; position: absolute; right: 11px; bottom: 5px; font-size: 13px;"></ion-icon>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-card>
+      <ion-card class="bl-card shadow ion-activatable" (click)="goToDetailsCommande()">
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon name="albums-outline" class="me-2"></ion-icon>
+                  <strong>Commande N:1</strong>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item text-end">
+                  <strong style="margin-left: auto;">1100 Dhs</strong>
+                </div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row style="margin: 0px -10px 0px">
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon style="font-size: 10px;" name="sync-circle-outline" class="me-2"></ion-icon>
+                  <span style="font-size: 12px;">En cours</span>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item">
+                  <ion-badge color="danger" style="margin-left: auto; font-size: 10px;">500 Dhs</ion-badge>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row style="margin: -10px -10px 0px">
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+                  <span style="font-size: 12px;">Client name</span>
+                  <ion-badge color="danger"
+                    style="margin-left: auto; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item">
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row style="margin: -10px -10px 0px">
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
+                  <span style="font-size: 12px;">20-03-2024 09:23</span>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item status-commande-charge status-bg-waiting">
+                  <p style="color: white; margin-left: 59px; margin-bottom: 0;">Non chargé</p>
+                  <ion-icon name="cloud"
+                    style="font-size: 21px; margin-left: auto; margin-right: 7px; color: white;"></ion-icon>
+                  <ion-icon name="close"
+                    style="color: rgb(253, 60, 60); position: absolute; right: 11px; bottom: 5px; font-size: 13px;"></ion-icon>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-card>
+      <ion-card class="bl-card shadow ion-activatable" (click)="goToDetailsCommande()">
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon name="albums-outline" class="me-2"></ion-icon>
+                  <strong>Commande N:1</strong>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item text-end">
+                  <strong style="margin-left: auto;">1100 Dhs</strong>
+                </div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row style="margin: 0px -10px 0px">
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon style="font-size: 10px;" name="sync-circle-outline" class="me-2"></ion-icon>
+                  <span style="font-size: 12px;">En cours</span>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item">
+                  <ion-badge color="danger" style="margin-left: auto; font-size: 10px;">500 Dhs</ion-badge>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row style="margin: -10px -10px 0px">
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon style="font-size: 10px;" name="person-outline" class="me-2"></ion-icon>
+                  <span style="font-size: 12px;">Client name</span>
+                  <ion-badge color="danger"
+                    style="margin-left: auto; font-size: 8px; border-radius: 30px; padding-top: 2px; padding-bottom: 2px;">Douteux</ion-badge>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item">
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row style="margin: -10px -10px 0px">
+              <ion-col>
+                <div class="info-item">
+                  <ion-icon style="font-size: 10px;" name="time-outline" class="me-2"></ion-icon>
+                  <span style="font-size: 12px;">20-03-2024 09:23</span>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="info-item status-commande-charge status-bg-waiting">
+                  <p style="color: white; margin-left: 59px; margin-bottom: 0;">Non chargé</p>
+                  <ion-icon name="cloud"
+                    style="font-size: 21px; margin-left: auto; margin-right: 7px; color: white;"></ion-icon>
+                  <ion-icon name="close"
+                    style="color: rgb(253, 60, 60); position: absolute; right: 11px; bottom: 5px; font-size: 13px;"></ion-icon>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-card>
+    </div>
+    }
+    } @else {
+    <div *ngFor="let item of filteredItems" style="margin-bottom: -88px;">
+      <ion-card class="shadow " (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
+        <ion-card-content class="p-0 ion-activatable">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3" class="img-item-container">
+                <img class="img-item" [src]="item.image" alt="">
+              </ion-col>
+              <ion-col size="6">
+                <h5 class="item-title">{{ item.name | truncate:15 }}</h5>
+                <ion-badge color="success" class="badge-price-item">{{ item.price }} Dhs/U</ion-badge><br>
+                <ion-badge color="dark" class="badge-quantity-stock-item">
+                  <ion-icon name="cube-outline" style="margin: 0px 0px -2px 0px;"></ion-icon>
+                  {{ item.quantityStock }} U
+                </ion-badge>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-card-content>
+      </ion-card>
+      <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
+        <div>
+          <ng-container *ngIf="item.maxQuantityDisplayed; else notMax">
+            <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity"
+              disabled (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
+            <button class="btn max-btn" (click)="resetQuantity(item.id, $event)">reset</button>
+          </ng-container>
+          <ng-template #notMax>
+            <input class="form-control text-center" type="number" style="height: 30px;" [(ngModel)]="item.quantity"
+              (input)="updateTotalPrice()" (click)="$event.stopPropagation()">
+            <button class="btn max-btn" (click)="maxQuantity(item.id, $event)">MAX</button>
+          </ng-template>
+        </div>
+        <div style="margin-left: 10px;">
+          <button class="btn increase-btn" (click)="increaseQuantity(item.id, $event)">
+            <ion-icon name="add-outline"></ion-icon>
+          </button>
+          <button class="btn decrease-btn" (click)="decreaseQuantity(item.id, $event)">
+            <ion-icon name="remove-outline"></ion-icon>
+          </button>
+        </div>
+      </ion-col>
+    </div>
+    }
+
+    } @else {
     <div *ngFor="let item of filteredItems" style="margin-bottom: -88px;">
       <ion-card class="shadow " (click)="openModal(item)" [id]="'item' + item.id" class="item-container">
         <ion-card-content class="p-0 ion-activatable">
@@ -169,7 +563,7 @@
               </ion-col>
             </ion-row>
           </ion-grid>
-        <ion-ripple-effect></ion-ripple-effect>
+          <ion-ripple-effect></ion-ripple-effect>
         </ion-card-content>
       </ion-card>
       <ion-col size="3" class="d-flex align-items-center justify-content-center btn-col-container">
@@ -224,10 +618,16 @@
     <button class="btn confirmer-btn " (click)="presentAlert()">
       Confirmer
     </button>
-
-    } @else if (isAnyTrue()) {
+    } @else if (decharge || transfert) {
     <button class="btn confirmer-btn " (click)="goBackToStock()">
       Confirmer
+    </button>
+    } @else if (charge) {
+    <button class="btn confirmer-btn-charge " (click)="goBackToStock()">
+      Confirmer
+    </button>
+    <button class="btn btn-orders-page">
+      <ion-icon name="albums-outline"></ion-icon>
     </button>
     } @else {
     <button class="btn confirmer-btn " (click)="goToCommandeDetails()">
@@ -236,9 +636,26 @@
     }
 
     } @else {
-    <button class="btn confirmer-btn" disabled>
+    @if (retour) {
+    <button class="btn confirmer-btn " (click)="presentAlert()" disabled>
       Confirmer
     </button>
+    } @else if (decharge || transfert) {
+    <button class="btn confirmer-btn " (click)="goBackToStock()" disabled>
+      Confirmer
+    </button>
+    } @else if (charge) {
+    <button class="btn confirmer-btn-charge " (click)="goBackToStock()" disabled>
+      Confirmer
+    </button>
+    <button class="btn btn-orders-page">
+      <ion-icon name="albums-outline"></ion-icon>
+    </button>
+    } @else {
+    <button class="btn confirmer-btn " (click)="goToCommandeDetails()" disabled>
+      Confirmer
+    </button>
+    }
     }
   </div>
 
