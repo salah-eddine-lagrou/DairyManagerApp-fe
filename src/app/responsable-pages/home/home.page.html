@@ -10,18 +10,20 @@
           <img class="profile-img" src="assets/img/bruce-mars.jpg" alt="Bruce Mars">
         </div>
       </div>
-      <ion-popover trigger="click-trigger" triggerAction="click">
+      <ion-popover trigger="click-trigger" triggerAction="click" [inert]="false">
         <ng-template>
-          <ion-content class="ion-padding disconnected-button">Se deconnecter !</ion-content>
+          <ion-content class="ion-padding disconnected-button" (click)="logout()">Se déconnecter !</ion-content>
         </ng-template>
       </ion-popover>
+      <ion-backdrop part="backdrop" tabindex="-1" inert class="md hydrated"></ion-backdrop>
+
 
       <div class="col w-75 profile-info" style="padding: 10px;">
         <div class="row">
           <div class="col">
-            <h1 class="profile-name m-0" style="color: white;">Bruce Mars</h1>
+            <h1 class="profile-name m-0" style="color: white;">{{ user.name }}</h1>
             <p class="profile-mission" style="color: #a5a5a5;"><ion-icon name="briefcase-outline" style="margin-bottom: 3px;"></ion-icon> Mission:
-              Responsable</p>
+              Vendeur</p>
           </div>
           <div class="col-4 d-flex align-items-center justify-content-center">
             <div class="profile-img profile-img-container" style="
@@ -42,7 +44,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>

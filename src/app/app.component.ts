@@ -16,6 +16,7 @@ export class AppComponent {
       || this.router.url.includes("responsable-pages/home")
       || this.router.url.includes("magasinier-pages/home")
       || this.router.url.includes("vendeur-pages/demandes")
+      || this.router.url.includes("notifications")
     );
   }
 }

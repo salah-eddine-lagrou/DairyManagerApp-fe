@@ -56,7 +56,8 @@
       <!-- Phone -->
       <div class="form-control" style="border: none;">
         <ion-input label="Téléphone *" label-placement="floating" fill="outline" type="number"
-          [(ngModel)]="newClient.phone" [ngClass]="{'filled': isFieldFilled('phone')}" required>
+          [(ngModel)]="newClient.phone" (ngModelChange)="convertPhoneToString($event)"
+          [ngClass]="{'filled': isFieldFilled('phone')}" required>
         </ion-input>
       </div>
       <!-- Contact Name -->
@@ -95,11 +96,28 @@
       <div class="form-control" style="border: none;">
         <ion-select label="Sous-categorie client *" label-placement="floating" fill="outline"
           [(ngModel)]="newClient.client_subcategory_id" [ngClass]="{'filled': isFieldFilled('client_subcategory_id')}"
-          required>
-          <ion-select-option value="1">Subcategory 1</ion-select-option>
-          <ion-select-option value="2">Subcategory 2</ion-select-option>
+          (ionChange)="onSubcategoryChange($event.detail.value)" required>
+
+          <!-- Loop through the clientSubCategories array and display the options dynamically -->
+          <ion-select-option *ngFor="let subcategory of clientSubCategories" [value]="subcategory.id">
+            {{ subcategory.name }}
+          </ion-select-option>
+
         </ion-select>
       </div>
+      @if (newClient.client_subcategory_id) {
+      <!-- Client Category associated with Subcategory -->
+      <div class="form-control" style="border: none;">
+        <ion-select label="Categorie client associée" label-placement="floating" fill="outline"
+          [(ngModel)]="choosenCat.id" [ngClass]="{'filled': isFieldFilled('client_subcategory_id')}">
+          <!-- Dynamically bind the value and display the chosen category name -->
+          <ion-select-option *ngIf="choosenCat" [value]="choosenCat.id">
+            {{ choosenCat.name }}
+          </ion-select-option>
+        </ion-select>
+      </div>
+      }
+
     </div>
 
     <div *ngIf="credit" class="credit" id="credit">
@@ -125,14 +143,14 @@
         </ion-input>
       </div>
       <!-- PriceList -->
-      <div class="form-control" style="border: none;">
+      <!-- <div class="form-control" style="border: none;">
         <ion-select label="Liste de prix *" label-placement="floating" fill="outline"
           [(ngModel)]="newClient.price_list_id" required [ngClass]="{'filled': isFieldFilled('price_list_id')}"
           required>
           <ion-select-option value="1">PriceList 1</ion-select-option>
           <ion-select-option value="2">PriceList 2</ion-select-option>
         </ion-select>
-      </div>
+      </div> -->
     </div>
 
     <div *ngIf="logistique" class="logistique" id="logistique">
@@ -141,36 +159,36 @@
       </div>
       <!-- Agency -->
       <div class="form-control" style="border: none;">
-        <ion-select label="Agence" label-placement="floating" fill="outline" [(ngModel)]="newClient.agency_id" required
-          [ngClass]="{'filled': isFieldFilled('agency_id')}">
-          <ion-select-option value="1">Agency 1</ion-select-option>
-          <ion-select-option value="2">Agency 2</ion-select-option>
+        <ion-select label="Agence *" label-placement="floating" fill="outline" [(ngModel)]="newClient.agency_id"
+          required [ngClass]="{'filled': isFieldFilled('agency_id')}">
+          <ion-select-option *ngIf="agency" [value]="agency.id">{{ agency.name }}</ion-select-option>
         </ion-select>
       </div>
+
       <!-- Warehouse -->
       <div class="form-control" style="border: none;">
-        <ion-select label="Warehouse" label-placement="floating" fill="outline" [(ngModel)]="newClient.warehouse_id"
-          [ngClass]="{'filled': isFieldFilled('warehouse_id')}">
-          <ion-select-option value="1">Warehouse 1</ion-select-option>
-          <ion-select-option value="2">Warehouse 2</ion-select-option>
+        <ion-select label="Warehouse *" label-placement="floating" fill="outline" [(ngModel)]="newClient.warehouse_id"
+          required [ngClass]="{'filled': isFieldFilled('warehouse_id')}">
+          <ion-select-option *ngIf="warehouse" [value]="warehouse.id">{{ warehouse.name }}</ion-select-option>
         </ion-select>
       </div>
+
       <!-- Zone -->
       <div class="form-control" style="border: none;">
-        <ion-select label="Zone" label-placement="floating" fill="outline" [(ngModel)]="newClient.zone_id" required
+        <ion-select label="Zone *" label-placement="floating" fill="outline" [(ngModel)]="newClient.zone_id" required
           [ngClass]="{'filled': isFieldFilled('zone_id')}">
-          <ion-select-option value="1">Zone 1</ion-select-option>
-          <ion-select-option value="2">Zone 2</ion-select-option>
+          <ion-select-option *ngFor="let zone of zones" [value]="zone.id">{{ zone.name }}</ion-select-option>
         </ion-select>
       </div>
+
       <!-- Sector -->
       <div class="form-control" style="border: none;">
-        <ion-select label="Secteur" label-placement="floating" fill="outline" [(ngModel)]="newClient.sector_id" required
-          [ngClass]="{'filled': isFieldFilled('sector_id')}">
-          <ion-select-option value="1">Sector 1</ion-select-option>
-          <ion-select-option value="2">Sector 2</ion-select-option>
+        <ion-select label="Secteur *" label-placement="floating" fill="outline" [(ngModel)]="newClient.sector_id"
+          required [ngClass]="{'filled': isFieldFilled('sector_id')}">
+          <ion-select-option *ngFor="let sector of sectors" [value]="sector.id">{{ sector.name }}</ion-select-option>
         </ion-select>
       </div>
+
     </div>
 
     <div *ngIf="recap" class="recap" id="recap">
@@ -291,14 +309,29 @@
         <ion-row>
           <ion-col>
             <div class="info-item">
-              <strong>Sous-catégorie client</strong>
+              <strong>Sous-catégorie</strong>
               <p style="position: absolute; left: 95%; margin: 0;">:</p>
             </div>
           </ion-col>
           <ion-col>
             <div class="info-item">
               <!-- TODO display the subcategory by the id choosen in the client -->
-              <span>{{ newClient.client_subcategory_id }}</span>
+              <span>{{ getClientSubCategory(newClient.client_subcategory_id)?.name }}</span>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div class="info-item">
+              <strong>Catégorie</strong>
+              <p style="position: absolute; left: 95%; margin: 0;">:</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="info-item">
+              <!-- TODO display the subcategory by the id choosen in the client -->
+              <span>{{ choosenCat.name }}</span>
             </div>
           </ion-col>
         </ion-row>
@@ -358,7 +391,7 @@
           </ion-col>
         </ion-row>
 
-        <ion-row>
+        <!-- <ion-row>
           <ion-col>
             <div class="info-item">
               <strong>Liste de prix</strong>
@@ -367,11 +400,11 @@
           </ion-col>
           <ion-col>
             <div class="info-item">
-              <!-- TODO same here disolay the price list by the id choosen in the client -->
+              TODO same here disolay the price list by the id choosen in the client
               <span>{{ newClient.price_list_id }}</span>
             </div>
           </ion-col>
-        </ion-row>
+        </ion-row> -->
 
         <ion-row>
           <ion-col>
@@ -395,7 +428,7 @@
           <ion-col>
             <div class="info-item">
               <!-- TODO same here -->
-              <span>Agence Gatsromixte</span>
+              <span>{{ agency.name }}</span>
             </div>
           </ion-col>
         </ion-row>
@@ -410,7 +443,7 @@
           <ion-col>
             <div class="info-item">
               <!-- TODO same here -->
-              <span>Entrepôt Central</span>
+              <span>{{ warehouse.name }}</span>
             </div>
           </ion-col>
         </ion-row>
@@ -425,7 +458,7 @@
           <ion-col>
             <div class="info-item">
               <!-- TODO same here -->
-              <span>Zone 1</span>
+              <span>{{ getClientZone(newClient.zone_id)?.name }}</span>
             </div>
           </ion-col>
         </ion-row>
@@ -440,7 +473,7 @@
           <ion-col>
             <div class="info-item">
               <!-- TODO same here -->
-              <span>Secteur A</span>
+              <span>{{ getClientSector(newClient.sector_id)?.name }}</span>
             </div>
           </ion-col>
         </ion-row>

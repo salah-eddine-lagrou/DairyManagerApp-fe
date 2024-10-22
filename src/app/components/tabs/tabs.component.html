@@ -9,7 +9,7 @@
     <p class="nav-item-text" [ngClass]="{'nav-item-text-active': selectedTab === 'demandes'}">Demandes</p>
   </a>
 
-  <a class="nav-item nav-item-t" (click)="selectTab('notifications')" >
+  <a class="nav-item nav-item-t" (click)="selectTab('notifications')" routerLink="/notifications-vendeur">
     <ion-icon [name]="selectedTab === 'notifications' ? 'notifications' : 'notifications-outline'"></ion-icon>
     <p class="nav-item-text" [ngClass]="{'nav-item-text-active': selectedTab === 'notifications'}">Notification</p>
   </a>

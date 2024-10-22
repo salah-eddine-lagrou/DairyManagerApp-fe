@@ -1,0 +1,46 @@
+<ion-content [fullscreen]="true" class="auth-page">
+  <div class="profile-img-container">
+    <h2>Accueil</h2>
+    <button class="btn btn-sortir" (click)="logout()">
+      @if (isLoading) {
+        <ion-spinner name="crescent" color="light"></ion-spinner>
+      } @else {
+        sortir<ion-icon name="log-out-outline" style="margin-left: 5px;"></ion-icon>
+      }
+    </button>
+  </div>
+
+  <div class="container-header">
+    <div class="form-login">
+      <h1 style="color: #1a2037; font-size: 25px;">Merci de patienter {{ user.name }}, votre demande de connexion est en cours de traitement.</h1>
+      <div (click)="togglePDACode()">
+        <h2>Code pda <span>{{ isCodeVisible ? user.pda_code_access : maskedCode }}</span></h2>
+      </div>
+      <p style="color: #1a2037; font-size: 15px;">Restez attentif à la notification de confirmation !</p>
+
+      <div class="input-group mb-3 position-relative">
+        <button class="btn auth-btn ion-activatable ripple-border" style="margin-top: 60px;" (click)="getAccess()">
+          @if (isLoadingAccess) {
+            <ion-spinner name="dots" color="light"></ion-spinner>
+          } @else {
+            Obtenir l'accès
+          }
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="container-header container-header1">
+    <div class="form-login">
+    </div>
+  </div>
+  <div class="container-header container-header2">
+    <div class="form-login">
+    </div>
+  </div>
+  <div class="container-header container-header3">
+    <div class="form-login">
+    </div>
+  </div>
+
+</ion-content>

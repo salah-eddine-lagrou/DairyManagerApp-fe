@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NavController, PopoverController } from '@ionic/angular';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -8,13 +13,28 @@ import { Router } from '@angular/router';
 })
 export class HomePage implements OnInit {
 
-  constructor(private router: Router) { }
+  user: User = new User();
 
-  ngOnInit() {
-    console.log("running from home responsable");
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private navCntrl: NavController,
+    private popoverController: PopoverController,
+    private userService: UserService
+  ) {
+  }
+
+  async ngOnInit() {
+    console.log("running from home vendeur");
+    this.user = await this.userService.getUserStorage();
+    console.log("OnInit: ", this.user);
 
   }
 
+  async ionViewWillEnter() {
+    this.user = await this.userService.getUserStorage();
+    console.log("ViewWillEnter: ", this.user);
+  }
   isModalOpen = false;
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
@@ -77,6 +97,38 @@ export class HomePage implements OnInit {
 
   goToGratuites() :void {
     this.router.navigate(['responsable-pages/gratuites']);
+  }
+
+  async logout() {
+    Swal.fire({
+      title: "Déconnecter de l'accueil ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Oui",
+      cancelButtonText: "Non",
+      heightAuto: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.authService.logout(this.user).subscribe(
+          async (result: any) => {
+            console.log('DEBUG logout : ', result);
+            const popover = await this.popoverController.getTop(); // Get the active popover
+            if (popover) {
+              await popover.dismiss(); // Dismiss the popover
+            }
+            localStorage.removeItem('user');
+            this.navCntrl.setDirection('back');
+            this.router.navigate(['/auth']);  // Navigate to the authentication page
+          }, (error: any) => {
+            console.error('DEBUG logout : ', error);
+
+
+          }
+        );
+      }
+    });
   }
 
 }

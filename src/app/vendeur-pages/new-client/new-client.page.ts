@@ -1,11 +1,21 @@
+import { LogistiqueService } from './../../services/logistique.service';
+import { ClientCategoryService } from './../../services/client-category.service';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { LocationService } from 'src/app/services/location.service';
 import Swal from 'sweetalert2';
-import { IonContent, ModalController } from '@ionic/angular';
+import { IonContent, ModalController, NavController } from '@ionic/angular';
 import { Client } from 'src/app/models/client';
 import { ClientService } from 'src/app/services/client.service';
 import { Router } from '@angular/router';
 import { Network } from '@capacitor/network';
+import { ClientCategory } from 'src/app/models/client-category';
+import { ClientSubcategory } from 'src/app/models/client-subcategory';
+import { Agency } from 'src/app/models/agency';
+import { Warehouse } from 'src/app/models/warehouse';
+import { Sector } from 'src/app/models/sector';
+import { User } from 'src/app/models/user';
+import { Zone } from 'src/app/models/zone';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-new-client',
@@ -19,6 +29,7 @@ export class NewClientPage implements OnInit {
   lat?: number;
   lng?: number;
 
+  user: User = new User();
   newClient: Client = new Client();
 
   locatedOn: boolean = false;
@@ -31,36 +42,203 @@ export class NewClientPage implements OnInit {
   clientInfosFilled: boolean = false;
   animate: boolean = false;
   clientReadyDone: boolean = false;
+  clientCategories: ClientCategory[] = [];
+  clientSubCategories: ClientSubcategory[] = [];
 
   constructor(
     private locationService: LocationService,
     private clientService: ClientService,
     private modalCtrl: ModalController,
     private renderer: Renderer2,
-    private router: Router
+    private router: Router,
+    private clientCategoryService: ClientCategoryService,
+    private navCntrl: NavController,
+    private logistiqueService: LogistiqueService,
+    private userService: UserService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     console.log('running from new client page');
+    this.user = await this.userService.getUserStorage();
+    await this.loadLogistiques();
+
+    const clientCategories = await this.clientCategoryService.getCategoriesFS();
+    if (clientCategories.length > 0) {
+      this.clientCategories = clientCategories;
+    } else {
+      this.getCategories();
+      await this.clientCategoryService.setCategoriesFS(clientCategories);
+    }
+    const clientSubCategories = await this.clientCategoryService.getSubCategoriesFS();
+    if (clientSubCategories.length > 0) {
+      this.clientSubCategories = clientSubCategories;
+    } else {
+      this.getSubCategories();
+      await this.clientCategoryService.setSubCategoriesFS(clientSubCategories);
+    }
+  }
+
+  async ionViewWillEnter() {
+    this.user = await this.userService.getUserStorage();
+  }
+
+  getSubCategories() {
+    this.clientCategoryService.getSubCategories().subscribe(
+      async (result: any) => {
+        if (result.success) {
+          this.clientSubCategories = await result.data;
+        } else {
+          console.warn("No subcategories found.");
+        }
+      },
+      (error) => {
+        console.error("Error retrieving subcategories:", error);
+      }
+    );
+  }
+
+  getCategories() {
+    this.clientCategoryService.getCategories().subscribe(
+      async (result: any) => {
+        if (result.success) {
+          this.clientCategories = await result.data;
+        } else {
+          console.warn("No categories found.");
+        }
+      },
+      (error) => {
+        console.error("Error retrieving categories:", error);
+      }
+    );
+  }
+
+  choosenCat: ClientCategory = new ClientCategory();
+  onSubcategoryChange(subcategoryId: number) {
+    const subcategory = this.clientSubCategories.find(sub => sub.id === subcategoryId);
+    if (subcategory) {
+      const category = this.clientCategories.find(cat => cat.id === subcategory.client_category_id);
+      if (category) {
+        this.choosenCat = category; // Set the associated category
+      }
+    }
+  }
+
+  agency: Agency = new Agency();
+  warehouse: Warehouse = new Warehouse();
+  zones: Zone[] = [];
+  sectors: Sector[] = [];
+  async loadLogistiques() {
+    const agency = await this.logistiqueService.getDataFS<Agency>('agency');
+    const warehouse = await this.logistiqueService.getDataFS<Warehouse>('warehouse');
+    const zones = await this.logistiqueService.getDataFS<Zone[]>('zones');
+    const sectors = await this.logistiqueService.getDataFS<Sector[]>('sectors');
+
+    if (agency) {
+      this.agency = agency
+    } else if (this.user.id) {
+      this.logistiqueService.getAgency(this.user.id).subscribe(
+        async (result: any) => {
+          this.agency = await result.data;
+          await this.logistiqueService.setDataFS('agency', agency);
+        },
+        (error) => { console.error("error retrieving the agencies", error); }
+      );
+    }
+
+    if (warehouse) {
+      this.warehouse = warehouse;
+    } else if (this.user.id) {
+      this.logistiqueService.getWarehouse(this.user.id).subscribe(
+        async (result: any) => {
+          this.warehouse = await result.data;
+          await this.logistiqueService.setDataFS('warehouse', warehouse);
+        },
+        (error) => { console.error("Error retrieving the warehouse", error); }
+      );
+    }
+
+    if (zones && zones.length > 0) {
+      this.zones = zones;
+    } else if (this.user.id) {
+      this.logistiqueService.getZones(this.user.id).subscribe(
+        async (result: any) => {
+          this.zones = await result.data;
+          await this.logistiqueService.setDataFS('zones', zones);
+        },
+        (error) => { console.error("Error retrieving the zones", error); }
+      );
+    }
+
+    if (sectors && sectors.length > 0) {
+      this.sectors = sectors;
+    } else if (this.user.id) {
+      this.logistiqueService.getSectors(this.user.id).subscribe(
+        async (result: any) => {
+          this.sectors = await result.data;
+          await this.logistiqueService.setDataFS('sectors', sectors);
+        },
+        (error) => { console.error("Error retrieving the sectors", error); }
+      );
+    }
+  }
+
+  getClientSubCategory(id: any): ClientSubcategory | undefined {
+    return this.clientSubCategories.find(sub => sub.id === id);
+  }
+
+  getClientZone(id: any): Zone | undefined {
+    return this.zones.find(zone => zone.id === id);
+  }
+
+  getClientSector(id: any): Sector | undefined {
+    return this.sectors.find(sector => sector.id === id);
+  }
+
+  convertPhoneToString(event: any) {
+    // Convert the phone number to a string if it's not empty
+    if (event) {
+      this.newClient.phone = String(event);
+    } else {
+      this.newClient.phone = ''; // If the input is cleared, set it to an empty string
+    }
   }
 
   createNewClient() {
-    // TODO create the client linked with the service
-    console.log(this.newClient);
-    // this.clientService.store(this.newClient).subscribe(
+    this.clientService.createClient(this.newClient).subscribe(
+      (response: any) => {
+        // Handle success
+        Swal.fire({
+          icon: 'success',
+          title: 'Client ' + this.newClient.name + ' a été créé avec succès',
+          toast: true,
+          position: 'bottom',
+          showConfirmButton: false,
+          timer: 2500,
+        });
+        const client: Client = response.client;
+        console.log("client created : ", client);
+        this.clientService.addClientToFS(client);
 
-    // );
-    Swal.fire({
-      icon: 'success',
-      title: 'Client ' + this.newClient.name + ' a été créé avec succès',
-      toast: true,
-      position: 'bottom',
-      showConfirmButton: false,
-      timer: 2500,
-    });
-    // navigate to clients pages
-    this.router.navigate(['/vendeur-pages/clients']);
-    // TODO later try highlgh the new client with badge of en-attente status
+        // Navigate to clients page after successful creation
+        this.navCntrl.setDirection('back');
+        this.router.navigate(['/vendeur-pages/clients']);
+
+        // TODO: Highlight the new client with a badge of en-attente status
+      },
+      (error) => {
+        // Handle error
+        console.error('Error creating client:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur lors de la création du client',
+          text: error.message || 'Une erreur est survenue.',
+          toast: true,
+          position: 'bottom',
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      }
+    );
   }
 
   isFieldFilled(field: keyof Client): boolean {
@@ -133,35 +311,12 @@ export class NewClientPage implements OnInit {
       }
 
     } else if (this.credit) {
-      if (!this.newClient.price_list_id) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Veuillez remplir les champs importants de crédit !',
-          toast: true,
-          position: 'bottom',
-          showConfirmButton: false,
-          timer: 2500,
-        });
-        return;
-
-      } else {
-        this.credit = false;
-        this.logistique = true;
-        this.animateLineAndCircle('line-till-3', 'step-3');
-
-        // TODO asign the logistique information of vendeur to the client
-        if ((!this.newClient.agency_id)
-          || (!this.newClient.warehouse_id)
-          || (!this.newClient.zone_id)
-          || (!this.newClient.sector_id)
-        ) {
-          this.newClient.agency_id = 1;
-          this.newClient.warehouse_id = 1;
-          this.newClient.zone_id = 1;
-          this.newClient.sector_id = 1;
-        }
-
-      }
+      this.newClient.agency_id = this.agency.id;
+      this.newClient.warehouse_id = this.warehouse.id;
+      this.credit = false;
+      this.logistique = true;
+      this.animateLineAndCircle('line-till-3', 'step-3');
+      //  * there is no validation for this (accept client and adapt platfond from admin)
 
     } else if (this.logistique) {
       // TODO client will be affected to the vendeur logistique informations
@@ -338,9 +493,9 @@ export class NewClientPage implements OnInit {
             // Use the getAddressComponent method to extract specific parts
             const country = this.getAddressComponent(addressComponents, 'country');
             const city = this.getAddressComponent(addressComponents, 'locality') ||
-                         this.getAddressComponent(addressComponents, 'administrative_area_level_1');
+              this.getAddressComponent(addressComponents, 'administrative_area_level_1');
             const neighborhood = this.getAddressComponent(addressComponents, 'sublocality') ||
-                                 this.getAddressComponent(addressComponents, 'neighborhood');
+              this.getAddressComponent(addressComponents, 'neighborhood');
             const route = this.getAddressComponent(addressComponents, 'route');
 
             // Prepare the complete address from the components

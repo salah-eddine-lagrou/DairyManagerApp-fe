@@ -107,9 +107,9 @@ ion-content {
     border-radius: 200px;
     height: 65px;
     width: 65px;
-    position: sticky;
+    position: fixed;
     left: 80%;
-    bottom: 4%;
+    bottom: 8%;
     z-index: 5;
     color: white;
     font-size: 36px;
@@ -117,6 +117,12 @@ ion-content {
     align-items: center;
     justify-content: center;
     box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .spinner-container {
+    ion-spinner {
+      --color: #3d83ff;
+    }
   }
 
 

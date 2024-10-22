@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AuthUser } from '../models/auth-user';
 import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2';
+import { Device } from '@capacitor/device';
+import { RealTimeService } from '../services/real-time.service';
+import { Router } from '@angular/router';
+import { User } from '../models/user';
+import { v4 as uuidv4 } from 'uuid';
+import { Storage } from '@capacitor/storage';
 
 @Component({
   selector: 'app-auth-page',
@@ -13,12 +19,33 @@ export class AuthPagePage implements OnInit {
   authUser: AuthUser = new AuthUser();
   errorMessageEmail?: string;
   errorMessagePassword?: string;
+  logged: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private realTimeService: RealTimeService,
+    private router: Router,
+  ) { }
 
-  ngOnInit() {
-    console.log("running from auth-page");
+  async ngOnInit() {
+    console.log('Running from auth-page');
 
+    const token = await this.getDeviceUniqueToken();
+    console.log('Device Token:', token);
+  }
+
+  async getDeviceUniqueToken() {
+    const { value: token } = await Storage.get({ key: 'device_token' });
+
+    if (!token) {
+      const newToken = uuidv4();
+      await Storage.set({ key: 'device_token', value: newToken });
+      this.authUser.device_uuid = newToken;
+      return newToken;
+    }
+
+    this.authUser.device_uuid = token;
+    return token;
   }
 
   togglePassword(inputId: string, event: Event): void {
@@ -48,6 +75,7 @@ export class AuthPagePage implements OnInit {
   }
 
   isLoading: boolean = false;
+
   login() {
     // Clear previous error messages
     this.errorMessageEmail = undefined;
@@ -69,16 +97,120 @@ export class AuthPagePage implements OnInit {
       return;
     }
 
-    console.log(this.authUser);
-
+    // Make the login request to the server
     this.authService.login(this.authUser).subscribe(
-      (res: any) => {
+      async (res: any) => {
+        console.log('DEBUG Login response : ', res);
+
         this.isLoading = false; // Reset loading state
-        // TODO Handle successful login response...
 
         if (res.token) {
-          localStorage.setItem('auth_token', res.token);
-          console.log(res);
+          this.authService.setToken(res.token);
+          // ! TODO Login successful redirect to home page of the vendeur
+          // TODO simple and direct login to the home page
+          const user: User = res.user;
+          const roleName = res.role_name;
+          await Storage.set({
+            key: 'role_name',
+            value: roleName
+          });
+          const stringUser = JSON.stringify(user);
+          await Storage.set({
+            key: 'user',
+            value: stringUser
+          });
+          this.router.navigateByUrl(`${roleName}-pages/home`, { replaceUrl: true });
+
+
+        } else {
+          if (res.pda_code_access) {
+            // ! TODO display at the same page the display code pda, waiting for login and a logout button
+            // TODO case 1 treatement !
+            const user: User = res.user;
+            const roleName = res.role_name;
+            await Storage.set({
+              key: 'role_name',
+              value: roleName
+            });
+            const stringUser = JSON.stringify(user);
+            await Storage.set({
+              key: 'user',
+              value: stringUser
+            });
+            this.realTimeService.listenForPDAConfirmation(res.user.id);
+            this.router.navigate(['/auth-waiting']);
+            Swal.fire({
+              icon: 'info',
+              title: 'Connexion en attente',
+              text: res.message,
+              toast: false,
+              position: 'center',
+              showConfirmButton: true,
+              heightAuto: false,
+            });
+
+          } else {
+            if (res.case3) {
+              Swal.fire({
+                title: 'Attention !',
+                text: res.message,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Oui",
+                cancelButtonText: "Non",
+                heightAuto: false
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  this.authService.scenariosCases(this.authUser).subscribe(
+                    async (casesResult: any) => {
+                      console.log('DEBUG scenairio response : ', casesResult);
+
+                      // ! TODO display at the same page the display code pda, waiting for login and a logout button
+                      const user: User = casesResult.user;
+                      const roleName = casesResult.role_name;
+                      await Storage.set({
+                        key: 'role_name',
+                        value: roleName
+                      });
+                      const stringUser = JSON.stringify(user);
+                      await Storage.set({
+                        key: 'user',
+                        value: stringUser
+                      });
+                      this.router.navigate(['/auth-waiting']);
+                      Swal.fire({
+                        icon: 'info',
+                        title: 'Connexion en attente',
+                        text: casesResult.message,
+                        toast: false,
+                        position: 'center',
+                        showConfirmButton: true,
+                        heightAuto: false
+                      });
+
+                    }, (casesError: any) => {
+                      console.error('DEBUG scenairio error : ', casesError);
+
+                      Swal.fire({
+                        icon: 'error',
+                        title: 'Une erreur est survenue !',
+                        text: casesError.message,
+                        toast: false,
+                        position: 'center',
+                        showConfirmButton: true,
+                        heightAuto: false
+
+                      });
+                    }
+                  );
+                } else {
+                  return;
+                }
+              });
+            }
+          }
         }
       },
       (err) => {
@@ -95,15 +227,15 @@ export class AuthPagePage implements OnInit {
           }
         } else {
           // Handle other server errors
-          this.errorMessageEmail = 'Une erreur est survenue. Veuillez réessayer.';
-          this.errorMessagePassword = 'Une erreur est survenue. Veuillez réessayer.';
           Swal.fire({
             icon: 'error',
-            title: 'Une erreur est survenue',
+            title: 'Une erreur est survenue !',
+            text: err.error.message || 'Veuillez réessayer.',
             toast: true,
             position: 'bottom',
             showConfirmButton: false,
-            timer: 2000,
+            timer: 3000,
+
           });
         }
       }

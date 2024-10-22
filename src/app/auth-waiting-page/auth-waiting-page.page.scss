@@ -1,0 +1,275 @@
+ion-content {
+  --background: url('../../assets/img/bg-auth-page.jpeg') no-repeat center center / cover;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .container-header {
+    margin: 10px;
+    margin-top: 60px;
+    border: none !important;
+    border-radius: 50px;
+    color: white;
+    height: 65%;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.68);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    transition: background 0.3s ease;
+
+    .login-title {
+      margin-top: 10%;
+      font-size: 35px;
+      color: #1a2037;
+      letter-spacing: 1px;
+      padding-left: 25px;
+      padding-right: 25px;
+      font-family: 'Georgia', 'Times New Roman', Times, serif;
+      text-align: center;
+      /* Center the title */
+      line-height: 1.2;
+      /* Improved line spacing for better readability */
+      text-transform: capitalize;
+      /* Makes the text look more impactful */
+      position: relative;
+      /* Enables any additional styling or effects */
+
+      /* Optional: Adding a subtle text-shadow for a more refined look */
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+
+
+
+
+    display: flex;
+    align-items: center;
+    .form-login {
+      padding-inline: 10px;
+      color: #1a2037;
+
+      .input-group {
+        height: 50px;
+
+        span {
+          border: none;
+          border-radius: 20px 0px 0px 20px;
+          background-color: #f1f1f1;
+          position: absolute;
+          height: 100%;
+
+          ion-icon {
+            z-index: 1001;
+          }
+        }
+
+        input {
+          border: none;
+          border-radius: 20px 20px 20px 20px;
+          background-color: #f1f1f1;
+          padding-left: 40px;
+        }
+
+        .auth-btn {
+          width: 100%;
+          height: 50px;
+          font-size: 18px;
+          border-radius: 20px;
+          color: white;
+          padding: 8px;
+          border: none;
+          background: linear-gradient(135deg, #03112c 0%, #7a8bcc 100%);
+          transition: all .3s ease;
+          overflow: hidden; // Ensure ripple effect stays within the button border
+          position: relative;
+        }
+
+        .auth-btn-back {
+          width: 100%;
+          height: 50px;
+          font-size: 18px;
+          border-radius: 20px;
+          color: #03112c;
+          padding: 8px;
+          border: 1px solid #03112c;
+          transition: all .3s ease;
+          overflow: hidden; // Ensure ripple effect stays within the button border
+          position: relative;
+        }
+
+        .ripple-border ion-ripple-effect {
+          --border-radius: 50px; // Ensure ripple matches the button's border radius
+          --opacity: 0.5; // Slight transparency for the ripple effect
+          --color: white; // Set the ripple color (optional, adjust to your liking)
+          --width: 110%; // Increase width to make ripple larger
+          --height: 110%;
+          --transition-duration: 0.2s;
+        }
+
+        .ripple-border ion-ripple-effect::part(native-ripple) {
+          border-radius: 50px; // Match the button’s border-radius to ensure ripple fits
+        }
+
+        ion-checkbox {
+          --size: 18px;
+          --checkbox-background-checked: #1a2037;
+          margin-right: 5px;
+        }
+
+        ion-checkbox::part(container) {
+          border-radius: 20px;
+          border: 2px solid #1a2037;
+          --background: white;
+        }
+      }
+
+      .error-message {
+        color: red;
+        font-weight: 600;
+        margin-top: -3%;
+        padding-left: 15px;
+        margin-bottom: 1%;
+      }
+
+      .copyrights-infos {
+        font-size: 12px;
+        padding-inline: 25px;
+        position: fixed;
+        bottom: 2%;
+      }
+
+      h2 {
+        font-size: 27px;
+        color: #696a86;
+
+        span {
+          color: #1a2037;
+          font-weight: bolder;
+
+        }
+      }
+    }
+
+    .toggle-password {
+      background: none;
+      z-index: 5;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      left: 88%;
+      top: 20%;
+    }
+
+    // Profile Image Styles
+    .profile-img {
+      width: 67px;
+      border-radius: 50%; // Makes the image rounded
+    }
+
+    .profile-info {
+      padding-left: 10px;
+    }
+
+    .profile-name {
+      font-size: 1.2rem; // Adjusted to be a little smaller
+      color: #000; // Clear and prominent
+    }
+
+    .profile-description,
+    .profile-mission,
+    .profile-email,
+    .profile-location {
+      font-size: 0.9rem; // Adjusted to be a little smaller
+      color: rgba(0, 0, 0, 0.8); // Less prominent, indicating additional info
+      margin: 0;
+    }
+
+    .profile-mission,
+    .profile-email,
+    .profile-location {
+      display: flex;
+      align-items: center;
+    }
+
+    .profile-mission ion-icon,
+    .profile-email ion-icon,
+    .profile-location ion-icon {
+      margin-right: 5px;
+    }
+
+    .view-button {
+      margin-top: 10px;
+      --padding-start: 10px;
+      --padding-end: 10px;
+    }
+  }
+
+  .container-header1 {
+    position: absolute;
+    top: 88px;
+    width: 85%;
+    margin-inline: 0;
+    z-index: -10;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 40px;
+  }
+
+  .container-header2 {
+    position: absolute;
+    top: 106px;
+    width: 75%;
+    margin-inline: 0;
+    z-index: -11;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 35px;
+  }
+
+  .container-header3 {
+    position: absolute;
+    top: 120px;
+    width: 65%;
+    margin-inline: 0;
+    z-index: -12;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 30px;
+  }
+
+  .profile-img-container {
+    margin-top: 10px;
+    margin-inline: 5px;
+    height: 60px;
+    background: rgb(255 255 255 / 68%);
+    border-radius: 60px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .btn-sortir {
+      height: 42px;
+      margin-inline: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #1a2037;
+      color: white;
+      border-radius: 50px;
+      width: 102px;
+      font-size: 17px;
+    }
+
+    h2 {
+      margin: 0;
+      padding-inline: 15px;
+      color: #1a2037;
+    }
+  }
+}

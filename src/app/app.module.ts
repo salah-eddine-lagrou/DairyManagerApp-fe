@@ -10,10 +10,18 @@ import { TabsComponent } from './components/tabs/tabs.component';
 import { TruncatePipe } from "./vendeur-pages/make-commande/truncate.pipe";
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
   declarations: [AppComponent, TabsComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, TruncatePipe, HttpClientModule],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    TruncatePipe,
+    HttpClientModule,
+    IonicStorageModule.forRoot()
+  ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, Geolocation],
   bootstrap: [AppComponent],
 })

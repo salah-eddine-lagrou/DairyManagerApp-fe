@@ -33,7 +33,7 @@ export class TabsComponent  implements OnInit {
       this.selectedTab = 'home';
     } else if (url.includes('demandes')) {
       this.selectedTab = 'demandes';
-    } else if (url.includes('notifications')) {
+    } else if (url.includes('notifications-vendeur')) {
       this.selectedTab = 'notifications';
     } else if (url.includes('support')) {
       this.selectedTab = 'support';

@@ -1,0 +1,38 @@
+ion-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  box-shadow: none;
+  background-color: #1a2037;
+  z-index: 1000;
+  height: 60px;
+
+  .back-btn-header {
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: absolute;
+    left: 0;
+  }
+
+  .ion-title {
+    color: white;
+  }
+}
+
+ion-content {
+  ion-searchbar {
+    --box-shadow: none;
+    --background: #f3f3f3;
+    --color: #1a2037;
+    --border-radius: 1.2rem;
+    --placeholder-font-weight: 600;
+    --placeholder-opacity: 0.2;
+    padding: 5px 0px 20px 0px;
+    margin-top: 5px;
+  }
+
+}
